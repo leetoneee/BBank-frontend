@@ -10,7 +10,7 @@ function NavPage() {
         <Router>
             <div className='flex flex-row'>
                 <Sidebar />
-                <div>
+                <div className=' ml-20'>
                     <Routes>
                         <Route exact path='/' element={<Home />} />
                         <Route exact path='/utilities' element={<Home />} />

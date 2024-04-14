@@ -28,7 +28,7 @@ const Sidebar = () => {
 
 
     return (
-        <div className='flex flex-row'>
+        <div className='flex flex-row fixed'>
             <div className="flex flex-col items-center justify-between w-20 h-screen py-8 space-y-8 bg-gradient-to-b from-[#404040] to-[#CDE1DF]">
                 <div className="flex flex-col items-center space-y-4">
                     {
