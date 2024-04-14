@@ -1,12 +1,11 @@
 
 import './App.css'
+import NavPage from './pages/NavPage/NavPage';
 
 function App() {
 
   return (
-    <div className='w-screen h-screen bg-red-500'>
-      APP
-    </div>
+    <NavPage />
   )
 }
 
