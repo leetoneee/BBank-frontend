@@ -1,11 +1,10 @@
 
 import './App.css'
-import NavPage from './pages/NavPage/NavPage';
-
+import MainPage from './pages/MainPage/MainPage';
 function App() {
 
   return (
-    <NavPage />
+    <MainPage />
   )
 }
 

@@ -1,17 +1,29 @@
 import UserInfo from "../../components/UserInfo/UserInfo";
-
+import { classNames } from "../../components/classNames/classNames";
+import { Tooltip } from "../../components/Tooltip/Tooltip";
+import { GlobalProvider } from "../../context";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Header from "../../components/Header/Header";
 const Home = () => {
     return (
-        <div className="flex flex-row">
-            <UserInfo />
-            <p className="mx-10">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus cumque veniam quis enim, sint laboriosam? Mollitia voluptatem voluptatum sunt quae laborum illum doloremque, incidunt eum eaque excepturi quas asperiores corporis pariatur deleniti velit delectus alias eos nisi illo possimus in quibusdam error? Sunt maiores dolore hic placeat exercitationem, ducimus illo distinctio expedita facilis iure quod rerum at natus laudantium? Dignissimos corrupti eaque commodi veniam temporibus, laudantium nemo ipsa iusto voluptate quas vitae molestias doloribus impedit id aliquid repellendus esse aperiam? Consequatur dolorem, quo officia corporis blanditiis aspernatur reiciendis, perferendis odio totam provident laborum minus quisquam eius quidem, laboriosam optio molestias.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus cumque veniam quis enim, sint laboriosam? Mollitia voluptatem voluptatum sunt quae laborum illum doloremque, incidunt eum eaque excepturi quas asperiores corporis pariatur deleniti velit delectus alias eos nisi illo possimus in quibusdam error? Sunt maiores dolore hic placeat exercitationem, ducimus illo distinctio expedita facilis iure quod rerum at natus laudantium? Dignissimos corrupti eaque commodi veniam temporibus, laudantium nemo ipsa iusto voluptate quas vitae molestias doloribus impedit id aliquid repellendus esse aperiam? Consequatur dolorem, quo officia corporis blanditiis aspernatur reiciendis, perferendis odio totam provident laborum minus quisquam eius quidem, laboriosam optio molestias.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus cumque veniam quis enim, sint laboriosam? Mollitia voluptatem voluptatum sunt quae laborum illum doloremque, incidunt eum eaque excepturi quas asperiores corporis pariatur deleniti velit delectus alias eos nisi illo possimus in quibusdam error? Sunt maiores dolore hic placeat exercitationem, ducimus illo distinctio expedita facilis iure quod rerum at natus laudantium? Dignissimos corrupti eaque commodi veniam temporibus, laudantium nemo ipsa iusto voluptate quas vitae molestias doloribus impedit id aliquid repellendus esse aperiam? Consequatur dolorem, quo officia corporis blanditiis aspernatur reiciendis, perferendis odio totam provident laborum minus quisquam eius quidem, laboriosam optio molestias.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus cumque veniam quis enim, sint laboriosam? Mollitia voluptatem voluptatum sunt quae laborum illum doloremque, incidunt eum eaque excepturi quas asperiores corporis pariatur deleniti velit delectus alias eos nisi illo possimus in quibusdam error? Sunt maiores dolore hic placeat exercitationem, ducimus illo distinctio expedita facilis iure quod rerum at natus laudantium? Dignissimos corrupti eaque commodi veniam temporibus, laudantium nemo ipsa iusto voluptate quas vitae molestias doloribus impedit id aliquid repellendus esse aperiam? Consequatur dolorem, quo officia corporis blanditiis aspernatur reiciendis, perferendis odio totam provident laborum minus quisquam eius quidem, laboriosam optio molestias.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus cumque veniam quis enim, sint laboriosam? Mollitia voluptatem voluptatum sunt quae laborum illum doloremque, incidunt eum eaque excepturi quas asperiores corporis pariatur deleniti velit delectus alias eos nisi illo possimus in quibusdam error? Sunt maiores dolore hic placeat exercitationem, ducimus illo distinctio expedita facilis iure quod rerum at natus laudantium? Dignissimos corrupti eaque commodi veniam temporibus, laudantium nemo ipsa iusto voluptate quas vitae molestias doloribus impedit id aliquid repellendus esse aperiam? Consequatur dolorem, quo officia corporis blanditiis aspernatur reiciendis, perferendis odio totam provident laborum minus quisquam eius quidem, laboriosam optio molestias.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus cumque veniam quis enim, sint laboriosam? Mollitia voluptatem voluptatum sunt quae laborum illum doloremque, incidunt eum eaque excepturi quas asperiores corporis pariatur deleniti velit delectus alias eos nisi illo possimus in quibusdam error? Sunt maiores dolore hic placeat exercitationem, ducimus illo distinctio expedita facilis iure quod rerum at natus laudantium? Dignissimos corrupti eaque commodi veniam temporibus, laudantium nemo ipsa iusto voluptate quas vitae molestias doloribus impedit id aliquid repellendus esse aperiam? Consequatur dolorem, quo officia corporis blanditiis aspernatur reiciendis, perferendis odio totam provident laborum minus quisquam eius quidem, laboriosam optio molestias.</p>
+        <GlobalProvider>
+            <div className="grid grid-cols-6">
+                <UserInfo />
+                <div className="col-start-2 col-end-7 flex flex-col">
+                    <div className="grid grid-rows-7">/
+                        <div className="row-start-1 ">
+                            <Header />
+                        </div>
+                        <div className="row-start-2 row-end-8">
 
-        </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </GlobalProvider>
+
     )
 }
 
