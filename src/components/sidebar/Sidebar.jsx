@@ -18,6 +18,7 @@ const Sidebar = () => {
 
     const activeLink = 'drop-shadow-lg transition-colors duration-200 rounded-[20px] w-16 h-16 p-4 hover:bg-[#83C46C] bg-[#00381A] group relative flex justify-center';
     const normalLink = 'drop-shadow-lg transition-colors duration-200 rounded-[20px] w-16 h-16 p-4 hover:bg-[#83C46C] group relative flex justify-center';
+
     function handleLogout() {
         if (window.confirm('Are you sure you want to log out?')) {
 
@@ -79,7 +80,6 @@ const Sidebar = () => {
                 </div>
             </div >
         </div >
-
     )
 }
 

@@ -1,10 +1,11 @@
 
 import './App.css'
-import MainPage from './pages/MainPage/MainPage';
+import MainLayout from './layouts/MainLayout';
+import Login from './pages/Login/Login';
 function App() {
 
   return (
-    <MainPage />
+    <MainLayout />
   )
 }
 
