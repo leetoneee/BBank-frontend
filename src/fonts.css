@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'museo-slab-500';
+    src: url('assets/fonts/museo-slab/Museo_Slab_500.otf') format('opentype');
+  }
+  
+@font-face {
+    font-family: 'museo-slab-100';
+    src: url('assets/fonts/museo-slab/Museo_Slab_100.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'inter-400';
+    src: url('assets/fonts/Inter/static/Inter-Regular.ttf') format('truetype');
+  }  
+
+  @font-face {
+    font-family: 'inter-700';
+    src: url('assets/fonts/Inter/static/Inter-Bold.ttf') format('truetype');
+  }  
+
+  @font-face {
+    font-family: 'aubrey';
+    src: url('assets/fonts/Aubrey/Aubrey-Regular.ttf') format('truetype');
+  }  

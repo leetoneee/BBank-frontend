@@ -1,14 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
     "\\src",
+    "\\src\\assets",
+    "\\src\\assets\\icons",
     "\\src\\components",
     "\\src\\components\\sidebar",
-    "\\src\\pages",
-    "\\src\\pages\\Homepage",
-    "\\src\\pages\\Login"
+    "\\src\\components\\UserInfo"
   ],
-  "SelectedNode": "\\src\\App.css",
+  "SelectedNode": "\\public",
   "PreviewInSolutionExplorer": false
 }
