@@ -6,7 +6,7 @@ import Home from '../Home/Home'
 function NavPage() {
 
     return (
-        <div>
+        <div className='w-screen'>
             <Routes>
                 <Route exact path='/' element={<Home />} />
                 <Route exact path='/utilities' element={<Home />} />

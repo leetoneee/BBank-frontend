@@ -9,14 +9,10 @@ const Home = () => {
         <GlobalProvider>
             <div className="grid grid-cols-6">
                 <UserInfo />
-                <div className="col-start-2 col-end-7 flex flex-col">
-                    <div className="grid grid-rows-7">/
-                        <div className="row-start-1 ">
-                            <Header />
-                        </div>
-                        <div className="row-start-2 row-end-8">
+                <div className="col-start-2 col-end-7 grid auto-rows-max grid-flow-row-dense">
+                    <Header />
+                    <div>
 
-                        </div>
                     </div>
                 </div>
 
