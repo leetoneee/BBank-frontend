@@ -1,9 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\src",
     "\\src\\assets",
     "\\src\\assets\\icons",
-    "\\src\\components"
+    "\\src\\components",
+    "\\src\\components\\sidebar",
+    "\\src\\components\\UserInfo"
   ],
+  "SelectedNode": "\\public",
   "PreviewInSolutionExplorer": false
 }

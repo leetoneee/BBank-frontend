@@ -1,11 +1,11 @@
 
 import './App.css'
-import NavPage from './pages/NavPage/NavPage';
-
-function App() {
+import MainLayout from './layouts/MainLayout';
+import Login from './pages/Login/Login';
+function App(props) {
 
   return (
-    <NavPage />
+    <MainLayout />
   )
 }
 
