@@ -29,7 +29,7 @@ function Login() {
   return (
     <div class="w-screen h-screen
                 bg-gradient-to-br from-opacity-cde1df to-opacity-00b5ac bg-opacity-80
-                block content-center relative">
+                block content-center relative font-museo-slab-500">
       <div class="2xl:w-[1301px] 2xl:h-[711px]
                   xl:w-[867.333px] xl:h-[474px]
                   m-auto relative

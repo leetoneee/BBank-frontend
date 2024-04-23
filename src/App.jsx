@@ -2,7 +2,7 @@
 import './App.css'
 import MainLayout from './layouts/MainLayout';
 import Login from './pages/Login/Login';
-function App() {
+function App(props) {
 
   return (
     <MainLayout />

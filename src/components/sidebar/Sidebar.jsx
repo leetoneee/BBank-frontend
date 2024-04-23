@@ -37,8 +37,8 @@ const Sidebar = () => {
                         {
                             navigation.slice(0, 3).map((item, index) => {
                                 return (
-                                    <Tooltip position="top" content={item.tooltip}>
-                                        <NavLink key={index} to={item.href}
+                                    <Tooltip key={index} position="top" content={item.tooltip}>
+                                        <NavLink to={item.href}
                                             className={({ isActive }) => isActive ? activeLink : normalLink}>
                                             <img src={item.icon} alt="" />
                                         </NavLink>
@@ -66,13 +66,12 @@ const Sidebar = () => {
                         {
                             navigation.slice(3, 5).map((item, index) => {
                                 return (
-                                    <Tooltip position='top' content={item.tooltip}>
-                                        <NavLink key={index} to={item.href} onClick={index === 1 ? handleLogout : null}
+                                    <Tooltip key={index} position='top' content={item.tooltip}>
+                                        <NavLink to={item.href} onClick={index === 1 ? handleLogout : null}
                                             className={({ isActive }) => isActive ? activeLink : normalLink}>
                                             <img src={item.icon} alt="" />
                                         </NavLink>
                                     </Tooltip>
-
                                 )
                             })
                         }
