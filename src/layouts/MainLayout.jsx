@@ -1,17 +1,15 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar";
-import NavPage from "../routes/NavPage";
+import NavPage from "../routes/routes";
 
 function MainLayout() {
     return (
-        <Router>
-            <div className='flex flex-row bg-gradient-to-br from-[#CDE1DF] to-[#00B5AC]'>
-                <Sidebar />
-                <div className="w-screen">
-                    <NavPage />
-                </div>
+        <div className='flex flex-row bg-gradient-to-br from-[#CDE1DF] to-[#00B5AC]'>
+            <Sidebar />
+            <div className="w-screen">
+                <NavPage />
             </div>
-        </Router>
+        </div>
     )
 }
 

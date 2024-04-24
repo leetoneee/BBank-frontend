@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { IoReload, IoCodeOutline } from "react-icons/io5";
 import '../../fonts.css';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const words = ["BBANK", "Quality", "Comes", "First"];
   const [index, setIndex] = useState(0);
 
@@ -26,6 +28,9 @@ function Login() {
     }
   };
 
+  const handleLogin = () => {
+    navigate('/user/home', { replace: true });
+  }
   return (
     <div class="w-screen h-screen
                 bg-gradient-to-br from-opacity-cde1df to-opacity-00b5ac bg-opacity-80
@@ -106,7 +111,10 @@ function Login() {
           </div>
 
           {/* Button Login */}
-          <button class="2xl:mt-[34px] 2xl:w-[360px] 2xl:h-[60px] border font-inter-700 rounded-[10px] border-black bg-[#006FEDCC] hover:opacity-80">
+          <button
+            class="2xl:mt-[34px] 2xl:w-[360px] 2xl:h-[60px] border font-inter-700 rounded-[10px] border-black bg-[#006FEDCC] hover:opacity-80"
+            onClick={() => handleLogin()}>
+
             <h1 class="drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] text-white 2xl:text-[22px] 2xl:font-bold text-center">Đăng nhập</h1>
           </button>
 
