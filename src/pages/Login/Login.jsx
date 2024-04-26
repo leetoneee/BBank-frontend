@@ -34,7 +34,7 @@ function Login() {
   return (
     <div class="w-screen h-screen
                 bg-gradient-to-br from-opacity-cde1df to-opacity-00b5ac bg-opacity-80
-                block content-center relative font-museo-slab-500">
+                content-center flex justify-center flex-col pt-32  ">
       <div class="2xl:w-[1301px] 2xl:h-[711px]
                   xl:w-[867.333px] xl:h-[474px]
                   m-auto relative
@@ -63,7 +63,8 @@ function Login() {
                               content-center
                               text-transparent
                               bg-clip-text
-                            animate-slidein">
+                            animate-slidein
+                            font-museo-slab-500 ">
                   {words[index]}
                 </h1>
               </div>
@@ -82,7 +83,8 @@ function Login() {
                               right-0
                               content-center
                               text-transparent
-                              bg-clip-text'>BBANK</p>
+                              bg-clip-text
+                              font-museo-slab-500  '>BBANK</p>
           </div>
 
           {/* Username */}
@@ -125,10 +127,10 @@ function Login() {
         </div>
 
       </div>
-      <h1 class="text-white absolute 
-                  2xl:w-[569px] 2xl:my-10 2xl:mx-[675px] 2xl:text-[70px] font
+      <h1 class="text-white 
+                  2xl:w-[569px] 2xl:my-10 2xl:mx-[675px] 2xl:text-[70px]
                     xl:w-[379.33px] xl:content-center xl:mx-[450px] xl:text-[50px]
-                  text-center  leading-[84px]">
+                  text-center  leading-[84px] font-museo-slab-500">
         © 2024 - BBANK
       </h1>
     </div>

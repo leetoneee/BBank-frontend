@@ -8,8 +8,10 @@ function NavPage() {
 
     return (
         <Routes>
-            <Route exact path='/home' element={<Home />} />
-            <Route exact path='/utilities' element={<Home />} />
+            <Route exact path='home' element={<Home />} />
+            <Route exact path='utilities' element={<Home />} />
+            <Route exact path='setting' element={<Home />} />
+            <Route exact path='contact' element={<Home />} />
         </Routes>
     )
 }
