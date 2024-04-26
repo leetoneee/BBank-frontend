@@ -35,6 +35,7 @@ export const userSlice = createSlice({
             .addCase(fetchUserData.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
+                console.log(action.error.message);
             })
     }
 })

@@ -4,15 +4,17 @@ import avatar from '../../assets/icons/avatar.svg';
 import phone from '../../assets/icons/phone.svg';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../redux/slices/userSlice";
+import formatDateLogin from "../../utils/formatDateAndTime";
+import formatToVND from "../../utils/formatToVND";
 
 const UserInfo = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.userData);
     const [showBalance, setShowBalance] = useState(false);
-
     useEffect(() => {
         dispatch(fetchUserData());
     }, [])
+
     return (
         <div className="sticky top-0 bg-[#404040]/[70%] px-7 py-9 w-auto min-h-screen max-h-max 
                             grid grid-flow-row auto-rows-max place-items-center gap-4">
