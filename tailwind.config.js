@@ -31,9 +31,20 @@ export default {
           },
         },
 
+        spin: {
+          '0%': {
+            transform: 'rotate(0deg)'
+          },
+        
+          '100%': {
+            transform: 'rotate(360deg)'
+          },
+        },
       },
+
       animation: {
         slidein: "slidein 1s ease-in-out",
+        spin: "spin 1s infinite ease-in",
       },
       colors: {
         'opacity-cde1df': '#CDE1DF',

@@ -9,8 +9,8 @@ function App(props) {
 
   return (
     <Routes>
-      <Route path='/login' element={<Login />} />
-      <Route path='/user' element={<MainLayout />}>
+      <Route path='login' element={<Login />} />
+      <Route path=':user' element={<MainLayout />}>
         <Route index path='home' element={<Home />} />
         <Route path='utilities' element={<Home />} />
       </Route>

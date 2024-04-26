@@ -8,10 +8,10 @@ import { Tooltip } from '../Tooltip/Tooltip';
 import { useNavigate } from 'react-router-dom';
 
 const navigation = [
-    { name: 'Home', href: '/user/home', icon: homeIcon, tooltip: 'Trang chủ', current: true },
-    { name: 'Utilities', href: '/user/utilities', icon: tienichIcon, tooltip: 'Tiện ích', current: false },
-    { name: 'Setting', href: '/user/setting', icon: settingIcon, tooltip: 'Cài đặt', current: false },
-    { name: 'Contact', href: '/user/contact', icon: contactIcon, tooltip: 'Liên hệ', current: false },
+    { name: 'Home', href: 'home', icon: homeIcon, tooltip: 'Trang chủ', current: true },
+    { name: 'Utilities', href: 'utilities', icon: tienichIcon, tooltip: 'Tiện ích', current: false },
+    { name: 'Setting', href: 'setting', icon: settingIcon, tooltip: 'Cài đặt', current: false },
+    { name: 'Contact', href: 'contact', icon: contactIcon, tooltip: 'Liên hệ', current: false },
     // { name: 'Exit', href: '/login', icon: exitIcon, tooltip: 'Thoát', current: false },
 ]
 
