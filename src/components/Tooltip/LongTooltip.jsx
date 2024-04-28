@@ -1,12 +1,12 @@
 import { PropTypes } from "prop-types";
 import { classNames } from "../classNames/classNames";
 
-export const Tooltip = ({ position, content, children }) => {
+export const LongTooltip = ({ position, content, children }) => {
     return (
-        <div id="tooltip" className="relative cursor-pointer group max-w-max">
+        <div id="longtooltip" className="relative cursor-pointer group max-w-max">
             <div className="mx-2 my-1">{children}</div>
             <span className={classNames(
-                "absolute hidden group-hover:inline-block bg-[#767676] text-white text-xl p-2 whitespace-nowrap rounded ",
+                "absolute hidden group-hover:inline-block bg-[#767676] text-white text-2xl p-2 whitespace-normal rounded w-[1000px]",
                 position === "top" ?
                     "left-1/2 -translate-x-1/2 bottom-[calc(100%+5px)]"
                     : "",
@@ -33,7 +33,7 @@ export const Tooltip = ({ position, content, children }) => {
     )
 };
 
-Tooltip.propTypes = {
+LongTooltip.propTypes = {
     position: PropTypes.oneOf(["top", "bottm", "left", "right"]).isRequired,
     content: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
