@@ -17,7 +17,7 @@ const UserInfo = () => {
     }, [])
 
     return (
-        <div className="sticky top-0 bg-[#404040]/[70%] px-7 py-9 w-auto min-h-screen max-h-max 
+        <div className="sticky top-0 bg-[#404040]/[70%] px-7 py-9 w-auto min-h-screen max-h-max min-w-full
                             grid grid-flow-row auto-rows-max place-items-center gap-4">
             {/* Logo */}
             <div className="flex items-center mb-[22px]">

@@ -14,6 +14,7 @@ function Login() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [capcha, setCapcha] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -37,8 +38,22 @@ function Login() {
   };
 
   const handleLogin = async () => {
+    if (!username) {
+      alert("Please enter your username");
+      return;
+    }
+
+    if (!password) {
+      alert("Please enter your password");
+      return;
+    }
+
     const currentTime = formatDateLogin(new Date());
-    dispatch(login({ username, currentTime }));
+
+    let userCredentials = {
+      username, password, currentTime
+    }
+    dispatch(login(userCredentials));
     await spinner();
     navigate(`/${username}/home`, { replace: true });
   }
@@ -102,7 +117,7 @@ function Login() {
 
             {/* Username */}
             <div className="relative w-full max-w-md">
-              <input type="text" id="user_name" required className="2xl:mt-[32px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer block font-inter-400 rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
+              <input type="text" id="user_name" className="2xl:mt-[32px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer block font-inter-400 rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
                 value={username}
                 onChange={(e) => setUsername(e.target.value)} />
               <label htmlFor="user_name" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Username</label>
@@ -119,7 +134,7 @@ function Login() {
 
             {/* Password */}
             <div className="relative w-full max-w-md">
-              <input type="password" id="pass" required className="2xl:mt-[34px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer font-inter-400 block rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
+              <input type="password" id="pass" className="2xl:mt-[34px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer font-inter-400 block rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />
               <label htmlFor="pass" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Password</label>
@@ -127,7 +142,12 @@ function Login() {
 
             {/* Capcha */}
             <div className="relative max-w-md ">
-              <input required type="text" id="capcha" className="2xl:mt-[30px] 2xl:w-[180px] 2xl:h-[60px] font-aubrey hover:cursor-pointer block rounded-[10px] pl-4 py-3 w-1/2 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" " />
+              <input
+                type="text" id="capcha"
+                className="2xl:mt-[30px] 2xl:w-[180px] 2xl:h-[60px] font-aubrey hover:cursor-pointer block rounded-[10px] pl-4 py-3 w-1/2 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer"
+                placeholder=" "
+                value={capcha}
+                onChange={(e) => setCapcha(e.target.value)} />
 
               <label htmlFor="capcha" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 block text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Capcha</label>
 
@@ -162,7 +182,6 @@ function Login() {
       </div>
       <Loading />
     </div>
-
   )
 }
 

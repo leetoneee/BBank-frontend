@@ -1,10 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 const initialState = {
     user: "",
     lastLoginTime: "",
 }
 
+// const loginUser - createAsyncThunk(
+//     'user/loginUser',
+//     async (userCredentials) => {
+//         let res = await axios
+//     }
+// )
 export const authSlice = createSlice({
     name: 'user',
     initialState,
