@@ -6,7 +6,8 @@ import exitIcon from '../../assets/icons/exitIcon.svg';
 import { NavLink } from 'react-router-dom';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/authentication/authSlice';
 const navigation = [
     { name: 'Home', href: 'home', icon: homeIcon, tooltip: 'Trang chủ', current: true },
     { name: 'Utilities', href: 'utilities', icon: tienichIcon, tooltip: 'Tiện ích', current: false },
@@ -17,11 +18,13 @@ const navigation = [
 
 const Sidebar = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const activeLink = 'drop-shadow-lg transition-colors duration-200 rounded-[20px] w-16 h-16 p-4 hover:bg-[#83C46C] bg-[#00381A] group relative flex justify-center';
     const normalLink = 'drop-shadow-lg transition-colors duration-200 rounded-[20px] w-16 h-16 p-4 hover:bg-[#83C46C] group relative flex justify-center';
 
-    function handleLogout() {
+    const handleLogout = async () => {
         if (window.confirm('Are you sure you want to log out?')) {
+            dispatch(logout());
             navigate('/login', { replace: true });
             alert('You have been logged out');
         }

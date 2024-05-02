@@ -3,7 +3,7 @@ import logo from '../../assets/icons/logo.svg';
 import avatar from '../../assets/icons/avatar.svg';
 import phone from '../../assets/icons/phone.svg';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData } from "../../redux/slices/userSlice";
+import { fetchUserData } from "../../redux/user/userSlice";
 import formatDateLogin from "../../utils/formatDateAndTime";
 import formatToVND from "../../utils/formatToVND";
 

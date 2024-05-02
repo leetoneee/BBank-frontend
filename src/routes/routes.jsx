@@ -11,7 +11,8 @@ function NavPage() {
         <Routes>
             <Route exact path='home' element={<Home />} />
             <Route exact path='utilities' element={<Home />} />
-            <Route exact path='setting' element={<FastFeatures />} />
+            <Route exact path='setting' element={<Home />} />
+            <Route exact path='setting/fastfeatures' element={<FastFeatures/>} />
             <Route exact path='contact' element={<Home />} />
         </Routes>
     )
