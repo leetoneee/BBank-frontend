@@ -7,11 +7,13 @@ const initialState = {
     isError: false,
 }
 
-export const fetchAllAccountByCustomerId = createAsyncThunk(
-    'users/fetchAllAccount',
-    async () => {
-        let res = await axios.get("https://reqres.in/api/users/2")
-        return res.data;
+export const fetchAllAccountById = createAsyncThunk(
+    'customer/fetchAllAccountById',
+    async (requestOptions) => {
+        console.log(requestOptions);
+        let res = await fetch("http://localhost:3005/api/v1/customer/account/get-all", requestOptions);
+        console.log(res);
+        return res;
     }
 )
 
@@ -23,21 +25,22 @@ export const customerSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchAllAccountByCustomerId.pending, (state, action) => {
+            .addCase(fetchAllAccountById.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(fetchAllAccountByCustomerId.fulfilled, (state, action) => {
+            .addCase(fetchAllAccountById.fulfilled, (state, action) => {
                 state.listAccount = action.payload.data;
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(fetchAllAccountByCustomerId.rejected, (state, action) => {
+            .addCase(fetchAllAccountById.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 console.log(action.error.message);
             })
     }
 })
+
 
 export default customerSlice.reducer
