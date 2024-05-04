@@ -12,6 +12,7 @@ const UserInfo = () => {
     const lastLoginTime = useSelector((state) => state.auth.lastLoginTime);
     const userData = useSelector((state) => state.user.userData);
     const [showBalance, setShowBalance] = useState(false);
+
     useEffect(() => {
         dispatch(fetchUserData());
     }, [])

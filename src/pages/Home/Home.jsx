@@ -50,7 +50,7 @@ const Home = () => {
                     </div>
 
                     {/* article */}
-                    <div className="w-auto bg-uit-pattern bg-center bg-no-repeat bg-scroll overflow-auto flex flex-col gap-4">
+                    <div className="w-auto overflow-auto flex flex-col gap-4">
                         <img src={uitPattern} alt="UIT-Pattern" className="fixed contrast-50 w-1/2 self-center" />
 
                         <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10">

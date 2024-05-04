@@ -15,8 +15,8 @@ export default function Initialization() {
     const [soTKNhan, setSoTKNhan] = useState('');
     const [soTien, setSoTien] = useState();
     const [noiDung, setNoiDung] = useState(() => initNoiDung());
-    const [isShowRegexTKDich, setisShowRegexTKDich] = useState(false);
-    const [isShowRegexSoTien, setisShowRegexSoTien] = useState(false);
+    const [isShowEmptyTKDich, setisShowEmptyTKDich] = useState(false);
+    const [isShowEmptySoTien, setisShowEmptySoTien] = useState(false);
 
     useEffect(() => {
 
@@ -27,14 +27,14 @@ export default function Initialization() {
         dispatch(fetchAllAccountById(raw));
     }, []);
 
-    const people = [
-        { SoTaiKhoan: 'Wade Cooper' },
-        { SoTaiKhoan: 'Arlene Mccoy' },
-        { SoTaiKhoan: 'Devon Webb' },
-        { SoTaiKhoan: 'Tom Cook' },
-        { SoTaiKhoan: 'Tanya Fox' },
-        { SoTaiKhoan: 'Hellen Schmidt' },
-    ]
+    // const people = [
+    //     { SoTaiKhoan: 'Wade Cooper' },
+    //     { SoTaiKhoan: 'Arlene Mccoy' },
+    //     { SoTaiKhoan: 'Devon Webb' },
+    //     { SoTaiKhoan: 'Tom Cook' },
+    //     { SoTaiKhoan: 'Tanya Fox' },
+    //     { SoTaiKhoan: 'Hellen Schmidt' },
+    // ]
 
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
 
@@ -60,7 +60,7 @@ export default function Initialization() {
                 <div className="grid grid-cols-3 gap-8">
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center ">Tài khoản đích</span>
                     <div className="col-start-2 col-span-2">
-                        {isShowRegexTKDich && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập tài khoản đích</span>}
+                        {isShowEmptyTKDich && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập tài khoản đích</span>}
                         <input
                             className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
                             value={soTKNhan}
@@ -79,7 +79,7 @@ export default function Initialization() {
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center ">Số tiền</span>
 
                     <div className="col-start-2 col-span-2">
-                        {isShowRegexSoTien && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập số tiền chuyển khoản</span>}                        <input
+                        {isShowEmptySoTien && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập số tiền chuyển khoản</span>}                        <input
                             className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
                             value={soTien}
                             onChange={(e) => setSoTien(e.target.value)}
