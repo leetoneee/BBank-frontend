@@ -3,29 +3,72 @@ import DropdownListbox from "../../Listbox/Listbox";
 import formatToVND from "../../../utils/formatToVND";
 import { useEffect, useState } from "react";
 import { fetchAllAccountById } from "../../../redux/customer/customerSlice";
+import { forwardRef, useImperativeHandle } from "react";
+import { setNoiDung, setTaiKhoanDich, setSoTien, setHinhThuc } from '../../../redux/customer/transfer/transferSlice';
 
-export default function Initialization() {
+function Initialization(props, ref) {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.userData);
+    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
+    const TaiKhoanDich = useSelector((state) => state.transfer.TaiKhoanDich);
+    const SoTien = useSelector((state) => state.transfer.SoTien);
+    const NoiDung = useSelector((state) => state.transfer.NoiDung);
+    const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
 
     const initNoiDung = () => {
         return `${(userData.first_name + ' ' + userData.last_name).toUpperCase()} chuyen tien`;
     }
 
-    const [soTKNhan, setSoTKNhan] = useState('');
-    const [soTien, setSoTien] = useState();
-    const [noiDung, setNoiDung] = useState(() => initNoiDung());
-    const [isShowEmptyTKDich, setisShowEmptyTKDich] = useState(false);
-    const [isShowEmptySoTien, setisShowEmptySoTien] = useState(false);
+    const [soTKNhan, setSoTKNhan] = useState(TaiKhoanDich);
+    const [soTien, setsoTien] = useState(SoTien);
+    const [noiDung, setnoiDung] = useState(NoiDung);
+    const [isShowEmptyTKDich, setIsShowEmptyTKDich] = useState(false);
+    const [isShowEmptySoTien, setIsShowEmptySoTien] = useState(false);
 
     useEffect(() => {
-
         const raw = {
-            "MaKhachHang": 1
+            "MaKhachHang": 30
         };
 
         dispatch(fetchAllAccountById(raw));
     }, []);
+
+    useEffect(() => {
+        if (noiDung === "") {
+            setnoiDung(initNoiDung());
+            dispatch(setNoiDung(initNoiDung()));
+        }
+    }, [userData]);
+
+
+    useImperativeHandle(ref, () => {
+        return {
+            validateInputs() {
+                setIsShowEmptyTKDich(false);
+                setIsShowEmptySoTien(false);
+
+                if (!soTKNhan) {
+                    setIsShowEmptyTKDich(true);
+                }
+
+                if (!soTien) {
+                    setIsShowEmptySoTien(true);
+                }
+
+                if (!soTKNhan || !soTien)
+                    return true; // Có lỗi
+
+                dispatch(setTaiKhoanDich(soTKNhan));
+                dispatch(setSoTien(soTien));
+                dispatch(setNoiDung(noiDung));
+                return false; // Không lỗi
+            }
+        }
+    }, [soTKNhan, soTien, noiDung])
+
+    const handleRadioChange = (event) => {
+        dispatch(setHinhThuc(event.target.value));
+    };
 
     // const people = [
     //     { SoTaiKhoan: 'Wade Cooper' },
@@ -36,7 +79,6 @@ export default function Initialization() {
     //     { SoTaiKhoan: 'Hellen Schmidt' },
     // ]
 
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
 
     return (
         <div className="flex flex-col gap-7">
@@ -61,7 +103,7 @@ export default function Initialization() {
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center ">Tài khoản đích</span>
                     <div className="col-start-2 col-span-2">
                         {isShowEmptyTKDich && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập tài khoản đích</span>}
-                        <input
+                        <input type="number"
                             className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
                             value={soTKNhan}
                             onChange={(e) => setSoTKNhan(e.target.value)}
@@ -79,10 +121,11 @@ export default function Initialization() {
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center ">Số tiền</span>
 
                     <div className="col-start-2 col-span-2">
-                        {isShowEmptySoTien && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập số tiền chuyển khoản</span>}                        <input
+                        {isShowEmptySoTien && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập số tiền chuyển khoản</span>}
+                        <input type="number" min={2000}
                             className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
                             value={soTien}
-                            onChange={(e) => setSoTien(e.target.value)}
+                            onChange={(e) => setsoTien(e.target.value)}
                             placeholder="Nhập số tiền"
                         />
                     </div>
@@ -91,11 +134,11 @@ export default function Initialization() {
                     {/* Phí giao dịch */}
                     <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl  self-center ">Phí giao dịch</span>
                     <div className="col-start-2 row-start-2 self-center">
-                        <input className="h-4 w-4 accent-[#73C001]" type="radio" id="html" name="hinh_thuc" value="NguoiChuyenTra" checked />
+                        <input className="h-4 w-4 accent-[#73C001]" type="radio" name="hinh_thuc" value="Người chuyển trả" checked={HinhThuc === "Người chuyển trả"} onChange={handleRadioChange} />
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Người chuyển trả</label>
                     </div>
                     <div className="col-start-3 row-start-2 self-center">
-                        <input className="h-4 w-4 accent-[#73C001] " type="radio" id="html" name="hinh_thuc" value="NguoiNhanTra" />
+                        <input className="h-4 w-4 accent-[#73C001] " type="radio" name="hinh_thuc" value="Người nhận trả" checked={HinhThuc === "Người nhận trả"} onChange={handleRadioChange} />
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Người nhận trả</label>
                     </div>
 
@@ -104,7 +147,7 @@ export default function Initialization() {
                     <input
                         className="col-start-2 row-start-3 col-span-2 rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
                         value={noiDung}
-                        onChange={(e) => setNoiDung(e.target.value)}
+                        onChange={(e) => setnoiDung(e.target.value)}
                         maxLength={100}
                     />
                 </div>
@@ -113,3 +156,5 @@ export default function Initialization() {
 
     )
 }
+
+export default forwardRef(Initialization);

@@ -7,11 +7,13 @@ import Confirmation from "../../components/TransferStepper/steps/Confirmation";
 import Authenticity from "../../components/TransferStepper/steps/Authenticity";
 import Result from "../../components/TransferStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Transfer = () => {
     const navigate = useNavigate()
+    const initializationRef = useRef();
+    const confirmationRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
@@ -24,9 +26,9 @@ const Transfer = () => {
     const displayStep = (steps) => {
         switch (steps) {
             case 0:
-                return <Initialization />
+                return <Initialization ref={initializationRef} />
             case 1:
-                return <Confirmation />
+                return <Confirmation ref={confirmationRef} />
             case 2:
                 return <Authenticity />
             case 4:
@@ -38,7 +40,23 @@ const Transfer = () => {
 
         let newStep = currentStep;
 
+        if (newStep === 0) {
+            let error = initializationRef.current.validateInputs();
+            if (error) {
+                return;
+            }
+        }
+
+        if (newStep === 1) {
+            let error = confirmationRef.current.validateCapcha();
+            if (error) {
+                return;
+            }
+        }
+
         direction === "next" ? newStep++ : newStep--;
+
+
 
         if (newStep === 3) newStep++;
         //check if steps are within bounds
@@ -46,12 +64,12 @@ const Transfer = () => {
     }
     return (
         <div className="grid grid-cols-11 grid-flow-col-dense ">
-            <div className="col-start-1 col-span-2 z-50">
+            <div className="col-start-1 col-span-2">
                 <UserInfo />
             </div>
             <div className="col-end-12 col-span-9 flex flex-col">
                 {/* Header */}
-                <div className="sticky top-0 z-40">
+                <div className="sticky top-0 z-20">
                     <Header />
                 </div>
 
