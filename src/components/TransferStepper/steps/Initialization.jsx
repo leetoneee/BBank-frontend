@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import SelectedListbox from "../../Listbox/Listbox";
+import DropdownListbox from "../../Listbox/Listbox";
 import formatToVND from "../../../utils/formatToVND";
 import { useEffect, useState } from "react";
 import { fetchAllAccountById } from "../../../redux/customer/customerSlice";
@@ -15,70 +15,80 @@ export default function Initialization() {
     const [soTKNhan, setSoTKNhan] = useState('');
     const [soTien, setSoTien] = useState();
     const [noiDung, setNoiDung] = useState(() => initNoiDung());
+    const [isShowRegexTKDich, setisShowRegexTKDich] = useState(false);
+    const [isShowRegexSoTien, setisShowRegexSoTien] = useState(false);
 
     useEffect(() => {
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
 
-        const raw = JSON.stringify({
+        const raw = {
             "MaKhachHang": 1
-        });
-
-        const requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            body: raw,
-            redirect: "follow"
         };
 
-        dispatch(fetchAllAccountById(requestOptions));
+        dispatch(fetchAllAccountById(raw));
     }, []);
 
     const people = [
-        { name: 'Wade Cooper' },
-        { name: 'Arlene Mccoy' },
-        { name: 'Devon Webb' },
-        { name: 'Tom Cook' },
-        { name: 'Tanya Fox' },
-        { name: 'Hellen Schmidt' },
+        { SoTaiKhoan: 'Wade Cooper' },
+        { SoTaiKhoan: 'Arlene Mccoy' },
+        { SoTaiKhoan: 'Devon Webb' },
+        { SoTaiKhoan: 'Tom Cook' },
+        { SoTaiKhoan: 'Tanya Fox' },
+        { SoTaiKhoan: 'Hellen Schmidt' },
     ]
+
+    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
 
     return (
         <div className="flex flex-col gap-7">
+            {/* Tài khoản nguồn & số dư */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="grid grid-cols-3 grid-rows-2 gap-8">
+                    {/* Tài khoản nguồn */}
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center  ">Tài khoản nguồn</span>
                     <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl self-center">Số dư khả dụng</span>
                     <div className="col-start-2 row-start-1 col-span-2 ">
-                        <SelectedListbox people={people} />
+                        <DropdownListbox />
                     </div>
+                    {/* Số dư */}
                     <div className="col-start-2 row-start-2 col-span-2 self-center">
-                        <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(userData.id)}</span>
-                    </div>
+                        {TaiKhoanNguon !== "" && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon.SoDu)}</span>}                    </div>
                 </div>
             </div>
 
+            {/* Tài khoản đích */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="grid grid-cols-3 gap-8">
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center ">Tài khoản đích</span>
-                    <input
-                        className="col-start-2 col-span-2 rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
-                        value={soTKNhan}
-                        onChange={(e) => setSoTKNhan(e.target.value)}
-                        placeholder="Nhập tài khoản thụ hưởng" />
+                    <div className="col-start-2 col-span-2">
+                        {isShowRegexTKDich && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập tài khoản đích</span>}
+                        <input
+                            className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
+                            value={soTKNhan}
+                            onChange={(e) => setSoTKNhan(e.target.value)}
+                            placeholder="Nhập tài khoản thụ hưởng"
+                        />
+                    </div>
+
                 </div>
             </div>
 
+            {/* Số tiền & Phí giao dịch nội dung */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="grid grid-cols-3 grid-rows-3 gap-8">
+                    {/* Số tiền */}
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center ">Số tiền</span>
-                    <input
-                        className="col-start-2 col-span-2 rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
-                        value={soTien}
-                        onChange={(e) => setSoTien(e.target.value)}
-                        placeholder="Nhập số tiền"
-                    />
 
+                    <div className="col-start-2 col-span-2">
+                        {isShowRegexSoTien && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập số tiền chuyển khoản</span>}                        <input
+                            className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
+                            value={soTien}
+                            onChange={(e) => setSoTien(e.target.value)}
+                            placeholder="Nhập số tiền"
+                        />
+                    </div>
+
+
+                    {/* Phí giao dịch */}
                     <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl  self-center ">Phí giao dịch</span>
                     <div className="col-start-2 row-start-2 self-center">
                         <input className="h-4 w-4 accent-[#73C001]" type="radio" id="html" name="hinh_thuc" value="NguoiChuyenTra" checked />
@@ -89,6 +99,7 @@ export default function Initialization() {
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Người nhận trả</label>
                     </div>
 
+                    {/* Nội dung */}
                     <span className="col-start-1 row-start-3 text-[#A5ACAE] text-xl  self-center ">Nội dung</span>
                     <input
                         className="col-start-2 row-start-3 col-span-2 rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "

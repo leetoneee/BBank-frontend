@@ -1,4 +1,4 @@
-const spinner = () => {
+const spinner = (waittime) => {
   const loaderElement = document.getElementsByClassName("loader")[0];
   if (loaderElement) {
     loaderElement.style.display = "flex";
@@ -7,7 +7,7 @@ const spinner = () => {
       setTimeout(() => {
         loaderElement.style.display = "none";
         resolve(); // Đánh dấu là đã hoàn thành
-      }, 2000); // Thời gian đặt là 2000ms (tức là 2 giây)
+      }, waittime);
     });
   }
 };

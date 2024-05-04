@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from '../../redux/authentication/authSlice'
 import { Loading, spinner } from "../../components/Loading/Loading";
 import formatDateLogin from '../../utils/formatDateAndTime';
+import classNames from "classnames";
 
 function Login() {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ function Login() {
       username, password, currentTime
     }
     dispatch(login(userCredentials));
-    await spinner();
+    await spinner(2000);
     navigate(`/${username}/home`, { replace: true });
   }
 

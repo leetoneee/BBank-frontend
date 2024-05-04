@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const initialState = {
-    listAccount: {},
+    listAccounts: "",
     isLoading: false,
     isError: false,
 }
@@ -10,10 +10,8 @@ const initialState = {
 export const fetchAllAccountById = createAsyncThunk(
     'customer/fetchAllAccountById',
     async (requestOptions) => {
-        console.log(requestOptions);
-        let res = await fetch("http://localhost:3005/api/v1/customer/account/get-all", requestOptions);
-        console.log(res);
-        return res;
+        let res = await axios.post("http://localhost:3005/api/v1/customer/account/get-all", requestOptions)
+        return res.data;
     }
 )
 
@@ -30,7 +28,7 @@ export const customerSlice = createSlice({
                 state.isError = false;
             })
             .addCase(fetchAllAccountById.fulfilled, (state, action) => {
-                state.listAccount = action.payload.data;
+                state.listAccounts = action.payload.accounts;
                 state.isLoading = false;
                 state.isError = false;
             })

@@ -6,9 +6,12 @@ import Initialization from "../../components/TransferStepper/steps/Initializatio
 import Confirmation from "../../components/TransferStepper/steps/Confirmation";
 import Authenticity from "../../components/TransferStepper/steps/Authenticity";
 import Result from "../../components/TransferStepper/steps/Result";
+import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Transfer = () => {
+    const navigate = useNavigate()
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
@@ -33,7 +36,6 @@ const Transfer = () => {
 
     const handleClick = (direction) => {
 
-
         let newStep = currentStep;
 
         direction === "next" ? newStep++ : newStep--;
@@ -54,9 +56,29 @@ const Transfer = () => {
                 </div>
 
                 {/* article */}
-                <div className="w-auto bg-uit-pattern bg-center bg-no-repeat bg-scroll overflow-auto">
-                    <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px]">
+                <div className="w-auto bg-uit-pattern bg-center bg-no-repeat bg-scroll overflow-auto flex flex-col">
+                    <img src={uitPattern} alt="UIT-Pattern" className="fixed contrast-50 w-1/2 self-center mt-14" />
+
+                    <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10">
                         <div className="w-1/2 self-center">
+                            {/* Title */}
+                            <div className="w-full">
+                                <h1 className="mt-20 text-[40px]
+                                            text-white font-bold  ">
+                                    Chuyển tiền trong BBank
+                                </h1>
+                                <div className="2xl:mt-[23px] text-[20px]
+                                            text-[#B0B5B6] flex flex-row">
+                                    <span onClick={() => navigate('../home')}
+                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Trang chủ </span>
+                                    <p>&nbsp;&gt;&nbsp;</p>
+                                    <span onClick={() => navigate('../home')}
+                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Chuyển tiền </span>
+                                    <p>&nbsp;&gt;&nbsp;</p>
+                                    <p className="text-[#72BF00] hover:cursor-auto"> Chuyển tiền trong BBank </p>
+                                </div>
+                            </div>
+
                             {/* Stepper */}
                             <div className="container horizontal mt-5">
                                 <Stepper
@@ -80,7 +102,6 @@ const Transfer = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     )
