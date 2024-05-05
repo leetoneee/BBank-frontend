@@ -148,7 +148,7 @@ function Confirmation(props, ref) {
                         <span className="font-museo-slab-100 text-xl text-[#7AC014]">{userData.email}</span>
                     </div>
 
-                    <span className="col-start-1 row-start-3 text-[#A5ACAE] text-xl  self-center ">Nội dung</span>
+                    <span className="col-start-1 row-start-3 text-[#A5ACAE] text-xl  self-center ">Mã kiểm tra</span>
                     <input
                         className="col-start-2 row-start-3 font-museo-slab-100  col-span-2 rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] self-center "
                         value={capchaInput}

@@ -47,51 +47,50 @@ const Transfer = () => {
         }
     }
 
-    const validateInitializationInputs = () => {
-        let error = initializationRef.current.validateInputs();
-        if (error) {
-            return;
-        }
-    }
-
-    const validateConfirmationCapcha = () => {
-        let error = confirmationRef.current.validateCapcha();
-        if (error) {
-            return;
-        }
-    }
-
-    const validateAuthenticityOtp = async () => {
-        const error = authenticityRef.current.validateOtp();
-        if (error) {
-            return;
-        }
-
+    const createTransaction = async () => {
         try {
             await authenticityRef.current.createTransaction();
-            if (isError) {
-                setCurrentStep(3);
-            } else {
-                setCurrentStep(4);
-            }
+
         } catch (error) {
             console.error("Error creating transaction:", error);
             // handle error
         }
-    };
+    }
 
-    const handleClick = (direction) => {
+    const handleClick = async (direction) => {
 
         let newStep = currentStep;
 
         if (newStep === 0) {
-            validateInitializationInputs();
+            let error = initializationRef.current.validateInputs();
+            if (error) {
+                return;
+            }
         } else if (newStep === 1 && direction === "next") {
-            validateConfirmationCapcha();
+            let error = confirmationRef.current.validateCapcha();
+            if (error) {
+                return;
+            }
         } else if (newStep === 2 && direction === "next") {
-            validateAuthenticityOtp();
+            const error = authenticityRef.current.validateOtp();
+            if (error) {
+                return;
+            }
+            try {
+                await createTransaction();
+            } catch (error) {
+                console.error("Error creating transaction:", error);
+                // handle error
+                return;
+            }
+            if (isError) {
+                setCurrentStep(3);
+                return;
+            } else {
+                setCurrentStep(4);
+                return;
+            }
         }
-
         direction === "next" ? newStep++ : newStep--;
 
         // if (newStep === 3) newStep++;
@@ -100,8 +99,6 @@ const Transfer = () => {
     }
 
     return (
-
-
         <div className="grid grid-cols-11 grid-flow-col-dense ">
             <div className="col-start-1 col-span-2">
                 <UserInfo />
