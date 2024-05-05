@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 const initialState = {
     TaiKhoanNguon: "",
@@ -6,7 +7,18 @@ const initialState = {
     SoTien: "",
     NoiDung: "",
     HinhThuc: "Người chuyển trả",
+    GiaoDich: "",
+    isLoading: false,
+    isError: false
 }
+
+export const transferMoney = createAsyncThunk(
+    'customer/transferMoney',
+    async (requestOptions) => {
+        let res = await axios.post("http://localhost:3005/api/v1/customer/account/transfer", requestOptions)
+        return res.data;
+    }
+)
 
 export const transferSlice = createSlice({
     name: 'transfer',
@@ -27,9 +39,27 @@ export const transferSlice = createSlice({
         setHinhThuc: (state, action) => {
             state.HinhThuc = action.payload;
         },
+        reset: () => initialState,
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(transferMoney.pending, (state, action) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(transferMoney.fulfilled, (state, action) => {
+                state.GiaoDich = action.payload.transaction;
+                state.isLoading = false;
+                state.isError = false;
+            })
+            .addCase(transferMoney.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                console.log(action.error.message);
+            })
+    }
 })
 
-export const { setTaiKhoanNguon, setTaiKhoanDich, setSoTien, setNoiDung, setHinhThuc } = transferSlice.actions
+export const { setTaiKhoanNguon, setTaiKhoanDich, setSoTien, setNoiDung, setHinhThuc, reset } = transferSlice.actions
 
 export default transferSlice.reducer

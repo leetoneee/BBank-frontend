@@ -5,14 +5,15 @@ import ConfirmationDropdown from '../../Listbox/XacThucDropdown';
 import PopupNotice from "../../Popup/PopupNotice";
 import { useState, forwardRef, useImperativeHandle } from "react";
 import { IoReload } from "react-icons/io5";
+import { classNames } from "../../classNames/classNames";
 
 function Confirmation(props, ref) {
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const TaiKhoanDich = useSelector((state) => state.transfer.TaiKhoanDich);
     const SoTien = useSelector((state) => state.transfer.SoTien);
     const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
     const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const userData = useSelector((state) => state.user.userData);
+    const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
 
     const randomString = Math.random().toString(36).slice(8);
     const [capcha, setCapcha] = useState(randomString);
@@ -24,18 +25,6 @@ function Confirmation(props, ref) {
         setCapcha(Math.random().toString(36).slice(8));
     };
 
-    const matchCapcha = () => {
-        // event.preventDefault();
-        if (capchaInput === capcha) {
-            //match
-            setValid(true);
-            return;
-        } else {
-            // not match
-            setValid(false)
-            setIsShowPopup(true);
-        }
-    }
 
     useImperativeHandle(ref, () => {
         return {
@@ -79,7 +68,7 @@ function Confirmation(props, ref) {
                             Tài khoản đích
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                            {TaiKhoanDich}
+                            {TaiKhoanDich.SoTaiKhoan}
                         </span>
                     </div>
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
@@ -87,8 +76,8 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Tên người thụ hưởng
                         </span>
-                        <span className="col-start-2 col-span-2 text-red-600  text-xl  self-center text-right ">
-                            {TaiKhoanNguon.SoTaiKhoan}
+                        <span className="col-start-2 col-span-2 text-red-600  text-xl font-bold  self-center text-right ">
+                            {(TaiKhoanDich.HoTen).toUpperCase()}
                         </span>
                     </div>
                 </div>
@@ -102,7 +91,7 @@ function Confirmation(props, ref) {
                             Số tiền
                         </span>
                         <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
-                            <span className="text-xl">{formatToVND(Number(SoTien))}</span>
+                            <span className="text-xl font-bold">{formatToVND(Number(SoTien))}</span>
                             <span className="text-[15px]">{readMoney(SoTien)}</span>
                         </div>
                     </div>
@@ -135,7 +124,7 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Nội dung
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-justify ">
+                        <span className={classNames("col-start-2 col-span-2 text-white text-xl  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')}>
                             {NoiDung}
                         </span>
                     </div>

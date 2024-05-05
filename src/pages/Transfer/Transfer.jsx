@@ -5,16 +5,25 @@ import StepperControl from '../../components/TransferStepper/StepperControl';
 import Initialization from "../../components/TransferStepper/steps/Initialization";
 import Confirmation from "../../components/TransferStepper/steps/Confirmation";
 import Authenticity from "../../components/TransferStepper/steps/Authenticity";
+import Reject from "../../components/TransferStepper/steps/Reject";
 import Result from "../../components/TransferStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Transfer = () => {
     const navigate = useNavigate()
     const initializationRef = useRef();
     const confirmationRef = useRef();
+    const authenticityRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
+
+    const isError = useSelector((state) => state.transfer.isError)
+
+    const handleInitNewTransaction = () => {
+        setCurrentStep(0);
+    };
 
     const steps = [
         { description: "Khởi tạo" },
@@ -30,39 +39,69 @@ const Transfer = () => {
             case 1:
                 return <Confirmation ref={confirmationRef} />
             case 2:
-                return <Authenticity />
+                return <Authenticity ref={authenticityRef} />
+            case 3:
+                return <Reject handleInitNewTransaction={handleInitNewTransaction} />
             case 4:
-                return <Result />
+                return <Result handleInitNewTransaction={handleInitNewTransaction} />
         }
     }
+
+    const validateInitializationInputs = () => {
+        let error = initializationRef.current.validateInputs();
+        if (error) {
+            return;
+        }
+    }
+
+    const validateConfirmationCapcha = () => {
+        let error = confirmationRef.current.validateCapcha();
+        if (error) {
+            return;
+        }
+    }
+
+    const validateAuthenticityOtp = async () => {
+        const error = authenticityRef.current.validateOtp();
+        if (error) {
+            return;
+        }
+
+        try {
+            await authenticityRef.current.createTransaction();
+            if (isError) {
+                setCurrentStep(3);
+            } else {
+                setCurrentStep(4);
+            }
+        } catch (error) {
+            console.error("Error creating transaction:", error);
+            // handle error
+        }
+    };
 
     const handleClick = (direction) => {
 
         let newStep = currentStep;
 
         if (newStep === 0) {
-            let error = initializationRef.current.validateInputs();
-            if (error) {
-                return;
-            }
-        }
-
-        if (newStep === 1) {
-            let error = confirmationRef.current.validateCapcha();
-            if (error) {
-                return;
-            }
+            validateInitializationInputs();
+        } else if (newStep === 1 && direction === "next") {
+            validateConfirmationCapcha();
+        } else if (newStep === 2 && direction === "next") {
+            validateAuthenticityOtp();
         }
 
         direction === "next" ? newStep++ : newStep--;
 
-
-
-        if (newStep === 3) newStep++;
+        // if (newStep === 3) newStep++;
         //check if steps are within bounds
         newStep >= 0 && newStep <= steps.length && setCurrentStep(newStep);
     }
+
     return (
+
+
         <div className="grid grid-cols-11 grid-flow-col-dense ">
             <div className="col-start-1 col-span-2">
                 <UserInfo />
@@ -111,7 +150,7 @@ const Transfer = () => {
 
                             {/* Navigation controls */}
                             {
-                                currentStep !== steps.length &&
+                                (currentStep !== steps.length && currentStep !== steps.length - 1) &&
                                 <StepperControl
                                     handleClick={handleClick}
                                     currentStep={currentStep}

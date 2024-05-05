@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { setTaiKhoanNguon } from '../../redux/customer/transfer/transferSlice';
+import { fetchAllAccountById } from '../../redux/customer/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function DropdownListbox() {
@@ -28,6 +29,14 @@ export default function DropdownListbox() {
             dispatch(setTaiKhoanNguon(listAccounts[0]));
         }
     }, [listAccounts, TaiKhoanNguon, dispatch]);
+
+    useEffect(() => {
+        let raw = {
+            "MaKhachHang": 30
+        };
+
+        dispatch(fetchAllAccountById(raw));
+    }, [selected]);
 
     return (
         <>

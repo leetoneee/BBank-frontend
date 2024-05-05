@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { fetchAllAccountById } from "../../../redux/customer/customerSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setNoiDung, setTaiKhoanDich, setSoTien, setHinhThuc } from '../../../redux/customer/transfer/transferSlice';
+import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import PopupNotice from "../../Popup/PopupNotice";
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();
@@ -14,6 +16,7 @@ function Initialization(props, ref) {
     const SoTien = useSelector((state) => state.transfer.SoTien);
     const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
+    const isExist = useSelector((state) => state.checkAccount.isExist);
 
     const initNoiDung = () => {
         return `${(userData.first_name + ' ' + userData.last_name).toUpperCase()} chuyen tien`;
@@ -24,9 +27,10 @@ function Initialization(props, ref) {
     const [noiDung, setnoiDung] = useState(NoiDung);
     const [isShowEmptyTKDich, setIsShowEmptyTKDich] = useState(false);
     const [isShowEmptySoTien, setIsShowEmptySoTien] = useState(false);
+    const [isShowPopup, setIsShowPopup] = useState(false);
 
     useEffect(() => {
-        const raw = {
+        let raw = {
             "MaKhachHang": 30
         };
 
@@ -40,12 +44,21 @@ function Initialization(props, ref) {
         }
     }, [userData]);
 
+    const checkAccount = (soTK) => {
+        let raw = {
+            "SoTaiKhoan": soTK
+        };
+
+        dispatch(checkAccountExist(raw));
+        console.log(isExist);
+    }
 
     useImperativeHandle(ref, () => {
         return {
             validateInputs() {
                 setIsShowEmptyTKDich(false);
                 setIsShowEmptySoTien(false);
+                setIsShowPopup(false);
 
                 if (!soTKNhan) {
                     setIsShowEmptyTKDich(true);
@@ -55,7 +68,11 @@ function Initialization(props, ref) {
                     setIsShowEmptySoTien(true);
                 }
 
-                if (!soTKNhan || !soTien)
+                if (!isExist) {
+                    setIsShowPopup(true);
+                }
+
+                if (!soTKNhan || !soTien || !isExist)
                     return true; // Có lỗi
 
                 dispatch(setTaiKhoanDich(soTKNhan));
@@ -64,7 +81,7 @@ function Initialization(props, ref) {
                 return false; // Không lỗi
             }
         }
-    }, [soTKNhan, soTien, noiDung])
+    }, [soTKNhan, soTien, noiDung, isExist])
 
     const handleRadioChange = (event) => {
         dispatch(setHinhThuc(event.target.value));
@@ -108,6 +125,7 @@ function Initialization(props, ref) {
                             value={soTKNhan}
                             onChange={(e) => setSoTKNhan(e.target.value)}
                             placeholder="Nhập tài khoản thụ hưởng"
+                            onBlur={() => checkAccount(soTKNhan)}
                         />
                     </div>
 
@@ -152,8 +170,9 @@ function Initialization(props, ref) {
                     />
                 </div>
             </div>
+            {isShowPopup &&
+                <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Tài khoản đích không tồn tại. Quý khách vui lòng kiểm tra lại.' />}
         </div>
-
     )
 }
 
