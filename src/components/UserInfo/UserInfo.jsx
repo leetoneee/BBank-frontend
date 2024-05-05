@@ -5,10 +5,12 @@ import phone from '../../assets/icons/phone.svg';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../redux/user/userSlice";
 import formatDateLogin from "../../utils/formatDateAndTime";
-import formatToVND from "../../utils/formatToVND";
+import formatToVND from '../../utils/formatToVND';
 
 const UserInfo = () => {
     const dispatch = useDispatch();
+
+    const lastLoginTime = useSelector((state) => state.auth.lastLoginTime);
     const userData = useSelector((state) => state.user.userData);
     const [showBalance, setShowBalance] = useState(false);
     useEffect(() => {
@@ -16,7 +18,7 @@ const UserInfo = () => {
     }, [])
 
     return (
-        <div className="sticky top-0 bg-[#404040]/[70%] px-7 py-9 w-auto min-h-screen max-h-max 
+        <div className="sticky top-0 bg-[#404040]/[70%] px-7 py-9 w-auto min-h-screen max-h-max min-w-full
                             grid grid-flow-row auto-rows-max place-items-center gap-4">
             {/* Logo */}
             <div className="flex items-center mb-[22px]">
@@ -28,9 +30,9 @@ const UserInfo = () => {
             <div className="w-full flex flex-col text-center rounded-[20px] bg-gradient-to-b from-[#2C4044]/[50%] to-[#2C4044]">
                 <img src={avatar} alt="" className="h-16 mt-4" />
                 <span className="text-white mt-2 select-none">Xin chào</span>
-                <span className="text-white mt-[2px] font-bold text-lg select-none">{userData.first_name} {userData.last_name}</span>
+                <span className="text-white mt-[2px] font-bold text-lg select-none">{(userData.first_name + ' ' + userData.last_name).toUpperCase()}</span>
                 <span className="text-white mt-6 text-[10px] select-none  ">Lần đăng nhập gần nhất</span>
-                <span className="text-white mb-[19px] text-[10px] select-none">2024-04-10 20:15:22</span>
+                <span className="text-white mb-[19px] text-[10px] select-none">{lastLoginTime}</span>
             </div>
 
             {/* Balance */}
@@ -60,7 +62,7 @@ const UserInfo = () => {
                                         <path fillRule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clipRule="evenodd" />
                                     </svg>
                                 </div>
-                                <span className="text-white ml-2 self-center ">{userData.id} VND</span>
+                                <span className="text-white ml-2 self-center ">{formatToVND(userData.id)}</span>
                             </div>
                         )
                         : (

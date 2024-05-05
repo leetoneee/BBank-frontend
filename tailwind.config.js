@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        'green': '0 25px 25px rgb(173,255,47)',
+        '2xl-green': '0 25px 25px rgba(166, 163, 82, 0.25)',
+      },
       backgroundImage: {
         'uit-pattern': "url('src/assets/icons/uitPattern.svg')",
       },
@@ -35,7 +39,7 @@ export default {
           '0%': {
             transform: 'rotate(0deg)'
           },
-        
+
           '100%': {
             transform: 'rotate(360deg)'
           },

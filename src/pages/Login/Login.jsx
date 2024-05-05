@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from '../../redux/authentication/authSlice'
 import { Loading, spinner } from "../../components/Loading/Loading";
 import classNames from "classnames";
+import formatDateLogin from '../../utils/formatDateAndTime';
 
 function Login() {
   const navigate = useNavigate();
@@ -14,7 +15,9 @@ function Login() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [capcha, setCapcha] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -37,10 +40,26 @@ function Login() {
   };
 
   const handleLogin = async () => {
-    dispatch(login(username));
+    if (!username) {
+      alert("Please enter your username");
+      return;
+    }
+
+    if (!password) {
+      alert("Please enter your password");
+      return;
+    }
+
+    const currentTime = formatDateLogin(new Date());
+
+    let userCredentials = {
+      username, password, currentTime
+    }
+    dispatch(login(userCredentials));
     await spinner(2000);
     navigate(`/${username}/home`, { replace: true });
   }
+
 
   return (
     <div className="relative">
@@ -48,7 +67,7 @@ function Login() {
                   bg-gradient-to-br from-opacity-cde1df to-opacity-00b5ac 
                   content-center flex justify-center flex-col pt-[120px]">
         <div className="2xl:w-[1301px] 2xl:h-[711px]
-                    xl:w-[867.333px] xl:h-[474px]
+                   xl:w-[867.333px] xl:h-[474px]
                     m-auto relative
                   bg-white content-center
                   rounded-[20px] p-11">
@@ -101,10 +120,10 @@ function Login() {
 
             {/* Username */}
             <div className="relative w-full max-w-md">
-              <input type="text" id="user_name" required className="2xl:mt-[32px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer block font-inter-400 rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
+              <input type="text" id="user_name" className="2xl:mt-[32px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer block font-inter-400 rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
                 value={username}
                 onChange={(e) => setUsername(e.target.value)} />
-              <label for="user_name" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Username</label>
+              <label htmlFor="user_name" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Username</label>
             </div>
             {/* <div className="mt-[32px] w-[360px] h-[60px] grid grid-flow-row">
               <div className="grid items-center gap-x-3 border-[2px] border-black rounded-[10px] hover:cursor-pointer">
@@ -118,17 +137,22 @@ function Login() {
 
             {/* Password */}
             <div className="relative w-full max-w-md">
-              <input type="password" id="pass" required className="2xl:mt-[34px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer font-inter-400 block rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
+              <input type="password" id="pass" className="2xl:mt-[34px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer font-inter-400 block rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />
-              <label for="pass" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Password</label>
+              <label htmlFor="pass" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Password</label>
             </div>
 
             {/* Capcha */}
             <div className="relative max-w-md ">
-              <input required type="text" id="capcha" className="2xl:mt-[30px] 2xl:w-[180px] 2xl:h-[60px] font-aubrey hover:cursor-pointer block rounded-[10px] pl-4 py-3 w-1/2 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" " />
+              <input
+                type="text" id="capcha"
+                className="2xl:mt-[30px] 2xl:w-[180px] 2xl:h-[60px] font-aubrey hover:cursor-pointer block rounded-[10px] pl-4 py-3 w-1/2 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer"
+                placeholder=" "
+                value={capcha}
+                onChange={(e) => setCapcha(e.target.value)} />
 
-              <label for="capcha" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 block text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Capcha</label>
+              <label htmlFor="capcha" className="2xl:text-[18px] absolute hover:cursor-pointer font-inter-400 pl-4 block text-gray-500 duration-300 transform scale-50 top-4 z-10 origin-[0] start-2.5 peer-focus:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Capcha</label>
 
               <h1 className="2xl:text-[30px] 2xl:left-[180px] 2xl:bottom-[12px] 2xl:ml-[20px] absolute font-aubrey text-[#9553FF] text-center ">BuoiTiu</h1>
 
@@ -145,7 +169,7 @@ function Login() {
             </button>
 
             {/* Info */}
-            <p className="2xl:text-[22px] 2xl:mt-[19px] font-museo-slab-100 w-full">
+           <p className="2xl:text-[22px] 2xl:mt-[19px] font-museo-slab-100 w-full">
               <IoCodeOutline size={24} className="inline" /> MSSV: 2252-0137-0254-0577-1487
             </p>
           </div>
@@ -161,7 +185,6 @@ function Login() {
       </div>
       <Loading />
     </div>
-
   )
 }
 
