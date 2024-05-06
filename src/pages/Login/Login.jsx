@@ -7,7 +7,6 @@ import { login } from '../../redux/authentication/authSlice'
 import { Loading, spinner } from "../../components/Loading/Loading";
 import formatDateLogin from '../../utils/formatDateAndTime';
 import classNames from "classnames";
-import formatDateLogin from '../../utils/formatDateAndTime';
 
 function Login() {
   const navigate = useNavigate();

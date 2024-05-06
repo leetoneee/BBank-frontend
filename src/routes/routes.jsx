@@ -6,7 +6,6 @@ import Login from '../pages/Login/Login';
 import Transfer from '../pages/Transfer/Transfer';
 import FastFeatures from '../pages/FastFeatures/FastFeatures';
 
-import Transfer from '../pages/Transfer/Transfer';
 function NavPage() {
 
     return (

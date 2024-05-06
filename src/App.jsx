@@ -4,7 +4,6 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
-import Transfer from './pages/Transfer/Transfer';
 import { RequireAuth } from './components/RequireAuth/RequireAuth';
 import Transfer from './pages/Transfer/Transfer';
 import FastFeatures from './pages/FastFeatures/FastFeatures'
