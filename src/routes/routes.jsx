@@ -3,9 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 
 import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login';
-import FastFeatures from '../pages/FastFeatures/FastFeatures';
-
 import Transfer from '../pages/Transfer/Transfer';
+import FastFeatures from '../pages/FastFeatures/FastFeatures';
 function NavPage() {
 
     return (

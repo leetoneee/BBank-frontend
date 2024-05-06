@@ -155,7 +155,7 @@ function Confirmation(props, ref) {
                         onChange={(e) => setCapchaInput(e.target.value)}
                         placeholder="Nhập mã kiểm tra"
                     />
-                    <span className="col-start-2 row-start-4 text-[#9553FF] select-none text-3xl">{capcha}</span>
+                    <span className="col-start-2 row-start-4 text-[#9553FF] select-none text-3xl font-aubrey">{capcha}</span>
                     <button className="col-start-2 row-start-4 translate-x-24 h-min w-min self-center   " onClick={() => refreshString()}>
                         <IoReload size={32} color="gray" />
                     </button>
