@@ -4,8 +4,7 @@ import avatar from '../../assets/icons/avatar.svg';
 import phone from '../../assets/icons/phone.svg';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../redux/user/userSlice";
-import formatDateLogin from "../../utils/formatDateAndTime";
-import formatToVND from '../../utils/formatToVND';
+import formatToVND from "../../utils/formatToVND";
 
 const UserInfo = () => {
     const dispatch = useDispatch();
@@ -13,6 +12,7 @@ const UserInfo = () => {
     const lastLoginTime = useSelector((state) => state.auth.lastLoginTime);
     const userData = useSelector((state) => state.user.userData);
     const [showBalance, setShowBalance] = useState(false);
+
     useEffect(() => {
         dispatch(fetchUserData());
     }, [])
@@ -39,7 +39,7 @@ const UserInfo = () => {
             <div className="w-full flex flex-col px-5 pt-5 rounded-[20px] bg-gradient-to-b from-[#2C4044]/[50%] to-[#2C4044]">
                 <div className="flex flex-row justify-between">
                     <span className="text-white mt-2 text-[13px] font-bold">Danh sách tài khoản/thẻ</span>
-                    <span className="text-[#72BF00] mt-2 text-[14px] font-normal hover:underline hover:cursor-pointer">Chi tiết</span>
+                    <span className="text-[#72BF00] mt-2 text-[14px] font-normal hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Chi tiết</span>
                 </div>
                 <span className="text-white mt-[18px] text-[13px] font-normal">Tài khoản thanh toán</span>
                 <div className="flex flex-row justify-between">

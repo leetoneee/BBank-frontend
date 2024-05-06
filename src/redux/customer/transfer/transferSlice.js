@@ -2,37 +2,57 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const initialState = {
-
+    TaiKhoanNguon: "",
+    TaiKhoanDich: "",
+    SoTien: "",
+    NoiDung: "",
+    HinhThuc: "Người chuyển trả",
+    GiaoDich: "",
     isLoading: false,
-    isError: false,
+    isError: false
 }
 
-export const fetchAllAccountByCustomerId = createAsyncThunk(
-    'users/fetchAllAccount',
-    async () => {
-        let res = await axios.get("https://reqres.in/api/users/2")
+export const transferMoney = createAsyncThunk(
+    'customer/transferMoney',
+    async (requestOptions) => {
+        let res = await axios.post("http://localhost:3005/api/v1/customer/account/transfer", requestOptions)
         return res.data;
     }
 )
 
-export const customerSlice = createSlice({
-    name: 'customer',
+export const transferSlice = createSlice({
+    name: 'transfer',
     initialState,
     reducers: {
-
+        setTaiKhoanNguon: (state, action) => {
+            state.TaiKhoanNguon = action.payload;
+        },
+        setTaiKhoanDich: (state, action) => {
+            state.TaiKhoanDich = action.payload;
+        },
+        setSoTien: (state, action) => {
+            state.SoTien = action.payload;
+        },
+        setNoiDung: (state, action) => {
+            state.NoiDung = action.payload;
+        },
+        setHinhThuc: (state, action) => {
+            state.HinhThuc = action.payload;
+        },
+        reset: () => initialState,
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchAllAccountByCustomerId.pending, (state, action) => {
+            .addCase(transferMoney.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(fetchAllAccountByCustomerId.fulfilled, (state, action) => {
-                state.listAccount = action.payload.data;
+            .addCase(transferMoney.fulfilled, (state, action) => {
+                state.GiaoDich = action.payload.transaction;
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(fetchAllAccountByCustomerId.rejected, (state, action) => {
+            .addCase(transferMoney.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 console.log(action.error.message);
@@ -40,4 +60,6 @@ export const customerSlice = createSlice({
     }
 })
 
-export default customerSlice.reducer
+export const { setTaiKhoanNguon, setTaiKhoanDich, setSoTien, setNoiDung, setHinhThuc, reset } = transferSlice.actions
+
+export default transferSlice.reducer

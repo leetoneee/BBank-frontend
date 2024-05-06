@@ -6,7 +6,7 @@ import exitIcon from '../../assets/icons/exitIcon.svg';
 import { NavLink } from 'react-router-dom';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/authentication/authSlice';
 const navigation = [
     { name: 'Home', href: 'home', icon: homeIcon, tooltip: 'Trang chủ', current: true },

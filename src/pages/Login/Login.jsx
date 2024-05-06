@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from '../../redux/authentication/authSlice'
 import { Loading, spinner } from "../../components/Loading/Loading";
+import formatDateLogin from '../../utils/formatDateAndTime';
 import classNames from "classnames";
 import formatDateLogin from '../../utils/formatDateAndTime';
 
@@ -133,7 +134,7 @@ function Login() {
               <div className="grid items-center gap-x-3 border-[2px] border-black rounded-[10px] hover:cursor-pointer">
                 <div className="relative">
                   <input type="text" required className="w-full p-4 bg-none text-gray-500 relative rounded-[10px] font-inter-400 peer" placeholder=" " />
-                  <label for="" className={classNames("absolute left-4 top-[15px]  text-gray-500 font-inter-400 transition duration-300  origin-[0] start-2.5 peer-focus:text-gray-400 peer-focus:text-[17px] peer-focus:left-4 peer-focus:scale-75  peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-placeholder-shown:scale-100",
+                  <label htmlFor="" className={classNames("absolute left-4 top-[15px]  text-gray-500 font-inter-400 transition duration-300  origin-[0] start-2.5 peer-focus:text-gray-400 peer-focus:text-[17px] peer-focus:left-4 peer-focus:scale-75  peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-placeholder-shown:scale-100",
                     "")}>Username</label>
                 </div>
               </div>
@@ -141,6 +142,7 @@ function Login() {
 
             {/* Password */}
             <div className="relative w-full max-w-md">
+              <input type="password" id="pass" className="2xl:mt-[34px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer font-inter-400 block rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
               <input type="password" id="pass" className="2xl:mt-[34px] 2xl:w-[360px] 2xl:h-[60px] hover:cursor-pointer font-inter-400 block rounded-[10px] pl-4 py-3 text-[15px] leading-5 text-[#636363] bg-white border-[1px] border-black appearance-none focus:outline-none focus:ring-0 peer" placeholder=" "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />

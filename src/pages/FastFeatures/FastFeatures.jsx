@@ -12,16 +12,17 @@ import HuyTietKiemTuDong from '../../assets/icons/Choose_ChucNang_HuyTietKiemTuD
 import MoTietKiem from '../../assets/icons/Choose_ChucNang_MoTietKiem.svg'
 import TatToanTietKiem from '../../assets/icons/Choose_ChucNang_TatToanTietKiem.svg'
 import TietKiemTuDong from '../../assets/icons/Choose_ChucNang_TietKiemTuDong.svg'
-import readMoney from "../../utils/n2vi";
+// import readMoney from "../../utils/n2vi";
 import { increment, decrement } from '../../redux/selectBtn/selectBtnSlice'
 import PopupNotice from '../../components/Popup/PopupNotice'
-import PopupConfirm from '../../components/Popup/PopupConfirm'
+import { useNavigate } from 'react-router-dom';
+// import PopupConfirm from '../../components/Popup/PopupConfirm'
 
-import { classNames } from '../../components/classNames/classNames';
 const FastFeatures = () => {
-    const count = useSelector((state) => state.counter.value)
+    const count = useSelector((state) => state.counter.value);
     const [showPopup, setShowPopup] = useState(false);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [buttonStates, setButtonStates] = useState({
         button1: false,
@@ -40,16 +41,16 @@ const FastFeatures = () => {
     };
 
     const handleButtonSelect = (buttonName) => {
-        if( buttonStates[buttonName]){
+        if (buttonStates[buttonName]) {
             changeButtonState(buttonName);
             // Gửi action đến Redux store bằng cách dispatch action creator
             dispatch(decrement());
         }
-        if(count < 3 && buttonStates[buttonName]==false){
+        if (count < 3 && buttonStates[buttonName] == false) {
             changeButtonState(buttonName);
             dispatch(increment());
         }
-        if(count === 3 && buttonStates[buttonName]==false){
+        if (count === 3 && buttonStates[buttonName] == false) {
             setShowPopup(true);
         }
     };
@@ -65,8 +66,8 @@ const FastFeatures = () => {
                         <div className="sticky top-0">
                             <Header />
                         </div>
-                        <div className="relative w-full h-full flex justify-center content-center">
-                            <img src={uitPattern} alt="UIT-Pattern" />
+                        <div className="relative w-full h-full flex flex-col justify-center content-center">
+                            <img src={uitPattern} alt="UIT-Pattern" className="fixed contrast-50 w-1/2 self-center" />
                             <div className="w-full h-full absolute grid grid-cols-2 bg-[#40494C] bg-opacity-70">
 
                                 {/* Grid 1 */}
@@ -77,9 +78,11 @@ const FastFeatures = () => {
                                     </h1>
                                     <div className="2xl:mt-[23px] 2xl:text-[20px] 2xl:ml-[100px]
                                             text-[#B0B5B6] flex flex-row">
-                                        <a href="./home" className="hover:cursor-pointer">Trang chủ  </a>
+                                        <span onClick={() => navigate('../home')}
+                                            className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Trang chủ </span>
                                         <p>&nbsp;&gt;&nbsp;</p>
-                                        <a href="./home" className="hover:cursor-pointer"> Cài đặt </a>
+                                        <span onClick={() => navigate('../setting')}
+                                            className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Cài đặt </span>
                                         <p>&nbsp;&gt;&nbsp;</p>
                                         <p className="text-[#72BF00] hover:cursor-auto"> Lựa chọn chức năng nổi bật </p>
                                     </div>
@@ -265,7 +268,7 @@ const FastFeatures = () => {
 
                 </div>
             </div>
-            {showPopup && <PopupNotice showPopup={showPopup} setShowPopup={setShowPopup} content='Số lượng chức năng yêu thích không vượt quá 3. Vui lòng chọn chức năng Quý khách yêu thích nhất và bỏ chọn các chức năng còn lại'/>}
+            {showPopup && <PopupNotice showPopup={showPopup} setShowPopup={setShowPopup} content='Số lượng chức năng yêu thích không vượt quá 3. Vui lòng chọn chức năng Quý khách yêu thích nhất và bỏ chọn các chức năng còn lại' />}
         </>
 
     )

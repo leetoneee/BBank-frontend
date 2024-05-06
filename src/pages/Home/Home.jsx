@@ -10,6 +10,7 @@ import ic_ChuyenTien from '../../assets/icons/ic_ChuyenTien.svg';
 import ic_ChuyenTienMat from '../../assets/icons/ic_ChuyenTienMat.svg';
 import ic_TietKiemThuong from '../../assets/icons/ic_TietKiemThuong.svg';
 import ic_TietKiemTuDong from '../../assets/icons/ic_TietKiemTuDong.svg';
+import uitPattern from '../../assets/icons/uitPattern.svg'
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate, Outlet } from "react-router-dom";
 
@@ -49,8 +50,10 @@ const Home = () => {
                     </div>
 
                     {/* article */}
-                    <div className="w-auto bg-uit-pattern bg-center bg-no-repeat bg-scroll overflow-auto flex flex-col gap-4">
-                        <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px]">
+                    <div className="w-auto overflow-auto flex flex-col gap-4">
+                        <img src={uitPattern} alt="UIT-Pattern" className="fixed contrast-50 w-1/2 self-center" />
+
+                        <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10">
                             {/* Carousel */}
                             <div className="bg-gradient-to-b from-[#047AEE] to-[#9747FF] h-56 w-full max-w-[1256px] rounded-[20px] p-1 mb-20 self-center">
                                 <Carousel autoSlide={true}>
@@ -71,7 +74,9 @@ const Home = () => {
                                             onClick={() => navigate(item.href)} />
                                     ))
                                 }
-                                <img src={luaChonChucNang} alt="" className="h-[134px] w-auto transition ease-in-out delay-150 hover:-translate-y-1 hover:drop-shadow-green hover:border hover:border-dashed hover:border-green-500 rounded-[20px] duration-300" />
+                                <img src={luaChonChucNang} alt=""
+                                    className="h-[134px] w-auto transition ease-in-out delay-150 hover:-translate-y-1 hover:drop-shadow-green hover:border hover:border-dashed hover:border-green-500 rounded-[20px] duration-300"
+                                    onClick={() => navigate('../setting/fastfeatures')} />
                             </div>
 
                             {/* Mục Chuyển tiền */}
@@ -107,7 +112,7 @@ const Home = () => {
                         </div>
 
                         {/* Mục tính dụng */}
-                        <div className="bg-[#40494C]/[70%] h-auto">
+                        <div className="bg-[#40494C]/[70%] h-auto z-10">
                             <div className="mt-24">
                                 {/* Title */}
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước." >
@@ -126,7 +131,7 @@ const Home = () => {
                         </div>
 
                         {/* Mục Tiết Kiệm */}
-                        <div className="bg-[#40494C]/[70%] h-auto">
+                        <div className="bg-[#40494C]/[70%] h-auto z-10">
                             <div className="mt-24">
                                 {/* Title */}
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước.">
@@ -155,7 +160,6 @@ const Home = () => {
                                         ))
                                     }
                                 </div>
-
                             </div>
                         </div>
                     </div>
