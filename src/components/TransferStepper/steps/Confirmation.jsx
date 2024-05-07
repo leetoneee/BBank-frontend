@@ -7,7 +7,13 @@ import { useState, forwardRef, useImperativeHandle } from "react";
 import { IoReload } from "react-icons/io5";
 import { classNames } from "../../classNames/classNames";
 
+const people = [
+    { name: 'Xác thực qua Email' },
+]
+
+
 function Confirmation(props, ref) {
+
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
     const SoTien = useSelector((state) => state.transfer.SoTien);
     const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
@@ -20,6 +26,7 @@ function Confirmation(props, ref) {
     const [capchaInput, setCapchaInput] = useState('');
     const [valid, setValid] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
+
 
     const refreshString = () => {
         setCapcha(Math.random().toString(36).slice(8));
@@ -138,7 +145,7 @@ function Confirmation(props, ref) {
                         Phương thức xác nhận
                     </span>
                     <div className="col-start-2 row-start-1 col-span-2 ">
-                        <ConfirmationDropdown />
+                        <ConfirmationDropdown people={people} />
                     </div>
 
                     <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl self-center">

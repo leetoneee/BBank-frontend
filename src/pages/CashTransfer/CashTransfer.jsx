@@ -3,10 +3,10 @@ import Header from "../../components/Header/Header";
 import CashStepper from '../../components/CashTransferStepper/CashStepper';
 import CashStepperControl from '../../components/CashTransferStepper/CashStepperControl';
 import CashInitialization from "../../components/CashTransferStepper/CashSteps/CashInitialization";
-import Confirmation from "../../components/TransferStepper/steps/Confirmation";
-import Authenticity from "../../components/TransferStepper/steps/Authenticity";
-import Reject from "../../components/TransferStepper/steps/Reject";
-import Result from "../../components/TransferStepper/steps/Result";
+import Confirmation from "../../components/CashTransferStepper/CashSteps/CashConfirmation";
+import Authenticity from "../../components/CashTransferStepper/CashSteps/CashAuthenticity";
+import Reject from "../../components/CashTransferStepper/CashSteps/CashReject";
+import Result from "../../components/CashTransferStepper/CashSteps/CashResult";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";

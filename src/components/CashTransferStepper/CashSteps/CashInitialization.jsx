@@ -4,30 +4,50 @@ import formatToVND from "../../../utils/formatToVND";
 import { useEffect, useState } from "react";
 import { fetchAllAccountById } from "../../../redux/customer/customerSlice";
 import { forwardRef, useImperativeHandle } from "react";
-import { setNoiDung, setTaiKhoanDich, setSoTien, setHinhThuc } from '../../../redux/customer/transfer/transferSlice';
+import { setTaiKhoanNguon, setTenTH, setDiaChiTH, setGiayToTH, setSoGiayToTH, setNgayCapTH, setNoiDung, setSoTien, setHinhThuc } from '../../../redux/customer/cashtransfer/cashtransferSlice';
 import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import ConfirmationDropdown from '../../Listbox/XacThucDropdown';
 import PopupNotice from "../../Popup/PopupNotice";
+
+const GiayTo = [
+    { name: 'Căn cước công dân' },
+]
+
 
 function CashInitialization(props, ref) {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.userData);
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const TaiKhoanDich = useSelector((state) => state.transfer.TaiKhoanDich);
-    const SoTien = useSelector((state) => state.transfer.SoTien);
-    const NoiDung = useSelector((state) => state.transfer.NoiDung);
-    const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
+    const TaiKhoanNguon = useSelector((state) => state.cashtransfer.TaiKhoanNguon);
+    const TenTH = useSelector((state) => state.cashtransfer.TenTH);
+    const DiaChiTH = useSelector((state) => state.cashtransfer.DiaChiTH);
+    const GiayToTH = useSelector((state) => state.cashtransfer.GiayToTH);
+    const SoGiayToTH = useSelector((state) => state.cashtransfer.SoGiayToTH);
+    const NgayCapTH = useSelector((state) => state.cashtransfer.NgayCapTH);
+    const SoTien = useSelector((state) => state.cashtransfer.SoTien);
+    const NoiDung = useSelector((state) => state.cashtransfer.NoiDung);
+    const HinhThuc = useSelector((state) => state.cashtransfer.HinhThuc);
     const isExist = useSelector((state) => state.checkAccount.isExist);
 
     const initNoiDung = () => {
         return `${(userData.first_name + ' ' + userData.last_name).toUpperCase()} chuyen tien`;
     }
 
-    const [soTKNhan, setSoTKNhan] = useState(TaiKhoanDich);
     const [soTien, setsoTien] = useState(SoTien);
     const [noiDung, setnoiDung] = useState(NoiDung);
-    const [isShowEmptyTKDich, setIsShowEmptyTKDich] = useState(false);
+    const [tenTH, settenTH] = useState(TenTH);
+    const [diaChiTH, setdiaChiTH] = useState(DiaChiTH);
+    const [giayToTH, setgiayToTH] = useState(GiayToTH);
+    const [soGiayToTH, setsoGiayToTH] = useState(SoGiayToTH);
+    const [ngayCapTH, setngayCapTH] = useState(NgayCapTH);
+    const [isShowEmptyTenTH, setIsShowEmptyTenTH] = useState(false);
+    const [isShowEmptyDiaChiTH, setIsShowEmptyDiaChiTH] = useState(false);
+    const [isShowEmptyGiayToTH, setIsShowEmptyGiayToTH] = useState(false);
+    const [isShowEmptySoGiayToTH, setIsShowEmptySoGiayToTH] = useState(false);
+    const [isShowEmptyNgayCapTH, setIsShowEmptyNgayCapTH] = useState(false);
     const [isShowEmptySoTien, setIsShowEmptySoTien] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
+
+    const [inputType, setInputType] = useState('text');
 
     useEffect(() => {
         let raw = {
@@ -56,32 +76,53 @@ function CashInitialization(props, ref) {
     useImperativeHandle(ref, () => {
         return {
             validateInputs() {
-                setIsShowEmptyTKDich(false);
+                setIsShowEmptyTenTH(false);
+                setIsShowEmptyDiaChiTH(false);
+                setIsShowEmptyGiayToTH(false);
+                setIsShowEmptySoGiayToTH(false);
+                setIsShowEmptyNgayCapTH(false);
                 setIsShowEmptySoTien(false);
                 setIsShowPopup(false);
-
-                if (!soTKNhan) {
-                    setIsShowEmptyTKDich(true);
-                }
 
                 if (!soTien) {
                     setIsShowEmptySoTien(true);
                 }
 
-                if (!isExist) {
-                    setIsShowPopup(true);
+                if (!tenTH) {
+                    setIsShowEmptyTenTH(true);
                 }
 
-                if (!soTKNhan || !soTien || !isExist)
-                    return true; // Có lỗi
+                if (!diaChiTH) {
+                    setIsShowEmptyDiaChiTH(true);
+                }
 
-                dispatch(setTaiKhoanDich(soTKNhan));
+                if (!soGiayToTH) {
+                    setIsShowEmptySoGiayToTH(true);
+                }
+
+                if (!ngayCapTH) {
+                    setIsShowEmptyNgayCapTH(true);
+                }
+
+                if (!tenTH || !diaChiTH || !soGiayToTH || !ngayCapTH || !soTien) {
+                    setIsShowPopup(true);
+                    return true
+                }
+
+                // if (!soTien || !isExist)
+                //     return true; // Có lỗi
+
+                dispatch(setTenTH(tenTH));
+                dispatch(setDiaChiTH(diaChiTH));
+                dispatch(setGiayToTH(giayToTH));
+                dispatch(setSoGiayToTH(soGiayToTH));
+                dispatch(setNgayCapTH(ngayCapTH));
                 dispatch(setSoTien(soTien));
                 dispatch(setNoiDung(noiDung));
                 return false; // Không lỗi
             }
         }
-    }, [soTKNhan, soTien, noiDung, isExist])
+    }, [soTien, tenTH, diaChiTH, giayToTH, soGiayToTH, ngayCapTH, noiDung])
 
     const handleRadioChange = (event) => {
         dispatch(setHinhThuc(event.target.value));
@@ -114,18 +155,95 @@ function CashInitialization(props, ref) {
                 </div>
             </div>
 
-            {/* Tài khoản đích */}
+            {/* Tên, địa chỉ người thụ hưởng, giấy tờ tùy thân, số, ngày cấp*/}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="grid grid-cols-3 gap-8">
+                    {/* Tên người thụ hưởng */}
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center ">Tên người thụ hưởng</span>
                     <div className="col-start-2 col-span-2">
-                        {isShowEmptyTKDich && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập tên người thụ hưởng</span>}
-                        <input 
+                        {isShowEmptyTenTH && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập tên người thụ hưởng</span>}
+                        <input
                             className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
-                            value={soTKNhan}
-                            onChange={(e) => setSoTKNhan(e.target.value)}
-                            placeholder="Nhập tài khoản thụ hưởng"
-                            onBlur={() => checkAccount(soTKNhan)}
+                            value={tenTH}
+                            onChange={(e) => {
+                                const newValue = e.target.value;
+                                settenTH(newValue);
+                                if (newValue.trim() !== '') {
+                                    setIsShowEmptyTenTH(false);
+                                } else {
+                                    setIsShowEmptyTenTH(true);
+                                }
+                            }}
+                            placeholder="Nhập tên người thụ hưởng"
+                        />
+                    </div>
+
+                    {/* Địa chỉ người thụ hưởng */}
+                    <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl  self-center ">Địa chỉ người thụ hưởng</span>
+                    <div className="col-start-2 col-span-2">
+                        {isShowEmptyDiaChiTH && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập địa chỉ người thụ hưởng</span>}
+                        <input
+                            className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
+                            value={diaChiTH}
+                            onChange={(e) => {
+                                const newValue = e.target.value;
+                                setdiaChiTH(newValue);
+                                if (newValue.trim() !== '') {
+                                    setIsShowEmptyDiaChiTH(false);
+                                } else {
+                                    setIsShowEmptyDiaChiTH(true);
+                                }
+                            }}
+                            placeholder="Nhập địa chỉ người thụ hưởng"
+                        />
+                    </div>
+
+                    {/* Giấy tờ tùy thân */}
+                    <span className="col-start-1 row-start-3 text-[#A5ACAE] text-xl  self-center ">Giấy tờ tùy thân</span>
+                    <div className="col-start-2 col-span-2">
+                        <ConfirmationDropdown people={GiayTo} setSelectedValue={setgiayToTH}/>
+                    </div>
+
+                    {/* Số giấy tờ tùy thân */}
+                    <span className="col-start-1 row-start-4 text-[#A5ACAE] text-xl  self-center ">Số</span>
+                    <div className="col-start-2 col-span-2">
+                        {isShowEmptySoGiayToTH && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập số giấy tờ tùy thân</span>}
+                        <input type="number"
+                            className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
+                            value={soGiayToTH}
+                            onChange={(e) => {
+                                const newValue = e.target.value;
+                                setsoGiayToTH(newValue);
+                                if (newValue.trim() !== '') {
+                                    setIsShowEmptySoGiayToTH(false);
+                                } else {
+                                    setIsShowEmptySoGiayToTH(true);
+                                }
+                            }}
+                            placeholder="Nhập số giấy tờ tùy thân"
+                        />
+                    </div>
+
+                    {/* Ngày cấp */}
+                    <span className="col-start-1 row-start-5 text-[#A5ACAE] text-xl  self-center ">Nhập ngày cấp</span>
+                    <div className="col-start-2 col-span-2">
+                        {isShowEmptyNgayCapTH && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng chọn ngày cấp</span>}
+                        <input
+                            className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
+                            value={ngayCapTH}
+                            onChange={(e) => {
+                                const newValue = e.target.value;
+                                setngayCapTH(newValue);
+                                if (newValue.trim() !== '') {
+                                    setIsShowEmptyNgayCapTH(false);
+                                } else {
+                                    setIsShowEmptyNgayCapTH(true);
+                                }
+                            }}
+                            placeholder="Nhập ngày cấp"
+                            onFocus={() => setInputType("date")}
+                            onBlur={() => setInputType("text")}
+                            type={inputType}
                         />
                     </div>
 
@@ -171,7 +289,7 @@ function CashInitialization(props, ref) {
                 </div>
             </div>
             {isShowPopup &&
-                <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Tài khoản đích không tồn tại. Quý khách vui lòng kiểm tra lại.' />}
+                <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Quý khách vui lòng nhập đầy đủ thông tin.' />}
         </div>
     )
 }
