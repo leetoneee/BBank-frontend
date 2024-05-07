@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import readMoney from '../../../utils/n2vi';
 import formatToVND from "../../../utils/formatToVND";
 import ConfirmationDropdown from '../../Listbox/XacThucDropdown';
@@ -6,13 +6,17 @@ import PopupNotice from "../../Popup/PopupNotice";
 import { useState, forwardRef, useImperativeHandle } from "react";
 import { IoReload } from "react-icons/io5";
 import { classNames } from "../../classNames/classNames";
+import { setOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
+import { sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 
 function Confirmation(props, ref) {
+    const dispatch = useDispatch();
+
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
     const SoTien = useSelector((state) => state.transfer.SoTien);
     const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
     const NoiDung = useSelector((state) => state.transfer.NoiDung);
-    const userData = useSelector((state) => state.user.userData);
+    const user = useSelector((state) => state.auth.user);
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
 
     const randomString = Math.random().toString(36).slice(8);
@@ -25,6 +29,10 @@ function Confirmation(props, ref) {
         setCapcha(Math.random().toString(36).slice(8));
     };
 
+    const initOtp = () => {
+        return Math.floor(Math.random() * 1000000);
+    }
+
 
     useImperativeHandle(ref, () => {
         return {
@@ -35,6 +43,13 @@ function Confirmation(props, ref) {
                 if (capchaInput === capcha) {
                     //match
                     setValid(true);
+                    let otp = initOtp();
+                    let raw = {
+                        "otp": otp,
+                        "email": user.Email
+                    }
+                    dispatch(setOtp(otp));
+                    dispatch(sendOtp(raw));
                     return false; //Không lỗi
                 }
                 // not match
@@ -145,7 +160,7 @@ function Confirmation(props, ref) {
                         Email nhận mã OTP
                     </span>
                     <div className="col-start-2 row-start-2 col-span-2 bg-white rounded-[10px] py-2 pl-3 pr-10 w-full">
-                        <span className="font-museo-slab-100 text-xl text-[#7AC014]">{userData.email}</span>
+                        <span className="font-museo-slab-100 text-xl text-[#7AC014]">{user.Email}</span>
                     </div>
 
                     <span className="col-start-1 row-start-3 text-[#A5ACAE] text-xl  self-center ">Mã kiểm tra</span>

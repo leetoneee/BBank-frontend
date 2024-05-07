@@ -1,7 +1,6 @@
 import Sidebar from "../components/Sidebar/Sidebar";
 import NavPage from "../routes/routes";
 import { Outlet } from "react-router-dom";
-
 function MainLayout() {
     return (
         <>

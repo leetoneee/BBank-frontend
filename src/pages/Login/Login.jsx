@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Loading, spinner } from "../../components/Loading/Loading";
 import formatDateLogin from '../../utils/formatDateAndTime';
-import { setLastLoginTime } from "../../redux/authentication/authSlice";
+import { setLastLoginTime, setIsLoginSuccess } from "../../redux/authentication/authSlice";
 import { loginUser as login } from "../../redux/authentication/authSlice";
+import { fetchAllAccountById } from '../../redux/customer/customerSlice';
+import { setUserId, setTen } from "../../redux/user/userSlice";
 import PopupNotice from "../../components/Popup/PopupNotice";
 
 function Login() {
@@ -28,6 +30,7 @@ function Login() {
   const [index, setIndex] = useState(0);
 
   const isLoginSuccess = useSelector((state) => state.auth.isLoginSuccess);
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -110,21 +113,38 @@ function Login() {
       // handle error
       return;
     }
+  };
 
-    if (isLoginSuccess) {
-      // login success
-      const currentTime = formatDateLogin(new Date());
-      dispatch(setLastLoginTime(currentTime));
-
-      await spinner(1000);
-      navigate(`/${username}/home`, { replace: true });
-      return;
+  const dispatchFetchAllAccount = () => {
+    let raw = {
+      "MaKhachHang": user.MaNguoiDung,
     }
 
-    // login fail
-    refreshString();
-    setIsShowPopup(true);
-  };
+    dispatch(fetchAllAccountById(raw));
+  }
+
+  useEffect(() => {
+    const handleSpinner = async () => {
+      if (isLoginSuccess === true) {
+        // Navigate to Home page
+        const currentTime = formatDateLogin(new Date());
+        dispatch(setLastLoginTime(currentTime));
+        dispatchFetchAllAccount();
+        dispatch(setTen(user.HoTen));
+        dispatch(setUserId(user.MaNguoiDung));
+        await spinner(2000);
+        navigate(`/${username}/home`, { replace: true });
+      }
+      if (isLoginSuccess === false) {
+        refreshString();
+        dispatch(setIsLoginSuccess(''));
+        setIsShowPopup(true);
+      }
+    };
+
+    handleSpinner();
+  }, [isLoginSuccess]);
+
 
   return (
     <div className="relative">
@@ -239,7 +259,7 @@ function Login() {
                 Capcha
               </label>
 
-              <h1 className="2xl:text-[30px] 2xl:left-[180px] 2xl:bottom-[12px] 2xl:ml-[20px] absolute font-aubrey text-[#9553FF] text-center ">{capcha}</h1>
+              <h1 className="2xl:text-[30px] 2xl:left-[180px] 2xl:bottom-[12px] 2xl:ml-[20px] absolute font-aubrey text-[#9553FF] text-center select-none">{capcha}</h1>
 
               <button className="2xl:bottom-[15px] 2xl:right-[36px] absolute"
                 onClick={() => refreshString()}>

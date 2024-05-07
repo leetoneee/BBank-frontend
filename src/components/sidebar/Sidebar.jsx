@@ -8,6 +8,12 @@ import { Tooltip } from '../Tooltip/Tooltip';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/authentication/authSlice';
+import PopupConfirm from '../Popup/PopupConfirm';
+import { useState } from 'react';
+import { reset as resetUser } from '../../redux/user/userSlice';
+import { reset as resetCustomer } from '../../redux/customer/customerSlice';
+import { reset as resetTransfer } from '../../redux/customer/transfer/transferSlice';
+
 const navigation = [
     { name: 'Home', href: 'home', icon: homeIcon, tooltip: 'Trang chủ', current: true },
     { name: 'Utilities', href: 'utilities', icon: tienichIcon, tooltip: 'Tiện ích', current: false },
@@ -22,12 +28,14 @@ const Sidebar = () => {
     const activeLink = 'drop-shadow-lg transition-colors duration-200 rounded-[20px] w-16 h-16 p-4 hover:bg-[#83C46C] bg-[#00381A] group relative flex justify-center';
     const normalLink = 'drop-shadow-lg transition-colors duration-200 rounded-[20px] w-16 h-16 p-4 hover:bg-[#83C46C] group relative flex justify-center';
 
-    const handleLogout = async () => {
-        if (window.confirm('Are you sure you want to log out?')) {
-            dispatch(logout());
-            navigate('/login', { replace: true });
-            alert('You have been logged out');
-        }
+    const [isShowPopup, setIsShowPopup] = useState(false);
+
+    const handleLogout = () => {
+        dispatch(resetUser());
+        dispatch(resetCustomer());
+        dispatch(resetTransfer());
+        dispatch(logout());
+        navigate('/login', { replace: true });
     }
 
 
@@ -78,13 +86,15 @@ const Sidebar = () => {
                             })
                         }
                         <Tooltip position='top' content='Thoát'>
-                            <button className={normalLink} onClick={() => handleLogout()}>
+                            <button className={normalLink} onClick={() => setIsShowPopup(true)}>
                                 <img src={exitIcon} alt="" />
                             </button>
                         </Tooltip>
                     </div>
                 </div>
             </div >
+            {isShowPopup &&
+                <PopupConfirm showPopup={isShowPopup} setShowPopup={setIsShowPopup} handleClickComfirm={handleLogout} content='Bạn có chắc chắn muốn thoát khỏi trang này không?' />}
         </div >
     )
 }

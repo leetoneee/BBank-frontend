@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const initialState = {
     user: "",
-    isLoginSuccess: false,
+    isLoginSuccess: '',
     lastLoginTime: "",
     isLoading: false,
     isError: false,
@@ -24,6 +24,9 @@ export const authSlice = createSlice({
     reducers: {
         setLastLoginTime: (state, action) => {
             state.lastLoginTime = action.payload;
+        },
+        setIsLoginSuccess: (state, action) => {
+            state.isLoginSuccess = action.payload;
         },
         logout: () => initialState,
     },
@@ -53,7 +56,7 @@ export const authSlice = createSlice({
     }
 })
 
-export const { setLastLoginTime, logout } = authSlice.actions
+export const { setLastLoginTime, setIsLoginSuccess, logout } = authSlice.actions
 
 export default authSlice.reducer
 

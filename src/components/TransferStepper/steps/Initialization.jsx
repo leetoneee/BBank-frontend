@@ -10,16 +10,21 @@ import PopupNotice from "../../Popup/PopupNotice";
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();
-    const userData = useSelector((state) => state.user.userData);
+    const userId = useSelector((state) => state.user.userId);
+    const ten = useSelector((state) => state.user.ten);
+
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
     const TaiKhoanDich = useSelector((state) => state.transfer.TaiKhoanDich);
     const SoTien = useSelector((state) => state.transfer.SoTien);
     const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
+
     const isExist = useSelector((state) => state.checkAccount.isExist);
 
     const initNoiDung = () => {
-        return `${(userData.first_name + ' ' + userData.last_name).toUpperCase()} chuyen tien`;
+        let noidung = ten.toUpperCase();
+        noidung += ' chuyen tien'
+        return noidung;
     }
 
     const [soTKNhan, setSoTKNhan] = useState(TaiKhoanDich);
@@ -31,7 +36,7 @@ function Initialization(props, ref) {
 
     useEffect(() => {
         let raw = {
-            "MaKhachHang": 30
+            "MaKhachHang": userId
         };
 
         dispatch(fetchAllAccountById(raw));
@@ -42,7 +47,7 @@ function Initialization(props, ref) {
             setnoiDung(initNoiDung());
             dispatch(setNoiDung(initNoiDung()));
         }
-    }, [userData]);
+    }, [ten]);
 
     const checkAccount = (soTK) => {
         let raw = {
