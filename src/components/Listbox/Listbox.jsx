@@ -10,7 +10,7 @@ export default function DropdownListbox() {
 
     const listAccounts = useSelector((state) => state.customer.listAccounts);
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-
+    const userId = useSelector((state) => state.user.userId)
     // if (TaiKhoanNguon === "" && listAccounts !== "") {
     //     setSelected(listAccounts[0]);
     //     dispatch(setTaiKhoanNguon(listAccounts[0]));
@@ -32,7 +32,7 @@ export default function DropdownListbox() {
 
     useEffect(() => {
         let raw = {
-            "MaKhachHang": 30
+            "MaKhachHang": userId
         };
 
         dispatch(fetchAllAccountById(raw));
