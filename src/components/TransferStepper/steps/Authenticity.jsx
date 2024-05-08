@@ -6,6 +6,7 @@ import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import { classNames } from "../../classNames/classNames";
 import { transferMoney } from "../../../redux/customer/transfer/transferSlice";
 import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
+import { LoadingFlex as Loading } from "../../Loading/Loading";
 
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function Authenticity(props, ref) {
     const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const user = useSelector((state) => state.auth.user);
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
+    const isLoading = useSelector((state) => state.transfer.isLoading)
 
     const otp = useSelector((state) => state.sendOtp.otp);
     const [otpInput, setOtpInput] = useState();
@@ -183,6 +185,9 @@ function Authenticity(props, ref) {
                     </div>
                 </div>
             </div>
+            {
+                isLoading && <Loading />
+            }
         </div>
     )
 }

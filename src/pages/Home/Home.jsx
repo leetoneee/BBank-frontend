@@ -45,7 +45,7 @@ const Home = () => {
                 </div>
                 <div className="col-end-12 col-span-9 flex flex-col">
                     {/* Header */}
-                    <div className="sticky top-0 z-40">
+                    <div className="sticky top-0 z-30">
                         <Header />
                     </div>
 
@@ -112,9 +112,8 @@ const Home = () => {
                         </div>
 
                         {/* Mục tính dụng */}
-                        <div className="bg-[#40494C]/[70%] h-auto z-10">
+                        {/* <div className="bg-[#40494C]/[70%] h-auto z-10">
                             <div className="mt-24">
-                                {/* Title */}
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước." >
                                     <div className=" inline-flex">
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2">
@@ -128,7 +127,7 @@ const Home = () => {
                                     </div>
                                 </LongTooltip>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Mục Tiết Kiệm */}
                         <div className="bg-[#40494C]/[70%] h-auto z-10">

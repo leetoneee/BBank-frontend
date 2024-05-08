@@ -2,10 +2,10 @@
 import { Routes, Route } from 'react-router-dom';
 
 import Home from '../pages/Home/Home'
-import Login from '../pages/Login/Login';
 import Transfer from '../pages/Transfer/Transfer';
 import FastFeatures from '../pages/FastFeatures/FastFeatures';
-function NavPage() {
+
+function CustomerRoutes() {
 
     return (
         <Routes>
@@ -19,4 +19,4 @@ function NavPage() {
     )
 }
 
-export default NavPage;
+export default CustomerRoutes;

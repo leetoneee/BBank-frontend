@@ -4,6 +4,7 @@ import axios from 'axios'
 const initialState = {
     userId: '',
     ten: '',
+    maNhom: '',
     currentAccount: '',
     isLoading: false,
     isError: false,
@@ -26,6 +27,9 @@ export const userSlice = createSlice({
         },
         setTen: (state, action) => {
             state.ten = action.payload;
+        },
+        setMaNhom: (state, action) => {
+            state.maNhom = action.payload;
         },
         setCurrentAccount: (state, action) => {
             state.currentAccount = action.payload;
@@ -51,6 +55,6 @@ export const userSlice = createSlice({
     }
 })
 
-export const { setUserId, setTen, setCurrentAccount, reset } = userSlice.actions
+export const { setUserId, setTen, setMaNhom, setCurrentAccount, reset } = userSlice.actions
 
 export default userSlice.reducer
