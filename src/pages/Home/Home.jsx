@@ -84,14 +84,14 @@ const Home = () => {
                                 {/* Title */}
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước.">
                                     <div className=" inline-flex">
-                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2">
+                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2" >
                                             <span className="font-museo-slab-100  ">Chuyển tiền</span>
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
                                     </div>
                                 </LongTooltip>
 
@@ -135,7 +135,7 @@ const Home = () => {
                                 {/* Title */}
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước.">
                                     <div className=" inline-flex">
-                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2">
+                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2" onClick={() => navigate('saving')}>
                                             <span className="font-museo-slab-100  ">Tiết kiệm</span>
                                         </div>
 
