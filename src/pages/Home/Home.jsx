@@ -29,7 +29,7 @@ const Home = () => {
 
     const chuyenTienGroup = [
         { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer' },
-        { icon: ic_ChuyenTienMat, content: 'Chuyển tiền mặt', href: '' },
+        { icon: ic_ChuyenTienMat, content: 'Chuyển tiền mặt', href: 'cashtransfer' },
     ]
 
     const tietkiemGroup = [
@@ -164,11 +164,11 @@ const Home = () => {
                         </div>
                     </div>
 
+
                 </div>
             </div>
             <Outlet />
         </>
-
     )
 }
 

@@ -1,8 +1,10 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const initialState = {
-    userData: {},
+    userId: '',
+    ten: '',
+    currentAccount: '',
     isLoading: false,
     isError: false,
 }
@@ -19,7 +21,16 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-
+        setUserId: (state, action) => {
+            state.userId = action.payload;
+        },
+        setTen: (state, action) => {
+            state.ten = action.payload;
+        },
+        setCurrentAccount: (state, action) => {
+            state.currentAccount = action.payload;
+        },
+        reset: () => initialState,
     },
     extraReducers: (builder) => {
         builder
@@ -28,7 +39,9 @@ export const userSlice = createSlice({
                 state.isError = false;
             })
             .addCase(fetchUserData.fulfilled, (state, action) => {
-                state.userData = action.payload.data;
+                // state.userData = action.payload.data;
+                state.userId = action.payload.data.id;
+                state.ten = action.payload.data.last_name;
                 state.isLoading = false;
                 state.isError = false;
             })
@@ -39,5 +52,7 @@ export const userSlice = createSlice({
             })
     }
 })
+
+export const { setUserId, setTen, setCurrentAccount, reset } = userSlice.actions
 
 export default userSlice.reducer

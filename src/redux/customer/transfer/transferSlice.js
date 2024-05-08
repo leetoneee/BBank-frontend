@@ -8,6 +8,7 @@ const initialState = {
     NoiDung: "",
     HinhThuc: "Người chuyển trả",
     GiaoDich: "",
+    isTransactionSuccess: '',
     isLoading: false,
     isError: false
 }
@@ -49,10 +50,12 @@ export const transferSlice = createSlice({
             })
             .addCase(transferMoney.fulfilled, (state, action) => {
                 state.GiaoDich = action.payload.transaction;
+                state.isTransactionSuccess = true;
                 state.isLoading = false;
                 state.isError = false;
             })
             .addCase(transferMoney.rejected, (state, action) => {
+                state.isTransactionSuccess = false;
                 state.isLoading = false;
                 state.isError = true;
                 console.log(action.error.message);

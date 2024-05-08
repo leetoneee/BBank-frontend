@@ -2,9 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import readMoney from '../../../utils/n2vi';
 import formatToVND from "../../../utils/formatToVND";
 import PopupNotice from "../../Popup/PopupNotice";
-import { useState, forwardRef, useImperativeHandle } from "react";
+import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import { classNames } from "../../classNames/classNames";
-import { transferMoney } from "../../../redux/customer/cashtransfer/cashtransferSlice";
+import { cashtransferMoney } from "../../../redux/customer/cashtransfer/cashtransferSlice";
+import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
@@ -18,11 +19,13 @@ function Authenticity(props, ref) {
     const SoTien = useSelector((state) => state.cashtransfer.SoTien);
     const HinhThuc = useSelector((state) => state.cashtransfer.HinhThuc);
     const NoiDung = useSelector((state) => state.cashtransfer.NoiDung);
-    const userData = useSelector((state) => state.user.userData);
+    const user = useSelector((state) => state.auth.user);
 
-    const [otp, setOtp] = useState();
+    const otp = useSelector((state) => state.sendOtp.otp);
+    const [otpInput, setOtpInput] = useState();
     const [valid, setValid] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
+    const [isShowPopupWaiting, setIsShowPopupWaiting] = useState(false);
 
     const createTransaction = () => {
         const raw = {
@@ -33,7 +36,7 @@ function Authenticity(props, ref) {
             "MaLoaiGD": 3
         };
 
-        return dispatch(transferMoney(raw));
+        return dispatch(cashtransferMoney(raw));
     }
 
     useImperativeHandle(ref, () => {
@@ -42,7 +45,7 @@ function Authenticity(props, ref) {
                 setValid(false)
                 setIsShowPopup(false);
 
-                if (otp === "1") {
+                if (Number(otpInput) === otp) {
                     //match
                     setValid(true);
                     return false; //Không lỗi
@@ -55,24 +58,51 @@ function Authenticity(props, ref) {
             },
             createTransaction
         }
-    }, [otp, valid])
+    }, [otpInput, valid])
 
+    const otpCooldown = useRef(false);
+
+    const handleSendNewOtp = () => {
+
+        if (otpCooldown.current) {
+            setIsShowPopupWaiting(true);
+            return;
+        }
+        // Prevent sending new OTP during cooldown
+
+        otpCooldown.current = setTimeout(() => {
+            otpCooldown.current = false; // Reset cooldown timer
+        }, 60000); // 60-second cooldown
+
+        const otp = Math.floor(Math.random() * 1000000) // Generate 6-digit OTP
+        const raw = {
+            "otp": otp,
+            "email": user.Email
+        };
+
+        dispatch(setOtp(otp));
+        dispatch(sendOtp(raw));
+    };
 
     return (
         <div className="flex flex-col gap-[50px]">
             {/* Nhập OTP */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col mx-auto gap-2">
-                    <span className="self-center text-[#A5ACAE] text-xl">Quý khách vui lòng nhập mã OTP đã được gửi về Email (Nhập số 1)</span>
-                    <span className="self-center text-[#7AC014] text-xl">{userData.email}</span>
+                    <span className="self-center text-[#A5ACAE] text-xl">Quý khách vui lòng nhập mã OTP đã được gửi về Email</span>
+                    <span className="self-center text-[#7AC014] text-xl">{user.email}</span>
                     <input type="number"
                         className="text-xl text-center py-2 text-[#7AC014] bg-white rounded-[10px] mx-16 "
                         placeholder="Nhập mã OTP"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)} />
+                        value={otpInput}
+                        onChange={(e) => setOtpInput(e.target.value)} />
+                    <span className="self-center text-[#A5ACAE] text-xl mt-1">Bạn không nhận được mã? <span className="self-center text-[#7AC014] text-xl hover:underline hover:cursor-pointer" onClick={() => handleSendNewOtp()}>Gửi lại</span></span>
+                
                 </div>
                 {isShowPopup &&
                     <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Mã OTP không chính xác. Quý khách vui lòng kiểm tra lại.' />}
+                {isShowPopupWaiting &&
+                    <PopupNotice showPopup={isShowPopupWaiting} setShowPopup={setIsShowPopupWaiting} content='Vui lòng đợi 60 giây trước khi yêu cầu mã OTP mới.' />}
             </div>
 
             {/* Tài khoản nguồn */}

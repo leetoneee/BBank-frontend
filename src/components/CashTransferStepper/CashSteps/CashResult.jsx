@@ -11,7 +11,7 @@ function Result(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const GiaoDich = useSelector((state) => state.transfer.GiaoDich);
+    const GiaoDich = useSelector((state) => state.cashtransfer.GiaoDich);
 
     const handleNavigateHome = () => {
         dispatch(resetTransfer());
@@ -50,6 +50,7 @@ function Result(props) {
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                            TÊN NGƯỜI THỤ HƯỞNG
                         </span>
                     </div>
 
@@ -57,10 +58,47 @@ function Result(props) {
 
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Tài khoản đích
+                            Địa chỉ người thụ hưởng
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {/* {TaiKhoanDich.SoTaiKhoan} */}
+                            Địa chỉ
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Giấy tờ tùy thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {/* {TaiKhoanDich.SoTaiKhoan} */}
+                            Giấy tờ tùy thân
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số giấy tờ tùy thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {/* {TaiKhoanDich.SoTaiKhoan} */}
+                            Số giấy tờ tùy thân
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày cấp
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {/* {TaiKhoanDich.SoTaiKhoan} */}
+                            Ngày cấp
                         </span>
                     </div>
 

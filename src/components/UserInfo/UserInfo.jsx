@@ -3,18 +3,20 @@ import logo from '../../assets/icons/logo.svg';
 import avatar from '../../assets/icons/avatar.svg';
 import phone from '../../assets/icons/phone.svg';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData } from "../../redux/user/userSlice";
+import { setCurrentAccount } from "../../redux/user/userSlice";
 import formatToVND from "../../utils/formatToVND";
 
 const UserInfo = () => {
     const dispatch = useDispatch();
 
     const lastLoginTime = useSelector((state) => state.auth.lastLoginTime);
-    const userData = useSelector((state) => state.user.userData);
+    const listAccounts = useSelector((state) => state.customer.listAccounts);
+    const currentAccount = useSelector((state) => state.user.currentAccount);
+    const ten = useSelector((state) => state.user.ten);
     const [showBalance, setShowBalance] = useState(false);
 
     useEffect(() => {
-        dispatch(fetchUserData());
+        dispatch(setCurrentAccount(listAccounts[0]));
     }, [])
 
     return (
@@ -30,7 +32,7 @@ const UserInfo = () => {
             <div className="w-full flex flex-col text-center rounded-[20px] bg-gradient-to-b from-[#2C4044]/[50%] to-[#2C4044]">
                 <img src={avatar} alt="" className="h-16 mt-4" />
                 <span className="text-white mt-2 select-none">Xin chào</span>
-                <span className="text-white mt-[2px] font-bold text-lg select-none">{(userData.first_name + ' ' + userData.last_name).toUpperCase()}</span>
+                <span className="text-white mt-[2px] font-bold text-lg select-none">{ten.toUpperCase()}</span>
                 <span className="text-white mt-6 text-[10px] select-none  ">Lần đăng nhập gần nhất</span>
                 <span className="text-white mb-[19px] text-[10px] select-none">{lastLoginTime}</span>
             </div>
@@ -43,7 +45,7 @@ const UserInfo = () => {
                 </div>
                 <span className="text-white mt-[18px] text-[13px] font-normal">Tài khoản thanh toán</span>
                 <div className="flex flex-row justify-between">
-                    <span className="text-white mt-[5px] text-[17px] font-bold">1045414113</span>
+                    <span className="text-white mt-[5px] text-[17px] font-bold">{!currentAccount ? "" : currentAccount.SoTaiKhoan}</span>
                     <div className="text-[#62A110] hover:bg-[#62A110] hover:text-white bg-[#4E5E62] rounded-full p-[2px] self-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -62,7 +64,7 @@ const UserInfo = () => {
                                         <path fillRule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clipRule="evenodd" />
                                     </svg>
                                 </div>
-                                <span className="text-white ml-2 self-center ">{formatToVND(userData.id)}</span>
+                                <span className="text-white ml-2 self-center ">{!currentAccount ? "" : formatToVND(currentAccount.SoDu)}</span>
                             </div>
                         )
                         : (

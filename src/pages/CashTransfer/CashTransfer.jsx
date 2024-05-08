@@ -8,7 +8,7 @@ import Authenticity from "../../components/CashTransferStepper/CashSteps/CashAut
 import Reject from "../../components/CashTransferStepper/CashSteps/CashReject";
 import Result from "../../components/CashTransferStepper/CashSteps/CashResult";
 import uitPattern from '../../assets/icons/uitPattern.svg'
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -18,6 +18,8 @@ const CashTransfer = () => {
     const confirmationRef = useRef();
     const authenticityRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
+
+    const isTransactionSuccess = useSelector((state) => state.transfer.isTransactionSuccess)
 
     const isError = useSelector((state) => state.transfer.isError)
 
@@ -83,13 +85,7 @@ const CashTransfer = () => {
                 // handle error
                 return;
             }
-            if (isError) {
-                setCurrentStep(3);
-                return;
-            } else {
-                setCurrentStep(4);
-                return;
-            }
+            return;
         }
         direction === "next" ? newStep++ : newStep--;
 
@@ -97,6 +93,17 @@ const CashTransfer = () => {
         //check if steps are within bounds
         newStep >= 0 && newStep <= steps.length && setCurrentStep(newStep);
     }
+
+    useEffect(() => {
+        if (isTransactionSuccess === true) {
+            setCurrentStep(4);
+            return;
+        }
+        if (isTransactionSuccess === false) {
+            setCurrentStep(3);
+            return;
+        }
+    }, [isTransactionSuccess])
 
     return (
         <div className="grid grid-cols-11 grid-flow-col-dense ">

@@ -6,7 +6,6 @@ import Login from '../pages/Login/Login';
 import Transfer from '../pages/Transfer/Transfer';
 import CashTransfer from '../pages/CashTransfer/CashTransfer';
 import FastFeatures from '../pages/FastFeatures/FastFeatures';
-
 function NavPage() {
 
     return (

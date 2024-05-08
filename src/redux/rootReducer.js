@@ -6,6 +6,7 @@ import counterReducer from './selectBtn/selectBtnSlice';
 import transferReducer from "./customer/transfer/transferSlice";
 import cashtransferReducer from "./customer/cashtransfer/cashtransferSlice";
 import checkAccountReducer from './system/checkAccountExist/checkExistSlice';
+import sendOtpReducer from "./system/sendOtp/sendOtpSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     counter: counterReducer,
     transfer: transferReducer,
     checkAccount: checkAccountReducer,
+    sendOtp: sendOtpReducer,
     cashtransfer: cashtransferReducer,
 });
 

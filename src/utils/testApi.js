@@ -1,16 +1,16 @@
 import axios from "axios";
 
-const raw = {
-    "MaKhachHang": 30
-};
+//* get all account by MaKhachHang
+// const raw = {
+//     "MaKhachHang": 1
+// };
 
-const callAPI = async (requestOptions) => {
-    let res = await axios.post("http://localhost:3005/api/v1/customer/account/get-all", requestOptions)
-    console.log(res.data)
-    return res.data
-}
+// fetch("http://localhost:3005/api/v1/customer/account/get-all", requestOptions)
+//     .then((response) => response.text())
+//     .then((result) => console.log(result))
+//     .catch((error) => console.error(error));
 
-callAPI(raw);
+//* check account exist
 
 // const raw = {
 //     "SoTaiKhoan": "11125639878"
@@ -23,6 +23,8 @@ callAPI(raw);
 // }
 
 // callAPI(raw);
+
+//* create transaction
 
 // const raw = {
 //     "SoTien": 20000,
@@ -39,5 +41,47 @@ callAPI(raw);
 // }
 
 // callAPI(raw);
+
+//* login
+
+// const raw = {
+//     "username": "taolaletoan",
+//     "password": "123456"
+// };
+
+// const callAPI = async (requestOptions) => {
+//     let res = await axios.post("http://localhost:3005/api/v1/login", requestOptions)
+//     console.log(res.data)
+//     return res.data
+// }
+
+// callAPI(raw);
+
+//* send OTP
+
+// const raw = {
+//     "otp": "13123",
+//     "email": "leetone7442@gmail.com"
+// }
+
+// const callAPI = async (requestOptions) => {
+//     let res = await axios.post("http://localhost:3005/api/v1/system/otp/send", requestOptions)
+//     console.log(res.data)
+//     return res.data
+// }
+
+// callAPI(raw);
+
+// import crypto from 'crypto';
+
+// // Secure random number generator (e.g., using crypto-random)
+// function generateSecureRandomNumber(digits) {
+//     const randomBytes = crypto.randomBytes(digits);
+//     return parseInt(randomBytes.toString('hex'), 16);
+// }
+
+// const otp = generateSecureRandomNumber(6); // Generate 6-digit OTP
+// console.log("🚀 ~ otp:", otp)
+
 
 

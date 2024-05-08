@@ -16,7 +16,8 @@ const GiayTo = [
 
 function CashInitialization(props, ref) {
     const dispatch = useDispatch();
-    const userData = useSelector((state) => state.user.userData);
+    const userId = useSelector((state) => state.user.userId);
+    const ten = useSelector((state) => state.user.ten);
     const TaiKhoanNguon = useSelector((state) => state.cashtransfer.TaiKhoanNguon);
     const TenTH = useSelector((state) => state.cashtransfer.TenTH);
     const DiaChiTH = useSelector((state) => state.cashtransfer.DiaChiTH);
@@ -29,7 +30,9 @@ function CashInitialization(props, ref) {
     const isExist = useSelector((state) => state.checkAccount.isExist);
 
     const initNoiDung = () => {
-        return `${(userData.first_name + ' ' + userData.last_name).toUpperCase()} chuyen tien`;
+        let noidung = ten.toUpperCase();
+        noidung += ' chuyen tien'
+        return noidung;
     }
 
     const [soTien, setsoTien] = useState(SoTien);
@@ -51,7 +54,7 @@ function CashInitialization(props, ref) {
 
     useEffect(() => {
         let raw = {
-            "MaKhachHang": 30
+            "MaKhachHang": userId
         };
 
         dispatch(fetchAllAccountById(raw));
@@ -62,7 +65,7 @@ function CashInitialization(props, ref) {
             setnoiDung(initNoiDung());
             dispatch(setNoiDung(initNoiDung()));
         }
-    }, [userData]);
+    }, [ten]);
 
     const checkAccount = (soTK) => {
         let raw = {
@@ -151,7 +154,8 @@ function CashInitialization(props, ref) {
                     </div>
                     {/* Số dư */}
                     <div className="col-start-2 row-start-2 col-span-2 self-center">
-                        {TaiKhoanNguon !== "" && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon.SoDu)}</span>}                    </div>
+                        {TaiKhoanNguon !== "" && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon.SoDu)}</span>}
+                    </div>
                 </div>
             </div>
 

@@ -12,12 +12,13 @@ const initialState = {
     NoiDung: "",
     HinhThuc: "Người chuyển trả",
     GiaoDich: "",
+    isTransactionSuccess: '',
     isLoading: false,
     isError: false
 }
 
-export const transferMoney = createAsyncThunk(
-    'customer/transferMoney',
+export const cashtransferMoney = createAsyncThunk(
+    'customer/cashtransferMoney',
     async (requestOptions) => {
         let res = await axios.post("http://localhost:3005/api/v1/customer/account/transfer", requestOptions)
         return res.data;
@@ -59,16 +60,18 @@ export const cashtransferSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(transferMoney.pending, (state, action) => {
+            .addCase(cashtransferMoney.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(transferMoney.fulfilled, (state, action) => {
+            .addCase(cashtransferMoney.fulfilled, (state, action) => {
                 state.GiaoDich = action.payload.transaction;
+                state.isTransactionSuccess = true;
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(transferMoney.rejected, (state, action) => {
+            .addCase(cashtransferMoney.rejected, (state, action) => {
+                state.isTransactionSuccess = false;
                 state.isLoading = false;
                 state.isError = true;
                 console.log(action.error.message);

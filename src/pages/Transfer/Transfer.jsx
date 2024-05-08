@@ -8,7 +8,7 @@ import Authenticity from "../../components/TransferStepper/steps/Authenticity";
 import Reject from "../../components/TransferStepper/steps/Reject";
 import Result from "../../components/TransferStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -19,7 +19,7 @@ const Transfer = () => {
     const authenticityRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
 
-    const isError = useSelector((state) => state.transfer.isError)
+    const isTransactionSuccess = useSelector((state) => state.transfer.isTransactionSuccess)
 
     const handleInitNewTransaction = () => {
         setCurrentStep(0);
@@ -83,13 +83,7 @@ const Transfer = () => {
                 // handle error
                 return;
             }
-            if (isError) {
-                setCurrentStep(3);
-                return;
-            } else {
-                setCurrentStep(4);
-                return;
-            }
+            return;
         }
         direction === "next" ? newStep++ : newStep--;
 
@@ -97,6 +91,17 @@ const Transfer = () => {
         //check if steps are within bounds
         newStep >= 0 && newStep <= steps.length && setCurrentStep(newStep);
     }
+
+    useEffect(() => {
+        if (isTransactionSuccess === true) {
+            setCurrentStep(4);
+            return;
+        }
+        if (isTransactionSuccess === false) {
+            setCurrentStep(3);
+            return;
+        }
+    }, [isTransactionSuccess])
 
     return (
         <div className="grid grid-cols-11 grid-flow-col-dense ">
