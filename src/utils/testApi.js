@@ -87,10 +87,26 @@ import axios from "axios";
 
 //* get saving types
 
-const callAPI = async () => {
-    let res = await axios.get("http://localhost:3005/api/v1/saving-type/get-all")
+// const callAPI = async () => {
+//     let res = await axios.get("http://localhost:3005/api/v1/saving-type/get-all")
+//     console.log(res.data)
+//     return res.data
+// }
+
+// callAPI();
+
+const raw = {
+    "SoTienGui": 3000000,
+    "PhuongThuc": "Lãi nhập gốc",
+    "MaLoaiTietKiem": 3,
+    "MaKhachHang": 40,
+    "SoTK": "11538104417"
+};
+
+
+const callAPI = async (requestOptions) => {
+    let res = await axios.post("http://localhost:3005/api/v1/customer/saving/deposit", requestOptions)
     console.log(res.data)
     return res.data
 }
-
-callAPI();
+callAPI(raw);

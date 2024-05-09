@@ -5,9 +5,9 @@ import PopupNotice from "../../Popup/PopupNotice";
 import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import { classNames } from "../../classNames/classNames";
 import roundInterest from "../../../utils/roundInterest";
-import { transferMoney } from "../../../redux/customer/transfer/transferSlice";
+import { depositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
 import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
-// import { LoadingFlex as Loading } from "../../Loading/Loading";
+import { LoadingFlex as Loading } from "../../Loading/Loading";
 
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
@@ -15,11 +15,12 @@ function Authenticity(props, ref) {
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
     const SoTien = useSelector((state) => state.cDepositSaving.SoTienGui);
     const user = useSelector((state) => state.auth.user);
+    const userId = useSelector((state) => state.user.userId);
     const ten = useSelector((state) => state.user.ten);
     const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
     const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
     const NgayMo = useSelector((state) => state.cDepositSaving.NgayMo);
-    // const isLoading = useSelector((state) => state.cDepositSaving.isLoading)
+    const isLoading = useSelector((state) => state.cDepositSaving.isLoading)
 
     const otp = useSelector((state) => state.sendOtp.otp);
     const [otpInput, setOtpInput] = useState();
@@ -29,14 +30,14 @@ function Authenticity(props, ref) {
 
     const createTransaction = () => {
         const raw = {
-            "SoTien": Number(SoTien),
-            "NoiDung": NoiDung,
-            "SoTKNhan": TaiKhoanDich.SoTaiKhoan,
-            "SoTKRut": TaiKhoanNguon.SoTaiKhoan,
-            "MaLoaiGD": 3
+            "SoTienGui": Number(SoTien),
+            "PhuongThuc": PhuongThuc.name,
+            "MaLoaiTietKiem": KyHan.MaLoaiTietKiem,
+            "MaKhachHang": userId,
+            "SoTK": TaiKhoanNguon.SoTaiKhoan
         };
 
-        return dispatch(transferMoney(raw));
+        return dispatch(depositSaving(raw));
     }
 
     useImperativeHandle(ref, () => {
@@ -117,7 +118,7 @@ function Authenticity(props, ref) {
                 </div>
             </div>
 
-            {/* Tài khoản đich */}
+            {/* Tài khoản mở */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
                     <div className="grid grid-cols-2 grid-rows-1 gap-8">
@@ -211,9 +212,9 @@ function Authenticity(props, ref) {
                     </div>
                 </div>
             </div>
-            {/* {
+            {
                 isLoading && <Loading />
-            } */}
+            }
         </div>
     )
 }

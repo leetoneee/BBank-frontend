@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import { getSavingType } from "../../../redux/getSavingType/savingTypeSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setSoTienGui as setSoTien } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
-import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkExistSlice";
-import PopupNotice from "../../Popup/PopupNotice";
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();

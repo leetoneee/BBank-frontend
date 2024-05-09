@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { API_ROOT_URL } from '../../../services/api'
 import axios from 'axios'
 
 const initialState = {
@@ -8,6 +9,7 @@ const initialState = {
     MaKhachHang: "",
     PhuongThuc: "",
     NgayMo: '',
+    PhieuTietKiem: '',
     isTransactionSuccess: '',
     isLoading: false,
     isError: false
@@ -16,7 +18,7 @@ const initialState = {
 export const depositSaving = createAsyncThunk(
     'customer/depositSaving',
     async (requestOptions) => {
-        let res = await axios.post("http://localhost:3005/api/v1/customer/account/transfer", requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/customer/saving/deposit`, requestOptions)
         return res.data;
     }
 )
@@ -52,7 +54,7 @@ export const customerDepositSavingSlice = createSlice({
                 state.isError = false;
             })
             .addCase(depositSaving.fulfilled, (state, action) => {
-                state.GiaoDich = action.payload.transaction;
+                state.PhieuTietKiem = action.payload.PhieuTietKiem;
                 state.isTransactionSuccess = true;
                 state.isLoading = false;
                 state.isError = false;
