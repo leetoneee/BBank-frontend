@@ -9,8 +9,6 @@ import { reset as resetTransfer } from "../../../redux/customer/transfer/transfe
 import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkExistSlice";
 import React, { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 export function Result(props) {
     const getPageMargins = (marginTop, marginRight, marginBottom, marginLeft) => {
