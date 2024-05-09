@@ -134,7 +134,18 @@ function Login() {
         dispatch(setUserId(user.MaNguoiDung));
         dispatch(setMaNhom(user.MaNhom));
         await spinner(2000);
-        navigate(`/${username}/home`, { replace: true });
+        if (user.MaNhom === 3) {
+          navigate(`/user/home`, { replace: true });
+          return;
+        }
+        if (user.MaNhom === 2) {
+          navigate(`/employee/home`, { replace: true });
+          return;
+        }
+        if (user.MaNhom === 1) {
+          navigate(`/admin/home`, { replace: true });
+          return;
+        }
       }
       if (isLoginSuccess === false) {
         refreshString();

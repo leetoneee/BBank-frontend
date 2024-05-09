@@ -8,6 +8,9 @@ import { IoReload } from "react-icons/io5";
 import { classNames } from "../../classNames/classNames";
 import { setOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
+import { formatDateSaving } from "../../../utils/formatDateAndTime";
+import roundInterest from "../../../utils/roundInterest";
+import { setNgayMo } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
 
 const people = [
     { name: 'Xác thực qua Email' },
@@ -17,18 +20,21 @@ function Confirmation(props, ref) {
     const dispatch = useDispatch();
 
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const SoTien = useSelector((state) => state.transfer.SoTien);
-    const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
-    const NoiDung = useSelector((state) => state.transfer.NoiDung);
+    const SoTien = useSelector((state) => state.cDepositSaving.SoTienGui);
     const user = useSelector((state) => state.auth.user);
-    const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
+    const ten = useSelector((state) => state.user.ten);
+    const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
+    const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
 
     const randomString = Math.random().toString(36).slice(8);
+
     const [otpEmail, setOtpEmail] = useState('');
     const [capcha, setCapcha] = useState(randomString);
     const [capchaInput, setCapchaInput] = useState('');
     const [valid, setValid] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
+
+    const date = new Date();
 
     const refreshString = () => {
         setCapcha(Math.random().toString(36).slice(8));
@@ -55,6 +61,7 @@ function Confirmation(props, ref) {
                     }
                     dispatch(setOtp(otp));
                     dispatch(sendOtp(raw));
+                    dispatch(setNgayMo(formatDateSaving(date)));
                     return false; //Không lỗi
                 }
                 // not match
@@ -83,21 +90,56 @@ function Confirmation(props, ref) {
             {/* Tài khoản đich */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Tài khoản đích
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                            {TaiKhoanDich.SoTaiKhoan}
-                        </span>
-                    </div>
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Tên người thụ hưởng
+                            Tên người mở tài khoản tiết kiệm
                         </span>
                         <span className="col-start-2 col-span-2 text-red-600  text-xl font-bold  self-center text-right ">
-                            {(TaiKhoanDich.HoTen).toUpperCase()}
+                            {ten.toUpperCase()}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Địa chỉ người mở
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {user.DiaChi}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Giấy tờ tuỳ thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            Căng cước công dân
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số giấy tờ tuỳ thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {user.CCCD}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày mở phiếu tiết kiệm
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {formatDateSaving(date)}
                         </span>
                     </div>
                 </div>
@@ -120,10 +162,10 @@ function Confirmation(props, ref) {
 
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Số tiền phí
+                            Kỳ hạn gửi
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {formatToVND(0)}
+                            {KyHan.GhiChu} – {roundInterest(KyHan.LaiSuat * 100)}%/năm
                         </span>
                     </div>
 
@@ -131,21 +173,10 @@ function Confirmation(props, ref) {
 
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Phí giao dịch
+                            Phương thức trả lãi
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {HinhThuc}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Nội dung
-                        </span>
-                        <span className={classNames("col-start-2 col-span-2 text-white text-xl  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')}>
-                            {NoiDung}
+                            {PhuongThuc.name}
                         </span>
                     </div>
                 </div>

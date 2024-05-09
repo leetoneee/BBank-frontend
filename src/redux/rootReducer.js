@@ -6,6 +6,8 @@ import counterReducer from './selectBtn/selectBtnSlice';
 import transferReducer from "./customer/transfer/transferSlice";
 import checkAccountReducer from './system/checkAccountExist/checkExistSlice';
 import sendOtpReducer from "./system/sendOtp/sendOtpSlice";
+import savingTypeReducer from "./getSavingType/savingTypeSlice";
+import customerDepositSavingReducer from "./customer/depositSaving/customerDepositSavingSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
     transfer: transferReducer,
     checkAccount: checkAccountReducer,
     sendOtp: sendOtpReducer,
+    savingTypes: savingTypeReducer,
+    cDepositSaving: customerDepositSavingReducer,
 });
 
 export default rootReducer;

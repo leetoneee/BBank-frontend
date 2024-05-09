@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { API_ROOT_URL } from '../../../services/api'
 import axios from 'axios'
 
 const initialState = {
@@ -11,7 +12,7 @@ const initialState = {
 export const checkAccountExist = createAsyncThunk(
     'system/checkAccountExist',
     async (requestOptions) => {
-        let res = await axios.post("http://localhost:3005/api/v1/system/account/check-exist", requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/system/account/check-exist`, requestOptions)
         return res.data;
     }
 )

@@ -85,3 +85,12 @@ import axios from "axios";
 
 
 
+//* get saving types
+
+const callAPI = async () => {
+    let res = await axios.get("http://localhost:3005/api/v1/saving-type/get-all")
+    console.log(res.data)
+    return res.data
+}
+
+callAPI();

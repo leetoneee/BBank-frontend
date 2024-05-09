@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { API_ROOT_URL } from '../../../services/api'
 import axios from 'axios'
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
 export const transferMoney = createAsyncThunk(
     'customer/transferMoney',
     async (requestOptions) => {
-        let res = await axios.post("http://localhost:3005/api/v1/customer/account/transfer", requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/customer/account/transfer`, requestOptions)
         return res.data;
     }
 )

@@ -3,37 +3,37 @@ import { API_ROOT_URL } from '../../services/api'
 import axios from 'axios'
 
 const initialState = {
-    listAccounts: "",
+    listSavingTypes: '',
     isLoading: false,
     isError: false,
 }
 
-export const fetchAllAccountById = createAsyncThunk(
-    'customer/fetchAllAccountById',
-    async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/customer/account/get-all`, requestOptions)
+export const getSavingType = createAsyncThunk(
+    'user/getSavingType',
+    async () => {
+        let res = await axios.get(`${API_ROOT_URL}/saving-type/get-all`)
         return res.data;
     }
 )
 
-export const customerSlice = createSlice({
-    name: 'customer',
+export const savingTypeSlice = createSlice({
+    name: 'user',
     initialState,
     reducers: {
         reset: () => initialState,
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchAllAccountById.pending, (state, action) => {
+            .addCase(getSavingType.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(fetchAllAccountById.fulfilled, (state, action) => {
-                state.listAccounts = action.payload.accounts;
+            .addCase(getSavingType.fulfilled, (state, action) => {
+                state.listSavingTypes = action.payload.savingTypes;
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(fetchAllAccountById.rejected, (state, action) => {
+            .addCase(getSavingType.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 console.log(action.error.message);
@@ -41,6 +41,6 @@ export const customerSlice = createSlice({
     }
 })
 
-export const { reset } = customerSlice.actions
+export const { reset } = savingTypeSlice.actions
 
-export default customerSlice.reducer
+export default savingTypeSlice.reducer

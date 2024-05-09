@@ -133,9 +133,10 @@ const Home = () => {
                         <div className="bg-[#40494C]/[70%] h-auto z-10">
                             <div className="mt-24">
                                 {/* Title */}
-                                <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước.">
+                                <LongTooltip position="right" content="Lãi suất cao, thời gian gửi linh hoạt, bảo mật tuyệt đối, cơ hội tham gia nhiều chương trình khuyến mãi hấp dẫn, miễn phí quản lý tài khoản.">
                                     <div className=" inline-flex">
-                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2" onClick={() => navigate('saving')}>
+                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2"
+                                            onClick={() => navigate('saving-group')}>
                                             <span className="font-museo-slab-100  ">Tiết kiệm</span>
                                         </div>
 

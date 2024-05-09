@@ -25,6 +25,22 @@ export function formatDateResult(date) {
     return outputDateString;
 }
 
-const inputDateString = "2024-05-05T10:29:12.706Z";
+// const inputDateString = "2024-05-05T10:29:12.706Z";
 
-console.log(formatDateResult(inputDateString)); //17:29 Chủ Nhật, 05/05/2024
+// console.log(formatDateResult(inputDateString)); //17:29 Chủ Nhật, 05/05/2024
+
+export function formatDateSaving(date) {
+    let inputDate = new Date(date);
+
+    let options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+    };
+
+    let outputDateString = inputDate.toLocaleString("vi-VN", options);
+    return outputDateString;
+}
+
+// console.log(formatDateSaving(inputDateString)); // 05/05/2024
+
