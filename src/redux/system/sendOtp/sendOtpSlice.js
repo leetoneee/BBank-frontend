@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { API_ROOT_URL } from '../../../services/api';
 import axios from 'axios'
 
 const initialState = {
@@ -11,7 +12,7 @@ const initialState = {
 export const sendOtp = createAsyncThunk(
     'system/sendOtp',
     async (requestOptions) => {
-        let res = await axios.post("http://localhost:3005/api/v1/system/otp/send", requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/system/otp/send`, requestOptions)
         return res.data;
     }
 )

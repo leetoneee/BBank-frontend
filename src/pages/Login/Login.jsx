@@ -8,7 +8,7 @@ import formatDateLogin from '../../utils/formatDateAndTime';
 import { setLastLoginTime, setIsLoginSuccess } from "../../redux/authentication/authSlice";
 import { loginUser as login } from "../../redux/authentication/authSlice";
 import { fetchAllAccountById } from '../../redux/customer/customerSlice';
-import { setUserId, setTen } from "../../redux/user/userSlice";
+import { setUserId, setTen, setMaNhom } from "../../redux/user/userSlice";
 import PopupNotice from "../../components/Popup/PopupNotice";
 
 function Login() {
@@ -132,6 +132,7 @@ function Login() {
         dispatchFetchAllAccount();
         dispatch(setTen(user.HoTen));
         dispatch(setUserId(user.MaNguoiDung));
+        dispatch(setMaNhom(user.MaNhom));
         await spinner(2000);
         navigate(`/${username}/home`, { replace: true });
       }

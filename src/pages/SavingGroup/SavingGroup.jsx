@@ -2,8 +2,9 @@ import React from 'react'
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
 import uitPattern from '../../assets/icons/uitPattern.svg'
-import ic_ChuyenTien from '../../assets/icons/fast_ChuyenTien.svg';
-import ic_ChuyenTienMat from '../../assets/icons/ChuyenTienMat.svg';
+import ic_MoTietKiem from '../../assets/icons/ic_MoTietKiem.svg';
+import ic_TatToanTietKiem from '../../assets/icons/ic_TatToanTietKiem.svg';
+import ic_HuyTietKiemTuDong from '../../assets/icons/ic_HuyTietKiemTuDong.svg';
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate } from 'react-router-dom';
 
@@ -11,8 +12,9 @@ function SavingGroup() {
     const navigate = useNavigate()
 
     const tietkiemGroup = [
-        { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBnak', href: 'transfer' },
-        { icon: ic_ChuyenTienMat, content: 'Chuyển tiền mặt', href: 'cashtransfer' },
+        { icon: ic_MoTietKiem, content: 'Tiết kiệm thường', href: 'saving' },
+        { icon: ic_TatToanTietKiem, content: 'Tất toán Tiết kiệm', href: 'withdraw' },
+        { icon: ic_HuyTietKiemTuDong, content: 'Huỷ Tiết kiệm tự động', href: '' },
     ]
 
     return (
@@ -37,14 +39,14 @@ function SavingGroup() {
                                 <div className="w-full">
                                     <h1 className="mt-20 text-[40px]
                                             text-white font-bold  ">
-                                        Chuyển tiền
+                                        Tiết kiệm
                                     </h1>
                                     <div className="2xl:mt-[23px] text-[20px]
                                             text-[#B0B5B6] flex flex-row">
                                         <span onClick={() => navigate('../home')}
                                             className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Trang chủ </span>
                                         <p>&nbsp;&gt;&nbsp;</p>
-                                        <p className="text-[#72BF00] hover:cursor-auto"> Chuyển tiền </p>
+                                        <p className="text-[#72BF00] hover:cursor-auto"> Tiết kiệm </p>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +55,7 @@ function SavingGroup() {
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước.">
                                     <div className=" inline-flex">
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2">
-                                            <span className="font-museo-slab-100  ">Chuyển tiền</span>
+                                            <span className="font-museo-slab-100  ">Tiết kiệm</span>
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>

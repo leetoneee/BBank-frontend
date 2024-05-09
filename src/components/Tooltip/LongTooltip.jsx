@@ -6,7 +6,7 @@ export const LongTooltip = ({ position, content, children }) => {
         <div id="longtooltip" className="relative cursor-pointer group max-w-max">
             <div className="mx-2 my-1">{children}</div>
             <span className={classNames(
-                "absolute hidden group-hover:inline-block bg-[#767676] text-white text-2xl p-2 whitespace-normal rounded w-[1000px]",
+                "absolute hidden group-hover:inline-block bg-[#767676] text-white text-2xl p-2 whitespace-normal rounded w-[800px]",
                 position === "top" ?
                     "left-1/2 -translate-x-1/2 bottom-[calc(100%+5px)]"
                     : "",

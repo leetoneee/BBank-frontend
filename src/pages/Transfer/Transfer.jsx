@@ -131,7 +131,7 @@ const Transfer = () => {
                                     <span onClick={() => navigate('../home')}
                                         className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Trang chủ </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <span onClick={() => navigate('../home')}
+                                    <span onClick={() => navigate('../home/transfer-group')}
                                         className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Chuyển tiền </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
                                     <p className="text-[#72BF00] hover:cursor-auto"> Chuyển tiền trong BBank </p>

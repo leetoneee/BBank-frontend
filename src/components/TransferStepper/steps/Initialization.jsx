@@ -7,6 +7,7 @@ import { forwardRef, useImperativeHandle } from "react";
 import { setNoiDung, setTaiKhoanDich, setSoTien, setHinhThuc } from '../../../redux/customer/transfer/transferSlice';
 import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkExistSlice";
 import PopupNotice from "../../Popup/PopupNotice";
+import { LoadingFlex as Loading } from "../../Loading/Loading";
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();

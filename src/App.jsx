@@ -3,26 +3,28 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Login from './pages/Login/Login';
-import Home from './pages/Home/Home';
 import { RequireAuth } from './components/RequireAuth/RequireAuth';
-import Transfer from './pages/Transfer/Transfer';
-import CashTransfer from './pages/CashTransfer/CashTransfer'
-import FastFeatures from './pages/FastFeatures/FastFeatures'
+import CustomerRoutes from './routes/customerRoutes';
+import EmployeeRoutes from './routes/employeeRoutes';
+import AdminRoutes from './routes/adminRoutes';
+import Home from './pages/Home/Home';
+import { useSelector } from 'react-redux';
+import Admin from './pages/Admin/Admin';
 
 function App(props) {
+
+  const maNhom = useSelector((state) => state.user.maNhom);
 
   return (
     <Routes>
       <Route path='login' element={<Login />} />
-      <Route path=':userId/*' element={<MainLayout />}>
-        <Route path='home' element={<Home />} />
-        <Route exact path='home/transfer' element={<Transfer />} />
-        <Route exact path='home/cashtransfer' element={<CashTransfer />} />
-        <Route exact path='utilities' element={<Home />} />
-        <Route path='setting' element={<Home />} />
-        <Route exact path='setting/fastfeatures' element={<FastFeatures />} />
-        <Route exact path='setting' element={<Home />} />
-        <Route exact path='contact' element={<Home />} />
+      <Route path='admin' element={<Admin />}>
+      </Route>
+      <Route element={<RequireAuth />}>
+        <Route path="employee" element={<Home />} />
+      </Route>
+      <Route path=':userId/*' element={<RequireAuth><MainLayout /></RequireAuth>}>
+        <Route path="*" element={<CustomerRoutes />} />
       </Route>
     </Routes>
   )
