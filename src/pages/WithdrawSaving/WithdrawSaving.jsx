@@ -1,18 +1,18 @@
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
-import Stepper from '../../components/TransferStepper/Stepper';
-import StepperControl from '../../components/TransferStepper/StepperControl';
-import Initialization from "../../components/TransferStepper/steps/Initialization";
-import Confirmation from "../../components/TransferStepper/steps/Confirmation";
-import Authenticity from "../../components/TransferStepper/steps/Authenticity";
-import Reject from "../../components/TransferStepper/steps/Reject";
-import Result from "../../components/TransferStepper/steps/Result";
+import Stepper from '../../components/WithdrawSavingStepper/Stepper';
+import StepperControl from '../../components/WithdrawSavingStepper/StepperControl';
+import Initialization from "../../components/WithdrawSavingStepper/steps/Initialization";
+import Confirmation from "../../components/WithdrawSavingStepper/steps/Confirmation";
+import Authenticity from "../../components/WithdrawSavingStepper/steps/Authenticity";
+import Reject from "../../components/WithdrawSavingStepper/steps/Reject";
+import Result from "../../components/WithdrawSavingStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const Transfer = () => {
+const WithdrawSaving = () => {
     const navigate = useNavigate()
     const initializationRef = useRef();
     const confirmationRef = useRef();
@@ -20,6 +20,8 @@ const Transfer = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const isTransactionSuccess = useSelector((state) => state.transfer.isTransactionSuccess)
+
+    const isError = useSelector((state) => state.transfer.isError)
 
     const handleInitNewTransaction = () => {
         setCurrentStep(0);
@@ -124,17 +126,17 @@ const Transfer = () => {
                             <div className="w-full">
                                 <h1 className="mt-20 text-[40px]
                                             text-white font-bold  ">
-                                    Chuyển tiền trong BBank
+                                    Tất toán phiếu tiết kiệm
                                 </h1>
                                 <div className="2xl:mt-[23px] text-[20px]
                                             text-[#B0B5B6] flex flex-row">
                                     <span onClick={() => navigate('../home')}
                                         className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Trang chủ </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <span onClick={() => navigate('../home/transfer-group')}
-                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Chuyển tiền </span>
+                                    <span onClick={() => navigate('../home/saving-group')}
+                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Tiết kiệm </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <p className="text-[#72BF00] hover:cursor-auto"> Chuyển tiền trong BBank </p>
+                                    <p className="text-[#72BF00] hover:cursor-auto"> Tất toán phiếu tiết kiệm </p>
                                 </div>
                             </div>
 
@@ -166,4 +168,4 @@ const Transfer = () => {
     )
 }
 
-export default Transfer;
+export default WithdrawSaving;

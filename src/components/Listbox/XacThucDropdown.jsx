@@ -1,13 +1,13 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 
-const people = [
-    { name: 'Xác thực qua Email' },
-]
+export default function ConfirmationDropdown({ people, setSelectedValue }) {
+    const [selected, setSelected] = useState(people[0]);
 
-export default function ConfirmationDropdown() {
-    const [selected, setSelected] = useState(people[0])
+    useEffect(() => {
+        setSelectedValue(selected.name); // Cập nhật giayToTH khi selected thay đổi
+    }, [selected, setSelectedValue]);
 
     return (
         <div className="w-full">

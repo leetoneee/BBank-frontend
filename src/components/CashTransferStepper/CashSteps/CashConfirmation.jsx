@@ -17,12 +17,16 @@ const people = [
 function Confirmation(props, ref) {
     const dispatch = useDispatch();
 
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const SoTien = useSelector((state) => state.transfer.SoTien);
-    const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
-    const NoiDung = useSelector((state) => state.transfer.NoiDung);
+    const TaiKhoanNguon = useSelector((state) => state.cashtransfer.TaiKhoanNguon);
+    const TenTH = useSelector((state) => state.cashtransfer.TenTH);
+    const DiaChiTH = useSelector((state) => state.cashtransfer.DiaChiTH);
+    const GiayToTH = useSelector((state) => state.cashtransfer.GiayToTH);
+    const SoGiayToTH = useSelector((state) => state.cashtransfer.SoGiayToTH);
+    const NgayCapTH = useSelector((state) => state.cashtransfer.NgayCapTH);
+    const SoTien = useSelector((state) => state.cashtransfer.SoTien);
+    const HinhThuc = useSelector((state) => state.cashtransfer.HinhThuc);
+    const NoiDung = useSelector((state) => state.cashtransfer.NoiDung);
     const user = useSelector((state) => state.auth.user);
-    const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
 
     const randomString = Math.random().toString(36).slice(8);
     const [otpEmail, setOtpEmail] = useState('');
@@ -85,21 +89,58 @@ function Confirmation(props, ref) {
             {/* Tài khoản đich */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
+
+                    {/* Tên người thụ hưởng */}
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Tài khoản đích
+                            Tên người thụ hưởng
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                            {TaiKhoanDich.SoTaiKhoan}
+                        <span className="col-start-2 col-span-2 text-red-600 text-xl font-museo-slab-100  self-center text-right ">
+                            {TenTH.toUpperCase()}
                         </span>
                     </div>
+
+                    {/* Địa chỉ người thụ hưởng */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Tên người thụ hưởng
+                            Địa chỉ người thụ hưởng
                         </span>
-                        <span className="col-start-2 col-span-2 text-red-600  text-xl font-bold  self-center text-right ">
-                            {(TaiKhoanDich.HoTen).toUpperCase()}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {DiaChiTH}
+                        </span>
+                    </div>
+
+                    {/* Giấy tờ tùy thân */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Giấy tờ tùy thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {GiayToTH}
+                        </span>
+                    </div>
+
+                    {/* Số giấy tờ tùy thân */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số giấy tờ tùy thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {SoGiayToTH}
+                        </span>
+                    </div>
+
+                    {/* Ngày cấp */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày cấp
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {NgayCapTH}
                         </span>
                     </div>
                 </div>
@@ -160,7 +201,7 @@ function Confirmation(props, ref) {
                         Phương thức xác nhận
                     </span>
                     <div className="col-start-2 row-start-1 col-span-2 ">
-                        <ConfirmationDropdown people={people} setSelectedValue={setOtpEmail} />
+                        <ConfirmationDropdown people={people} setSelectedValue={setOtpEmail}/>
                     </div>
 
                     <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl self-center">
@@ -177,7 +218,7 @@ function Confirmation(props, ref) {
                         onChange={(e) => setCapchaInput(e.target.value)}
                         placeholder="Nhập mã kiểm tra"
                     />
-                    <span className="col-start-2 row-start-4 text-[#9553FF] select-none text-3xl font-aubrey">{capcha}</span>
+                    <span className="col-start-2 row-start-4 text-[#9553FF] select-none text-3xl">{capcha}</span>
                     <button className="col-start-2 row-start-4 translate-x-24 h-min w-min self-center   " onClick={() => refreshString()}>
                         <IoReload size={32} color="gray" />
                     </button>

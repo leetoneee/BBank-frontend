@@ -17,10 +17,7 @@ const people = [
 function Confirmation(props, ref) {
     const dispatch = useDispatch();
 
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const SoTien = useSelector((state) => state.transfer.SoTien);
-    const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
-    const NoiDung = useSelector((state) => state.transfer.NoiDung);
+    const TaiKhoanNguon = useSelector((state) => state.withdrawsaving.TaiKhoanNguon);
     const user = useSelector((state) => state.auth.user);
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
 
@@ -82,73 +79,110 @@ function Confirmation(props, ref) {
                 </div>
             </div>
 
-            {/* Tài khoản đich */}
+            {/* Các thông tin tất toán */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
+                    {/* Mã phiếu tiết kiệm */}
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Tài khoản đích
+                            Mã phiếu tiết kiệm
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                            {TaiKhoanDich.SoTaiKhoan}
+                            {/* {TaiKhoanDich.SoTaiKhoan} */}
                         </span>
                     </div>
+
+                    {/* Phương thức trả lãi */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Tên người thụ hưởng
+                            Phương thức trả lãi
                         </span>
-                        <span className="col-start-2 col-span-2 text-red-600  text-xl font-bold  self-center text-right ">
-                            {(TaiKhoanDich.HoTen).toUpperCase()}
+                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
+                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
                         </span>
                     </div>
-                </div>
-            </div>
 
-            {/* Thông tin chuyển khoản */}
-            <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
-                <div className="flex flex-col gap-8">
+                    {/* Kỳ hạn gửi */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Kỳ hạn gửi
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
+                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        </span>
+                    </div>
+
+                    {/* Lãi suất */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Lãi suất
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
+                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        </span>
+                    </div>
+
+                    {/* Ngày mở phiếu tiết kiệm */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày mở phiếu tiết kiệm
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
+                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        </span>
+                    </div>
+
+                    {/* Ngày đến hạn */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày đến hạn
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
+                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        </span>
+                    </div>
+
+                    {/* Ngày tất toán phiếu tiết kiệm */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày tất toán phiếu tiết kiệm
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
+                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        </span>
+                    </div>
+
+                    {/* Số tiền gửi gốc */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số tiền gửi gốc
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
+                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        </span>
+                    </div>
+
+                    {/* Số tiền thực lãnh */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Số tiền
+                            Số tiền lãnh thực
                         </span>
                         <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
-                            <span className="text-xl font-bold">{formatToVND(Number(SoTien))}</span>
-                            <span className="text-[15px]">{readMoney(SoTien)}</span>
+                            <span className="text-xl font-bold">
+                                {/* {formatToVND(Number(SoTien))} */}
+                            </span>
+                            <span className="text-[15px]">
+                                {/* {readMoney(SoTien)} */}
+                            </span>
                         </div>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Số tiền phí
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {formatToVND(0)}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Phí giao dịch
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {HinhThuc}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Nội dung
-                        </span>
-                        <span className={classNames("col-start-2 col-span-2 text-white text-xl  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')}>
-                            {NoiDung}
-                        </span>
                     </div>
                 </div>
             </div>

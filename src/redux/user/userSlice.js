@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
-import axios from 'axios'
 
 const initialState = {
     userId: '',
@@ -9,6 +8,7 @@ const initialState = {
     isLoading: false,
     isError: false,
 }
+
 
 export const userSlice = createSlice({
     name: 'user',

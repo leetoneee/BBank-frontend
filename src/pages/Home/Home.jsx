@@ -23,13 +23,13 @@ const Home = () => {
     ]
 
     const fastFeatures = [
-        { icon: fast_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer' },
+        { icon: fast_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer-group/transfer' },
         { icon: fast_TietKiem, content: 'Chuyển tiết kiệm', href: '' },
     ]
 
     const chuyenTienGroup = [
-        { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer' },
-        { icon: ic_ChuyenTienMat, content: 'Chuyển tiền mặt', href: '' },
+        { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer-group/transfer' },
+        { icon: ic_ChuyenTienMat, content: 'Chuyển tiền mặt', href: 'transfer-group/cashtransfer' },
     ]
 
     const tietkiemGroup = [
@@ -84,7 +84,7 @@ const Home = () => {
                                 {/* Title */}
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước.">
                                     <div className=" inline-flex">
-                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2" >
+                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2 " onClick={() => navigate('transfer-group')} >
                                             <span className="font-museo-slab-100  ">Chuyển tiền</span>
                                         </div>
 

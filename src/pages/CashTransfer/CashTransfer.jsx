@@ -1,18 +1,18 @@
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
-import Stepper from '../../components/TransferStepper/Stepper';
-import StepperControl from '../../components/TransferStepper/StepperControl';
-import Initialization from "../../components/TransferStepper/steps/Initialization";
-import Confirmation from "../../components/TransferStepper/steps/Confirmation";
-import Authenticity from "../../components/TransferStepper/steps/Authenticity";
-import Reject from "../../components/TransferStepper/steps/Reject";
-import Result from "../../components/TransferStepper/steps/Result";
+import CashStepper from '../../components/CashTransferStepper/CashStepper';
+import CashStepperControl from '../../components/CashTransferStepper/CashStepperControl';
+import CashInitialization from "../../components/CashTransferStepper/CashSteps/CashInitialization";
+import Confirmation from "../../components/CashTransferStepper/CashSteps/CashConfirmation";
+import Authenticity from "../../components/CashTransferStepper/CashSteps/CashAuthenticity";
+import Reject from "../../components/CashTransferStepper/CashSteps/CashReject";
+import Result from "../../components/CashTransferStepper/CashSteps/CashResult";
 import uitPattern from '../../assets/icons/uitPattern.svg'
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const Transfer = () => {
+const CashTransfer = () => {
     const navigate = useNavigate()
     const initializationRef = useRef();
     const confirmationRef = useRef();
@@ -20,6 +20,8 @@ const Transfer = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const isTransactionSuccess = useSelector((state) => state.transfer.isTransactionSuccess)
+
+    const isError = useSelector((state) => state.transfer.isError)
 
     const handleInitNewTransaction = () => {
         setCurrentStep(0);
@@ -35,7 +37,7 @@ const Transfer = () => {
     const displayStep = (steps) => {
         switch (steps) {
             case 0:
-                return <Initialization ref={initializationRef} />
+                return <CashInitialization ref={initializationRef} />
             case 1:
                 return <Confirmation ref={confirmationRef} />
             case 2:
@@ -124,7 +126,7 @@ const Transfer = () => {
                             <div className="w-full">
                                 <h1 className="mt-20 text-[40px]
                                             text-white font-bold  ">
-                                    Chuyển tiền trong BBank
+                                    Chuyển tiền mặt
                                 </h1>
                                 <div className="2xl:mt-[23px] text-[20px]
                                             text-[#B0B5B6] flex flex-row">
@@ -134,13 +136,13 @@ const Transfer = () => {
                                     <span onClick={() => navigate('../home/transfer-group')}
                                         className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Chuyển tiền </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <p className="text-[#72BF00] hover:cursor-auto"> Chuyển tiền trong BBank </p>
+                                    <p className="text-[#72BF00] hover:cursor-auto"> Chuyển tiền mặt </p>
                                 </div>
                             </div>
 
-                            {/* Stepper */}
+                            {/* CashStepper */}
                             <div className="container horizontal mt-5">
-                                <Stepper
+                                <CashStepper
                                     steps={steps}
                                     currentStep={currentStep} />
                             </div>
@@ -153,7 +155,7 @@ const Transfer = () => {
                             {/* Navigation controls */}
                             {
                                 (currentStep !== steps.length && currentStep !== steps.length - 1) &&
-                                <StepperControl
+                                <CashStepperControl
                                     handleClick={handleClick}
                                     currentStep={currentStep}
                                     steps={steps} />
@@ -166,4 +168,4 @@ const Transfer = () => {
     )
 }
 
-export default Transfer;
+export default CashTransfer;
