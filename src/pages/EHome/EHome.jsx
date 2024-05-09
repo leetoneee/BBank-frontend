@@ -13,8 +13,17 @@ import ic_TietKiemTuDong from '../../assets/icons/ic_TietKiemTuDong.svg';
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate, Outlet } from "react-router-dom";
+import ic_LapHoSoKH from '../../assets/icons/ic_LapHoSoKH.svg'
+import ic_MoTaiKhoan from '../../assets/icons/ic_MoTaiKhoan.svg'
+import ic_NopTienMat from '../../assets/icons/ic_NopTienMat.svg'
+import ic_RutTienMat from '../../assets/icons/ic_RutTienMat.svg'
+import ic_GuiTietKiem from '../../assets/icons/ic_GuiTietKiem.svg'
+import ic_RutTietKiem from '../../assets/icons/ic_RutTietKiem.svg'
+import ic_ThongKe from '../../assets/icons/ic_ThongKe.svg'
+import ic_SaoKe from '../../assets/icons/ic_SaoKe.svg'
+import ic_TraCuu from '../../assets/icons/ic_TraCuu.svg'
 
-const Home = () => {
+const EHome = () => {
     const navigate = useNavigate();
 
     const slides = [
@@ -23,18 +32,26 @@ const Home = () => {
     ]
 
     const fastFeatures = [
-        { icon: fast_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer-group/transfer' },
+        { icon: fast_ChuyenTien, content: 'Chuyển tiền trong BBank', href: '' },
         { icon: fast_TietKiem, content: 'Chuyển tiết kiệm', href: '' },
     ]
 
-    const chuyenTienGroup = [
-        { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer-group/transfer' },
-        { icon: ic_ChuyenTienMat, content: 'Chuyển tiền mặt', href: 'transfer-group/cashtransfer' },
+    const khachHangGroup = [
+        { icon: ic_LapHoSoKH, content: 'Lập hồ sơ thông tin khách hàng', href: '' },
+        { icon: ic_MoTaiKhoan, content: 'Mở tài khoản khách hàng', href: '' },
     ]
 
-    const tietkiemGroup = [
-        { icon: ic_TietKiemThuong, content: 'Tiết kiệm thường' },
-        { icon: ic_TietKiemTuDong, content: 'Cài đặt Tiết kiệm tự động' },
+    const dichVuGroup = [
+        { icon: ic_NopTienMat, content: 'Lập phiếu nộp tiền mặt', href: '' },
+        { icon: ic_RutTienMat, content: 'Lập phiếu rút tiền mặt', href: '' },
+        { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm', href: '' },
+        { icon: ic_RutTietKiem, content: 'Lập phiếu rút tiền tiết kiệm', href: '' },
+    ]
+
+    const thongKeGroup = [
+        { icon: ic_ThongKe, content: 'Báo cáo thống kê gửi tiết kiệm', href: '' },
+        { icon: ic_SaoKe, content: 'Sao kê tài khoản ngân hàng', href: '' },
+        { icon: ic_TraCuu, content: 'Tra cứu phiếu tiết kiệm ngân hàng', href: '' },
     ]
 
     return (
@@ -85,7 +102,7 @@ const Home = () => {
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước.">
                                     <div className=" inline-flex">
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2 " onClick={() => navigate('transfer-group')} >
-                                            <span className="font-museo-slab-100  ">Chuyển tiền</span>
+                                            <span className="font-museo-slab-100  ">Khách hàng</span>
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
@@ -98,7 +115,7 @@ const Home = () => {
                                 {/* List features */}
                                 <div className="flex flex-wrap mb-20 px-36 gap-11 items-center mt-20 ">
                                     {
-                                        chuyenTienGroup.map((item, index) => (
+                                        khachHangGroup.map((item, index) => (
                                             <div className="grid grid-rows-2  ">
                                                 <img key={index} src={item.icon} alt=""
                                                     className=" bg-[#6B7E84] max-h-[134px] max-w-[134px] transition ease-in-out hover:bg-[#82898B] rounded-[20px] p-10 duration-300 m-auto "
@@ -111,25 +128,7 @@ const Home = () => {
                             </div>
                         </div>
 
-                        {/* Mục tính dụng */}
-                        {/* <div className="bg-[#40494C]/[70%] h-auto z-10">
-                            <div className="mt-24">
-                                <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước." >
-                                    <div className=" inline-flex">
-                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2">
-                                            <span className="font-museo-slab-100  ">Tín dụng</span>
-                                        </div>
-
-                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
-                                    </div>
-                                </LongTooltip>
-                            </div>
-                        </div> */}
-
-                        {/* Mục Tiết Kiệm */}
+                        {/* Mục Dịch vụ */}
                         <div className="bg-[#40494C]/[70%] h-auto z-10">
                             <div className="mt-24">
                                 {/* Title */}
@@ -137,7 +136,7 @@ const Home = () => {
                                     <div className=" inline-flex">
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2"
                                             onClick={() => navigate('saving-group')}>
-                                            <span className="font-museo-slab-100  ">Tiết kiệm</span>
+                                            <span className="font-museo-slab-100  ">Dịch vụ</span>
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
@@ -150,7 +149,41 @@ const Home = () => {
                                 {/* List features */}
                                 <div className="flex flex-wrap mb-20 px-36 gap-11 items-center mt-20 ">
                                     {
-                                        tietkiemGroup.map((item, index) => (
+                                        dichVuGroup.map((item, index) => (
+                                            <div className="grid grid-rows-2  ">
+                                                <img key={index} src={item.icon} alt=""
+                                                    className=" bg-[#6B7E84] max-h-[134px] max-w-[134px] transition ease-in-out hover:bg-[#82898B] rounded-[20px] p-10 duration-300 m-auto "
+                                                />
+                                                <span className="font-museo-slab-100 text-2xl text-white text-wrap max-w-[185px] text-center pt-2">{item.content}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Mục Dịch vụ */}
+                        <div className="bg-[#40494C]/[70%] h-auto z-10">
+                            <div className="mt-24">
+                                {/* Title */}
+                                <LongTooltip position="right" content="Lãi suất cao, thời gian gửi linh hoạt, bảo mật tuyệt đối, cơ hội tham gia nhiều chương trình khuyến mãi hấp dẫn, miễn phí quản lý tài khoản.">
+                                    <div className=" inline-flex">
+                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2"
+                                            onClick={() => navigate('saving-group')}>
+                                            <span className="font-museo-slab-100  ">Báo cáo/Thống kê</span>
+                                        </div>
+
+                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
+                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
+                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                    </div>
+                                </LongTooltip>
+
+                                {/* List features */}
+                                <div className="flex flex-wrap mb-20 px-36 gap-11 items-center mt-20 ">
+                                    {
+                                        thongKeGroup.map((item, index) => (
                                             <div className="grid grid-rows-2  ">
                                                 <img key={index} src={item.icon} alt=""
                                                     className=" bg-[#6B7E84] max-h-[134px] max-w-[134px] transition ease-in-out hover:bg-[#82898B] rounded-[20px] p-10 duration-300 m-auto "
@@ -172,4 +205,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default EHome;

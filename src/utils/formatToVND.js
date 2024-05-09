@@ -1,6 +1,9 @@
 export default function formatToVND(number) {
-    let formatedNumber = number.toLocaleString('en-US');
-    formatedNumber += ' VND';
-    return formatedNumber;
+    let formattedNumber = number.toLocaleString('en-US');
+    formattedNumber += ' VND';
+    return formattedNumber;
 }
-// console.log(formatToVND(1195695)); // 1,195,695 VND 
+
+// const type = formatToVND(1195695);
+// console.log("🚀 ~ type:", type)
+// console.log(typeof type); // 1,195,695 VND 

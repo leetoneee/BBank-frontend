@@ -2,6 +2,7 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
+import EmployeeLayout from './layouts/EmployeeLayout';
 import Login from './pages/Login/Login';
 import { RequireAuth } from './components/RequireAuth/RequireAuth';
 import CustomerRoutes from './routes/customerRoutes';
@@ -20,10 +21,10 @@ function App(props) {
       <Route path='login' element={<Login />} />
       <Route path='admin' element={<Admin />}>
       </Route>
-      <Route element={<RequireAuth />}>
-        <Route path="employee" element={<Home />} />
+      <Route path='employee/*' element={<RequireAuth><EmployeeLayout /></RequireAuth>}>
+        <Route path="*" element={<EmployeeRoutes />} />
       </Route>
-      <Route path=':userId/*' element={<RequireAuth><MainLayout /></RequireAuth>}>
+      <Route path='user/*' element={<MainLayout />}>
         <Route path="*" element={<CustomerRoutes />} />
       </Route>
     </Routes>

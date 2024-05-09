@@ -8,6 +8,8 @@ import cashtransferReducer from "./customer/cashtransfer/cashtransferSlice";
 import withdrawsavingReducer from "./customer/withdrawsavingSlice/withdrawsavingSlice";
 import checkAccountReducer from './system/checkAccountExist/checkExistSlice';
 import sendOtpReducer from "./system/sendOtp/sendOtpSlice";
+import savingTypeReducer from "./getSavingType/savingTypeSlice";
+import customerDepositSavingReducer from "./customer/depositSaving/customerDepositSavingSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
     sendOtp: sendOtpReducer,
     cashtransfer: cashtransferReducer,
     withdrawsaving: withdrawsavingReducer,
+    savingTypes: savingTypeReducer,
+    cDepositSaving: customerDepositSavingReducer,
 });
 
 export default rootReducer;
