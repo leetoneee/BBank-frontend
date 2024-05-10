@@ -29,7 +29,6 @@ const Home = () => {
 
     const chuyenTienGroup = [
         { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer-group/transfer' },
-        { icon: ic_ChuyenTienMat, content: 'Chuyển tiền mặt', href: 'transfer-group/cashtransfer' },
     ]
 
     const tietkiemGroup = [

@@ -13,7 +13,7 @@ const initialState = {
 export const withdrawsavingMoney = createAsyncThunk(
     'customer/withdrawsavingMoney',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/customer/account/transfer`, requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/customer/account/transfer`, requestOptions, { withCredentials: true })
         return res.data;
     }
 )

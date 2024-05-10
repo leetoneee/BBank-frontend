@@ -12,7 +12,7 @@ const initialState = {
 export const checkAccountExist = createAsyncThunk(
     'system/checkAccountExist',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/system/account/check-exist`, requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/system/account/check-exist`, requestOptions, { withCredentials: true })
         return res.data;
     }
 )

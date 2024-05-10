@@ -14,7 +14,7 @@ const initialState = {
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/login`, requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/login`, requestOptions, { withCredentials: true })
         return res.data;
     }
 )

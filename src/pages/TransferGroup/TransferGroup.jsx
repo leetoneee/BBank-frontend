@@ -7,12 +7,11 @@ import ic_ChuyenTienMat from '../../assets/icons/ChuyenTienMat.svg';
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate } from 'react-router-dom';
 
-function SavingGroup() {
+function TransferGroup() {
     const navigate = useNavigate()
 
-    const tietkiemGroup = [
+    const transferGroup = [
         { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBnak', href: 'transfer' },
-        { icon: ic_ChuyenTienMat, content: 'Chuyển tiền mặt', href: 'cashtransfer' },
     ]
 
     return (
@@ -66,7 +65,7 @@ function SavingGroup() {
                                 {/* List features */}
                                 <div className="flex flex-wrap mb-20 px-36 gap-11 items-center mt-20 ">
                                     {
-                                        tietkiemGroup.map((item, index) => (
+                                        transferGroup.map((item, index) => (
                                             <img key={index} src={item.icon}
                                                 alt=""
                                                 className="h-[134px] min-w-[185px] self-center transition ease-in-out delay-150 hover:-translate-y-1 hover:drop-shadow-2xl-green duration-300"
@@ -85,4 +84,4 @@ function SavingGroup() {
     )
 }
 
-export default SavingGroup
+export default TransferGroup

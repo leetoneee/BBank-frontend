@@ -12,7 +12,7 @@ const initialState = {
 export const sendOtp = createAsyncThunk(
     'system/sendOtp',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/system/otp/send`, requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/system/otp/send`, requestOptions, { withCredentials: true })
         return res.data;
     }
 )
