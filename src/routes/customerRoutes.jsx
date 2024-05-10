@@ -7,7 +7,7 @@ import FastFeatures from '../pages/FastFeatures/FastFeatures';
 import SavingGroup from '../pages/SavingGroup/SavingGroup';
 import WithdrawSaving from '../pages/WithdrawSaving/WithdrawSaving';
 import TransferGroup from '../pages/TransferGroup/TransferGroup';
-import Saving from '../pages/Saving/Saving';
+import DepositSaving from '../pages/DepositSaving/DepositSaving';
 import CancelAutoSaving from '../pages/CancelAutoSaving/CancelAutoSaving';
 
 function CustomerRoutes() {
@@ -19,7 +19,7 @@ function CustomerRoutes() {
             <Route exact path='home/saving-group/withdraw' element={<WithdrawSaving />} />
             <Route exact path='home/transfer-group' element={<TransferGroup />} />
             <Route exact path='home/saving-group' element={<SavingGroup />} />
-            <Route exact path='home/saving-group/saving' element={<Saving />} />
+            <Route exact path='home/saving-group/saving' element={<DepositSaving />} />
             <Route exact path='home/saving-group/cancel-auto-saving' element={<CancelAutoSaving />} />
             <Route exact path='utilities' element={<Home />} />
             <Route exact path='setting' element={<Home />} />

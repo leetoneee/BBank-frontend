@@ -4,25 +4,29 @@ import { FaCheckCircle } from "react-icons/fa";
 import logo from '../../../assets/icons/logo.svg'
 import { useDispatch, useSelector } from "react-redux";
 import formatToVND from "../../../utils/formatToVND";
-import { formatDateResult } from "../../../utils/formatDateAndTime";
+import { formatDateSaving, formatDateResult } from "../../../utils/formatDateAndTime";
 import { reset as resetTransfer } from "../../../redux/customer/transfer/transferSlice";
-import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import { reset as resetDepositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
+import roundInterest from "../../../utils/roundInterest";
 
 function Result(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan);
-    const GiaoDich = useSelector((state) => state.transfer.GiaoDich);
+    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
+    const PhieuTietKiem = useSelector((state) => state.cDepositSaving.PhieuTietKiem);
+    const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
+    const ten = useSelector((state) => state.user.ten);
+    const user = useSelector((state) => state.auth.user);
 
     const handleNavigateHome = () => {
-        dispatch(resetCheckAccount());
+        dispatch(resetDepositSaving());
         dispatch(resetTransfer());
         navigate('../home', { replace: true })
     }
 
     const handleInitNewTransaction = () => {
-        dispatch(resetCheckAccount());
+        dispatch(resetDepositSaving());
         dispatch(resetTransfer());
         props.handleInitNewTransaction();
     }
@@ -38,11 +42,69 @@ function Result(props) {
                 </div>
 
                 <FaCheckCircle color="#7AC014" className="w-[90px]  h-[90px] mx-auto" />
-                <span className="text-white font-bold text-[25px] self-center ">GIAO DỊCH THÀNH CÔNG</span>
-                <span className="text-[25px] text-[#7AC014] font-bold self-center">{formatToVND(GiaoDich.TongTien)}</span>
+                <span className="text-white font-bold text-[25px] self-center ">MỞ PHIẾU TIẾT KIỆM THÀNH CÔNG</span>
+                <span className="text-[25px] text-[#7AC014] font-bold self-center">{formatToVND(PhieuTietKiem.SoTienGui)}</span>
                 <span className="text-white text-[25px] self-center   ">
-                    {formatDateResult(GiaoDich.ThoiGian)}
+                    {formatDateResult(PhieuTietKiem.NgayMo)}
                 </span>
+            </div>
+
+            {/* Tài khoản mở */}
+            <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
+                <div className="flex flex-col gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                            Tên người mở tài khoản tiết kiệm
+                        </span>
+                        <span className="col-start-2 col-span-2 text-red-600  text-xl font-bold  self-center text-right ">
+                            {ten.toUpperCase()}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Địa chỉ người mở
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {user.DiaChi}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Giấy tờ tuỳ thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            Căng cước công dân
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số giấy tờ tuỳ thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {user.CCCD}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày cấp
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {formatDateSaving(PhieuTietKiem.NgayMo)}
+                        </span>
+                    </div>
+                </div>
             </div>
 
             {/* Thông tin chuyển khoản */}
@@ -50,10 +112,10 @@ function Result(props) {
                 <div className="flex flex-col gap-8">
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Tên người thụ hưởng
+                            Kỳ hạn gửi
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {(TaiKhoanDich.HoTen).toUpperCase()}
+                            {KyHan.GhiChu} – {roundInterest(KyHan.LaiSuat * 100)}%/năm
                         </span>
                     </div>
 
@@ -61,32 +123,20 @@ function Result(props) {
 
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Tài khoản đích
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {TaiKhoanDich.SoTaiKhoan}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Mã giao dịch
+                            Tài khoản nguồn
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {GiaoDich.MaGiaoDich}
+                            {TaiKhoanNguon.SoTaiKhoan}
                         </span>
                     </div>
-
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Nội dung
+                            Mã phiếu tiết kiệm
                         </span>
-                        <span className={classNames("col-start-2 col-span-2 text-white text-xl  self-center", (GiaoDich.NoiDung).length <= 30 ? 'text-right' : 'text-justify')} >
-                            {GiaoDich.NoiDung}
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {PhieuTietKiem.MaPhieu}
                         </span>
                     </div>
                 </div>

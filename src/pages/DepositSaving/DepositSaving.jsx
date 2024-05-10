@@ -12,14 +12,14 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const Saving = () => {
+const DepositSaving = () => {
     const navigate = useNavigate()
     const initializationRef = useRef();
     const confirmationRef = useRef();
     const authenticityRef = useRef();
-    const [currentStep, setCurrentStep] = useState(3);
+    const [currentStep, setCurrentStep] = useState(0);
 
-    const isTransactionSuccess = useSelector((state) => state.transfer.isTransactionSuccess)
+    const isTransactionSuccess = useSelector((state) => state.cDepositSaving.isTransactionSuccess)
 
     const handleInitNewTransaction = () => {
         setCurrentStep(0);
@@ -172,4 +172,4 @@ const Saving = () => {
     )
 }
 
-export default Saving;
+export default DepositSaving;

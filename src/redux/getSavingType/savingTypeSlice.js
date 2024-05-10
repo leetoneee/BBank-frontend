@@ -11,7 +11,7 @@ const initialState = {
 export const getSavingType = createAsyncThunk(
     'user/getSavingType',
     async () => {
-        let res = await axios.get(`${API_ROOT_URL}/saving-type/get-all`, requestOptions, { withCredentials: true })
+        let res = await axios.get(`${API_ROOT_URL}/saving-type/get-all`, { withCredentials: true })
         return res.data;
     }
 )

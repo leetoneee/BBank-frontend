@@ -9,6 +9,7 @@ const initialState = {
     MaKhachHang: "",
     PhuongThuc: "",
     NgayMo: '',
+    PhieuTietKiem: '',
     isTransactionSuccess: '',
     isLoading: false,
     isError: false
@@ -53,7 +54,7 @@ export const customerDepositSavingSlice = createSlice({
                 state.isError = false;
             })
             .addCase(depositSaving.fulfilled, (state, action) => {
-                state.GiaoDich = action.payload.transaction;
+                state.PhieuTietKiem = action.payload.PhieuTietKiem;
                 state.isTransactionSuccess = true;
                 state.isLoading = false;
                 state.isError = false;
