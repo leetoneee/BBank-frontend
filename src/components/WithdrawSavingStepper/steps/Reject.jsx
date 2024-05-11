@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logo from '../../../assets/icons/logo.svg'
 import { FaCircleExclamation } from "react-icons/fa6";
 import { reset as resetTransfer } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
-import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
 import { useDispatch } from "react-redux";
 
 function Reject(props) {

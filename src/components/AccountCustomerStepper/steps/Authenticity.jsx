@@ -7,6 +7,8 @@ import { classNames } from "../../classNames/classNames";
 import { transferMoney } from "../../../redux/customer/transfer/transferSlice";
 import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
+import { formatDateSaving } from "../../../utils/formatDateAndTime";
+import { createAccountCustomer } from "../../../redux/employee/createCustomerAccount/createCustomerAccountSlice";
 
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
@@ -18,6 +20,8 @@ function Authenticity(props, ref) {
     const user = useSelector((state) => state.auth.user);
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
     const isLoading = useSelector((state) => state.transfer.isLoading)
+    const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
+    const LoaiTaiKhoan = useSelector((state) => state.createAccount.LoaiTaiKhoan)
 
     const otp = useSelector((state) => state.sendOtp.otp);
     const [otpInput, setOtpInput] = useState();
@@ -25,16 +29,18 @@ function Authenticity(props, ref) {
     const [isShowPopup, setIsShowPopup] = useState(false);
     const [isShowPopupWaiting, setIsShowPopupWaiting] = useState(false);
 
+    const formatDate = (date) => {
+        let newDate = new Date(date);
+        return formatDateSaving(newDate);
+    }
+
     const createTransaction = () => {
         const raw = {
-            "SoTien": Number(SoTien),
-            "NoiDung": NoiDung,
-            "SoTKNhan": TaiKhoanDich.SoTaiKhoan,
-            "SoTKRut": TaiKhoanNguon.SoTaiKhoan,
-            "MaLoaiGD": 3
+            "MaKhachHang": NguoiDung.MaNguoiDung,
+            "LoaiTaiKhoan": LoaiTaiKhoan
         };
 
-        return dispatch(transferMoney(raw));
+        return dispatch(createAccountCustomer(raw));
     }
 
     useImperativeHandle(ref, () => {
@@ -103,73 +109,96 @@ function Authenticity(props, ref) {
                     <PopupNotice showPopup={isShowPopupWaiting} setShowPopup={setIsShowPopupWaiting} content='Vui lòng đợi 60 giây trước khi yêu cầu mã OTP mới.' />}
             </div>
 
-            {/* Tài khoản nguồn */}
+            {/* username */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="grid grid-cols-3 gap-8">
                     <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
                         Tài khoản nguồn
                     </span>
                     <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                        {TaiKhoanNguon.SoTaiKhoan}
+                        {NguoiDung.username}
                     </span>
                 </div>
             </div>
 
-            {/* Tài khoản đich */}
+            {/* Loại Tài khoản */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Tài khoản đích
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                            {TaiKhoanDich.SoTaiKhoan}
-                        </span>
-                    </div>
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Tên người thụ hưởng
+                            Loại thanh toán được tạo
                         </span>
-                        <span className="col-start-2 col-span-2 text-red-600 font-bold text-xl  self-center text-right ">
-                            {(TaiKhoanDich.HoTen).toUpperCase()}
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {LoaiTaiKhoan}
                         </span>
                     </div>
                 </div>
             </div>
 
-            {/* Thông tin chuyển khoản */}
+            {/* Thông tin khách hàng */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    {/* Ngày đăng ký */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày đăng ký
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {
+                                formatDate(NguoiDung.NgayDK)
+                            }
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Họ tên */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Số tiền
+                            Họ và tên
                         </span>
                         <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
-                            <span className="text-xl font-bold">{formatToVND(Number(SoTien))}</span>
-                            <span className="text-[15px]">{readMoney(SoTien)}</span>
+                            <span className="text-xl font-bold">{(NguoiDung.HoTen).toUpperCase()}</span>
                         </div>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    {/* Ngày sinh */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Số tiền phí
+                            Ngày sinh
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {formatToVND(0)}
+                            {
+                                formatDate(NguoiDung.NgaySinh)
+                            }
                         </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    {/* Giới tính */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Phí giao dịch
+                            Giới tính
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {HinhThuc}
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {
+                                NguoiDung.GioiTinh ? "Nam" : "Nữ"
+                            }
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Số điện thoại */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số điện thoại
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.SDT}
                         </span>
                     </div>
 
@@ -177,14 +206,63 @@ function Authenticity(props, ref) {
 
                     <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Nội dung
+                            Giấy tờ tuỳ thân
                         </span>
-                        <span className={classNames("col-start-2 col-span-2 text-white text-xl  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')} >
-                            {NoiDung}
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            Căng cước công dân
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Số CCCD */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.CCCD}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Địa chỉ */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Địa chỉ
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.DiaChi}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Nghề nghiệp */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Nghề nghiệp
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.NgheNghiep}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Email */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Email
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.Email}
                         </span>
                     </div>
                 </div>
             </div>
+
             {
                 isLoading && <Loading />
             }

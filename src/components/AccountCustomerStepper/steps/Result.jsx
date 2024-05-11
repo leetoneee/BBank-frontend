@@ -4,10 +4,9 @@ import { FaCheckCircle } from "react-icons/fa";
 import logo from '../../../assets/icons/logo.svg'
 import { useDispatch, useSelector } from "react-redux";
 import formatToVND from "../../../utils/formatToVND";
-import { reset as resetProfile } from '../../../redux/employee/createCustomerProfile/createCustomerProfileSlice';
-import { reset as resetTransfer } from "../../../redux/customer/transfer/transferSlice";
-import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
-import { formatDateSaving, formatDateResult } from "../../../utils/formatDateAndTime";
+import { formatDateResult, formatDateSaving } from "../../../utils/formatDateAndTime";
+import { reset as resetCccd } from "../../../redux/system/checkCccdExist/checkCccdExistSlice";
+import { reset as resetAccount } from "../../../redux/employee/createCustomerAccount/createCustomerAccountSlice";
 
 function Result(props) {
     const navigate = useNavigate();
@@ -15,14 +14,19 @@ function Result(props) {
 
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan);
     const GiaoDich = useSelector((state) => state.transfer.GiaoDich);
+    const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
+    const LoaiTaiKhoan = useSelector((state) => state.createAccount.LoaiTaiKhoan)
+    const account = useSelector((state) => state.createAccount.account)
 
     const handleNavigateHome = () => {
-        dispatch(resetProfile());
+        dispatch(resetCccd());
+        dispatch(resetAccount());
         navigate('../home', { replace: true })
     }
 
     const handleInitNewTransaction = () => {
-        dispatch(resetProfile());
+        dispatch(resetCccd());
+        dispatch(resetAccount());
         props.handleInitNewTransaction();
     }
 
@@ -30,18 +34,6 @@ function Result(props) {
         let newDate = new Date(date);
         return formatDateSaving(newDate);
     }
-
-    //*
-    const NgayDangKy = useSelector((state) => state.createProfile.NgayDangKy)
-    const HoTen = useSelector((state) => state.createProfile.HoTen)
-    const Birthday = useSelector((state) => state.createProfile.Birthday)
-    const GioiTinh = useSelector((state) => state.createProfile.GioiTinh);
-    const SoDT = useSelector((state) => state.createProfile.SoDT);
-    const CCCD = useSelector((state) => state.createProfile.CCCD);
-    const DiaChi = useSelector((state) => state.createProfile.DiaChi);
-    const NgheNghiep = useSelector((state) => state.createProfile.NgheNghiep);
-    const Email = useSelector((state) => state.createProfile.Email);
-    //*
 
     return (
         <div className=" container flex flex-col gap-[50px] mt-4 mb-8 ">
@@ -54,23 +46,73 @@ function Result(props) {
                 </div>
 
                 <FaCheckCircle color="#7AC014" className="w-[90px]  h-[90px] mx-auto" />
-                <span className="text-white font-bold text-[25px] self-center ">LẬP HỒ SƠ KHÁCH HÀNG THÀNH CÔNG</span>
+                <span className="text-white font-bold text-[25px] self-center ">TẠO TÀI KHOẢN THÀNH CÔNG</span>
+                {/* <span className="text-[25px] text-[#7AC014] font-bold self-center">{formatToVND(GiaoDich.TongTien)}</span> */}
                 <span className="text-white text-[25px] self-center   ">
-                    {formatDateResult(NgayDangKy)}
+                    {formatDateResult(account.NgayMo)}
                 </span>
+            </div>
+
+
+            {/* username */}
+            <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
+                <div className="grid grid-cols-3 gap-8">
+                    <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                        Tài khoản được tạo
+                    </span>
+                    <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
+                        {NguoiDung.username}
+                    </span>
+                </div>
+            </div>
+
+            {/* Loại Tài khoản */}
+            <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
+                <div className="flex flex-col gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Tài khoản thanh toán được tạo
+                        </span>
+                        <span className="col-start-2 col-span-2 text-red-600 font-bold text-xl  self-center text-right ">
+                            {account.SoTaiKhoan}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số dư
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {formatToVND(account.SoDu)}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Loại thanh toán được tạo
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {LoaiTaiKhoan}
+                        </span>
+                    </div>
+                </div>
             </div>
 
             {/* Thông tin khách hàng */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
                     {/* Ngày đăng ký */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Ngày đăng ký
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {
-                                formatDate(NgayDangKy)
+                                formatDate(NguoiDung.NgayDK)
                             }
                         </span>
                     </div>
@@ -78,25 +120,25 @@ function Result(props) {
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     {/* Họ tên */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
                             Họ và tên
                         </span>
                         <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
-                            <span className="text-xl font-bold">{HoTen.toUpperCase()}</span>
+                            <span className="text-xl font-bold">{(NguoiDung.HoTen).toUpperCase()}</span>
                         </div>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     {/* Ngày sinh */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Ngày sinh
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {
-                                formatDate(Birthday)
+                                formatDate(NguoiDung.NgaySinh)
                             }
                         </span>
                     </div>
@@ -104,13 +146,13 @@ function Result(props) {
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     {/* Giới tính */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Giới tính
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {
-                                GioiTinh ? "Nam" : "Nữ"
+                                NguoiDung.GioiTinh ? "Nam" : "Nữ"
                             }
                         </span>
                     </div>
@@ -118,18 +160,18 @@ function Result(props) {
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     {/* Số điện thoại */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Số điện thoại
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {SoDT}
+                            {NguoiDung.SDT}
                         </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Giấy tờ tuỳ thân
                         </span>
@@ -141,48 +183,48 @@ function Result(props) {
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     {/* Số CCCD */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Số
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {CCCD}
+                            {NguoiDung.CCCD}
                         </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     {/* Địa chỉ */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Địa chỉ
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {DiaChi}
+                            {NguoiDung.DiaChi}
                         </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     {/* Nghề nghiệp */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Nghề nghiệp
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {NgheNghiep}
+                            {NguoiDung.NgheNghiep}
                         </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     {/* Email */}
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Email
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {Email}
+                            {NguoiDung.Email}
                         </span>
                     </div>
                 </div>
@@ -198,7 +240,7 @@ function Result(props) {
                 {/* new transaction */}
                 <button onClick={() => handleInitNewTransaction()}
                     className="text-2xl self-center  bg-gradient-to-r from-[#57B122] to-[#09812E] hover:from-[#09812E] hover:to-[#57B122] text-white py-2 w-96   rounded-[15px] font-bold cursor-pointer hover:bg-[#475255]/[60%] transition duration-200 ease-in-out">
-                    Thêm khách hàng mới
+                    Thêm tài khoản
                 </button>
             </div>
         </div >

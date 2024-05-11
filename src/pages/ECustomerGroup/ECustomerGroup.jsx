@@ -12,7 +12,7 @@ function ECustomerGroup() {
 
     const khachHangGroup = [
         { icon: ic_LapHoSoKH, content: 'Lập hồ sơ thông tin khách hàng', href: 'profile' },
-        { icon: ic_MoTaiKhoan, content: 'Mở tài khoản khách hàng', href: '' },
+        { icon: ic_MoTaiKhoan, content: 'Mở tài khoản khách hàng', href: 'account' },
     ]
 
     return (

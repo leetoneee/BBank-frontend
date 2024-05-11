@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { fetchAllAccountById } from "../../../redux/customer/customerSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setNoiDung, setTaiKhoanDich, setSoTien, setHinhThuc } from '../../../redux/customer/transfer/transferSlice';
-import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
 import PopupNotice from "../../Popup/PopupNotice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
 

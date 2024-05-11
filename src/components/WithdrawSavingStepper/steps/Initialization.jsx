@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { fetchAllAccountById } from "../../../redux/customer/customerSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setTaiKhoanNguon, setTenTH, setDiaChiTH, setGiayToTH, setSoGiayToTH, setNgayCapTH, setNoiDung, setSoTien, setHinhThuc } from '../../../redux/customer/cashtransfer/cashtransferSlice';
-import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
 import ConfirmationDropdown from '../../Listbox/XacThucDropdown';
 import PopupNotice from "../../Popup/PopupNotice";
 

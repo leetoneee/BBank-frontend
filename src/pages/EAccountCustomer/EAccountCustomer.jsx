@@ -1,34 +1,34 @@
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
-import Stepper from '../../components/SavingStepper/Stepper';
-import StepperControl from '../../components/SavingStepper/StepperControl';
-import Initialization from "../../components/SavingStepper/steps/Initialization";
-import Confirmation from "../../components/SavingStepper/steps/Confirmation";
-import Authenticity from "../../components/SavingStepper/steps/Authenticity";
-import Reject from "../../components/SavingStepper/steps/Reject";
-import Result from "../../components/SavingStepper/steps/Result";
+import Stepper from '../../components/AccountCustomerStepper/Stepper';
+import StepperControl from '../../components/AccountCustomerStepper/StepperControl';
+import Initialization from "../../components/AccountCustomerStepper/steps/Initialization";
+import Confirmation from "../../components/AccountCustomerStepper/steps/Confirmation";
+import Authenticity from "../../components/AccountCustomerStepper/steps/Authenticity";
+import Reject from "../../components/AccountCustomerStepper/steps/Reject";
+import Result from "../../components/AccountCustomerStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const DepositSaving = () => {
+const EAccountCustomer = () => {
     const navigate = useNavigate()
     const initializationRef = useRef();
     const confirmationRef = useRef();
     const authenticityRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
 
-    const isTransactionSuccess = useSelector((state) => state.cDepositSaving.isTransactionSuccess)
+    const isTransactionSuccess = useSelector((state) => state.createAccount.isTransactionSuccess)
 
     const handleInitNewTransaction = () => {
         setCurrentStep(0);
     };
 
     const steps = [
+        { description: "Tìm kiếm" },
+        { description: "Kiểm tra" },
         { description: "Khởi tạo" },
-        { description: "Xác nhận" },
-        { description: "Xác thực" },
         { description: "Kết quả" }
     ];
 
@@ -124,23 +124,17 @@ const DepositSaving = () => {
                             <div className="w-full">
                                 <h1 className="mt-20 text-[40px]
                                             text-white font-bold  ">
-                                    Mở tiết kiệm
+                                    Mở tài khoản khách hàng
                                 </h1>
                                 <div className="2xl:mt-[23px] text-[20px]
                                             text-[#B0B5B6] flex flex-row">
                                     <span onClick={() => navigate('../home')}
-                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">
-                                        Trang chủ
-                                    </span>
+                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Trang chủ </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <span onClick={() => navigate('../saving-group')}
-                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">
-                                        Tiết kiệm
-                                    </span>
+                                    <span onClick={() => navigate('../home/customer-group')}
+                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Khách hàng </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <p className="text-[#72BF00] hover:cursor-auto">
-                                        Mở tiết kiệm
-                                    </p>
+                                    <p className="text-[#72BF00] hover:cursor-auto"> Mở tài khoản khách hàng </p>
                                 </div>
                             </div>
 
@@ -172,4 +166,4 @@ const DepositSaving = () => {
     )
 }
 
-export default DepositSaving;
+export default EAccountCustomer;

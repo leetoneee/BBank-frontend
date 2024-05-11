@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { fetchAllAccountById } from "../../../redux/customer/customerSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setTaiKhoanNguon, setTenTH, setDiaChiTH, setGiayToTH, setSoGiayToTH, setNgayCapTH, setNoiDung, setSoTien, setHinhThuc } from '../../../redux/customer/cashtransfer/cashtransferSlice';
-import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import { checkAccountExist } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
 import ConfirmationDropdown from '../../Listbox/XacThucDropdown';
 import PopupNotice from "../../Popup/PopupNotice";
 
@@ -205,7 +205,7 @@ function CashInitialization(props, ref) {
                     {/* Giấy tờ tùy thân */}
                     <span className="col-start-1 row-start-3 text-[#A5ACAE] text-xl  self-center ">Giấy tờ tùy thân</span>
                     <div className="col-start-2 col-span-2">
-                        <ConfirmationDropdown people={GiayTo} setSelectedValue={setgiayToTH}/>
+                        <ConfirmationDropdown people={GiayTo} setSelectedValue={setgiayToTH} />
                     </div>
 
                     {/* Số giấy tờ tùy thân */}

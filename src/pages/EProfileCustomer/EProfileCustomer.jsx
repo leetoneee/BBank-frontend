@@ -4,7 +4,6 @@ import Stepper from '../../components/ProfileCustomerStepper/Stepper';
 import StepperControl from '../../components/ProfileCustomerStepper/StepperControl';
 import Initialization from "../../components/ProfileCustomerStepper/steps/Initialization";
 import Confirmation from "../../components/ProfileCustomerStepper/steps/Confirmation";
-import Authenticity from "../../components/ProfileCustomerStepper/steps/Authenticity";
 import Reject from "../../components/ProfileCustomerStepper/steps/Reject";
 import Result from "../../components/ProfileCustomerStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
@@ -110,7 +109,7 @@ const EProfileCustomer = () => {
                 <div className="w-auto overflow-auto flex flex-col">
                     <img src={uitPattern} alt="UIT-Pattern" className="fixed contrast-50 w-1/2 self-center mt-14" />
 
-                    <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10">
+                    <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10 min-h-screen">
                         <div className="w-1/2 self-center">
                             {/* Title */}
                             <div className="w-full">

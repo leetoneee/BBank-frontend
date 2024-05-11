@@ -4,7 +4,7 @@ import logo from '../../../assets/icons/logo.svg'
 import { FaCircleExclamation } from "react-icons/fa6";
 import { reset as resetProfile } from '../../../redux/employee/createCustomerProfile/createCustomerProfileSlice';
 import { reset as resetTransfer } from "../../../redux/customer/transfer/transferSlice";
-import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Reject(props) {

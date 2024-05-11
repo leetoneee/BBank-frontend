@@ -34,7 +34,7 @@ const EHome = () => {
 
     const khachHangGroup = [
         { icon: ic_LapHoSoKH, content: 'Lập hồ sơ thông tin khách hàng', href: 'customer-group/profile' },
-        { icon: ic_MoTaiKhoan, content: 'Mở tài khoản khách hàng', href: '' },
+        { icon: ic_MoTaiKhoan, content: 'Mở tài khoản khách hàng', href: 'customer-group/account' },
     ]
 
     const dichVuGroup = [
@@ -66,7 +66,7 @@ const EHome = () => {
                     <div className="w-auto overflow-auto flex flex-col gap-4">
                         <img src={uitPattern} alt="UIT-Pattern" className="fixed contrast-50 w-1/2 self-center" />
 
-                        <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10">
+                        <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10 min-h-screen">
                             {/* Carousel */}
                             <div className="bg-gradient-to-b from-[#047AEE] to-[#9747FF] h-56 w-full max-w-[1256px] rounded-[20px] p-1 mb-20 self-center">
                                 <Carousel autoSlide={true}>
