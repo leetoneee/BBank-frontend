@@ -14,6 +14,7 @@ const initialState = {
     Email: '',
     GiaoDich: "",
     isTransactionSuccess: '',
+    message: '',
     isLoading: false,
     isError: false
 }
@@ -69,6 +70,7 @@ export const createCustomerProfileSlice = createSlice({
                 if (action.payload.errCode === 0) {
                     state.isTransactionSuccess = true;
                 } else {
+                    state.message = action.payload.message
                     state.isTransactionSuccess = false;
                 }
                 state.isLoading = false;

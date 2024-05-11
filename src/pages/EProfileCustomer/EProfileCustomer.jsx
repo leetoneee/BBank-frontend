@@ -86,11 +86,11 @@ const EProfileCustomer = () => {
 
     useEffect(() => {
         if (isTransactionSuccess === true) {
-            setCurrentStep(4);
+            setCurrentStep(3);
             return;
         }
         if (isTransactionSuccess === false) {
-            setCurrentStep(3);
+            setCurrentStep(2);
             return;
         }
     }, [isTransactionSuccess])

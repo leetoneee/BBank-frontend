@@ -18,12 +18,7 @@ const people = [
 function Confirmation(props, ref) {
     const dispatch = useDispatch();
 
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const SoTien = useSelector((state) => state.transfer.SoTien);
-    const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
-    const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const user = useSelector((state) => state.auth.user);
-    const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
 
     const randomString = Math.random().toString(36).slice(8);
     const [otpEmail, setOtpEmail] = useState('');
