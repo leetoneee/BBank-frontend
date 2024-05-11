@@ -46,12 +46,12 @@ function Initialization(props, ref) {
 
     useEffect(() => {
         let date = new Date();
-        dispatch(setNgayDangKy(date))
+        dispatch(setNgayDangKy(date.toLocaleString()))
     }, [])
     //*
     const handleChangeDate = (event) => {
         let date = new Date(event.target.value)
-        dispatch(setNgayDangKy(date));
+        dispatch(setNgayDangKy(date.toLocaleString()));
         setDate(event.target.value);
     };
 
