@@ -43,8 +43,8 @@ function Reject(props) {
             <div className="w-full flex flex-col bg-[#26383C] rounded-[10px] py-10 px-10 gap-4 shadow-rose-400 shadow-sm">
 
                 {message.map((error, index) => (
-                    <>
-                        <div key={index} className="grid grid-cols-3 gap-8">
+                    <div key={index} >
+                        <div className="grid grid-cols-3 gap-8">
                             <span className="col-start-1 text-[#A5ACAE] text-xl self-center">
                                 Error {index + 1}
                             </span>
@@ -55,7 +55,7 @@ function Reject(props) {
                             </div>
                         </div>
                         <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    </>
+                    </div>
                 ))}
             </div>
 
