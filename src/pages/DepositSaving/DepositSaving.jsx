@@ -133,7 +133,7 @@ const DepositSaving = () => {
                                         Trang chủ
                                     </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <span onClick={() => navigate('../saving-group')}
+                                    <span onClick={() => navigate('../home/saving-group')}
                                         className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">
                                         Tiết kiệm
                                     </span>

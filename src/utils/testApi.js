@@ -96,9 +96,9 @@ import axios from "axios";
 // callAPI();
 
 const raw = {
-    "SoTienGui": 3000000,
+    "SoTienGui": 6000000,
     "PhuongThuc": "Lãi nhập gốc",
-    "MaLoaiTietKiem": 3,
+    "MaLoaiTietKiem": 1,
     "MaKhachHang": 40,
     "SoTK": "11538104417"
 };
