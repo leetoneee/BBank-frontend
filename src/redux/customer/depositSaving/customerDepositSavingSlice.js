@@ -18,7 +18,7 @@ const initialState = {
 export const depositSaving = createAsyncThunk(
     'customer/depositSaving',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/customer/saving/deposit`, requestOptions)
+        let res = await axios.post(`${API_ROOT_URL}/customer/saving/deposit`, requestOptions, { withCredentials: true })
         return res.data;
     }
 )

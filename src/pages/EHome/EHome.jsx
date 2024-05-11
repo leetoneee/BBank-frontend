@@ -44,7 +44,7 @@ const EHome = () => {
     const dichVuGroup = [
         { icon: ic_NopTienMat, content: 'Lập phiếu nộp tiền mặt', href: '' },
         { icon: ic_RutTienMat, content: 'Lập phiếu rút tiền mặt', href: '' },
-        { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm', href: '' },
+        { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm', href: 'saving-group/saving' },
         { icon: ic_RutTietKiem, content: 'Lập phiếu rút tiền tiết kiệm', href: '' },
     ]
 
@@ -153,6 +153,7 @@ const EHome = () => {
                                             <div className="grid grid-rows-2  ">
                                                 <img key={index} src={item.icon} alt=""
                                                     className=" bg-[#6B7E84] max-h-[134px] max-w-[134px] transition ease-in-out hover:bg-[#82898B] rounded-[20px] p-10 duration-300 m-auto "
+                                                    onClick={() => navigate(item.href)}
                                                 />
                                                 <span className="font-museo-slab-100 text-2xl text-white text-wrap max-w-[185px] text-center pt-2">{item.content}</span>
                                             </div>
