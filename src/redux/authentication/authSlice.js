@@ -50,6 +50,7 @@ export const authSlice = createSlice({
                 state.isError = false;
             })
             .addCase(loginUser.rejected, (state, action) => {
+                state.isLoginSuccess = false;
                 state.isLoading = false;
                 state.isError = true;
                 console.log(action.error.message);

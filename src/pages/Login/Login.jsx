@@ -3,7 +3,7 @@ import { IoReload, IoCodeOutline } from "react-icons/io5";
 import '../../fonts.css';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Loading, spinner } from "../../components/Loading/Loading";
+import { Loading, spinner, LoadingFlex } from "../../components/Loading/Loading";
 import formatDateLogin from '../../utils/formatDateAndTime';
 import { setLastLoginTime, setIsLoginSuccess } from "../../redux/authentication/authSlice";
 import { loginUser as login } from "../../redux/authentication/authSlice";
@@ -30,6 +30,7 @@ function Login() {
   const [index, setIndex] = useState(0);
 
   const isLoginSuccess = useSelector((state) => state.auth.isLoginSuccess);
+  const isLoading = useSelector((state) => state.auth.isLoading);
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
@@ -305,6 +306,9 @@ function Login() {
         </h1>
 
       </div>
+      {
+        isLoading && <LoadingFlex />
+      }
       <Loading />
       {isShowPopup &&
         <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Mật khẩu không chính xác. Quý khách vui lòng kiểm tra lại.' />}

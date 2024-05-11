@@ -104,9 +104,11 @@ const raw = {
 };
 
 
-const callAPI = async (requestOptions) => {
-    let res = await axios.post("http://localhost:3005/api/v1/customer/saving/deposit", requestOptions)
-    console.log(res.data)
-    return res.data
-}
-callAPI(raw);
+// const callAPI = async (requestOptions) => {
+//     let res = await axios.post("http://localhost:3005/api/v1/customer/saving/deposit", requestOptions)
+//     console.log(res.data)
+//     return res.data
+// }
+// callAPI(raw);
+
+

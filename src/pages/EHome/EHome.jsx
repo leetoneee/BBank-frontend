@@ -6,10 +6,6 @@ import slide2 from '../../assets/icons/slide2.svg';
 import fast_ChuyenTien from '../../assets/icons/fast_ChuyenTien.svg';
 import fast_TietKiem from '../../assets/icons/fast_TietKiem.svg';
 import luaChonChucNang from '../../assets/icons/luaChonChucNang.svg';
-import ic_ChuyenTien from '../../assets/icons/ic_ChuyenTien.svg';
-import ic_ChuyenTienMat from '../../assets/icons/ic_ChuyenTienMat.svg';
-import ic_TietKiemThuong from '../../assets/icons/ic_TietKiemThuong.svg';
-import ic_TietKiemTuDong from '../../assets/icons/ic_TietKiemTuDong.svg';
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate, Outlet } from "react-router-dom";
@@ -37,7 +33,7 @@ const EHome = () => {
     ]
 
     const khachHangGroup = [
-        { icon: ic_LapHoSoKH, content: 'Lập hồ sơ thông tin khách hàng', href: '' },
+        { icon: ic_LapHoSoKH, content: 'Lập hồ sơ thông tin khách hàng', href: 'customer-group/profile' },
         { icon: ic_MoTaiKhoan, content: 'Mở tài khoản khách hàng', href: '' },
     ]
 
@@ -96,12 +92,12 @@ const EHome = () => {
                                     onClick={() => navigate('../setting/fastfeatures')} />
                             </div>
 
-                            {/* Mục Chuyển tiền */}
+                            {/* Mục Khách hàng */}
                             <div>
                                 {/* Title */}
                                 <LongTooltip position="right" content="Hình thức chuyển tiền phong phú, đơn giản, nhanh chóng, an toàn, mạng lưới chi trả rộng khắp cả nước.">
                                     <div className=" inline-flex">
-                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2 " onClick={() => navigate('transfer-group')} >
+                                        <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2 " onClick={() => navigate('customer-group')} >
                                             <span className="font-museo-slab-100  ">Khách hàng</span>
                                         </div>
 
