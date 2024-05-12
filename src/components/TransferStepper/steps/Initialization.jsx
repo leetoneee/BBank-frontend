@@ -116,7 +116,8 @@ function Initialization(props, ref) {
                     </div>
                     {/* Số dư */}
                     <div className="col-start-2 row-start-2 col-span-2 self-center">
-                        {TaiKhoanNguon !== "" && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon.SoDu)}</span>}                    </div>
+                        {TaiKhoanNguon !== "" && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon.SoDu)}</span>}             
+                    </div>
                 </div>
             </div>
 

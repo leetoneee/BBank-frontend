@@ -3,37 +3,41 @@ import { API_ROOT_URL } from '../../../services/api'
 import axios from 'axios'
 
 const initialState = {
-    listAccounts: "",
+    PhieuTietKiem: "",
+    listSavings: "",
     isLoading: false,
     isError: false,
 }
 
-export const fetchAllAccountById = createAsyncThunk(
-    'customer/fetchAllAccountById',
+export const fetchAllSavingByAccount = createAsyncThunk(
+    'customer/fetchAllSavingByAccount',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/customer/account/get-all`, requestOptions, { withCredentials: true })
+        let res = await axios.post(`${API_ROOT_URL}/customer/saving/get-all`, requestOptions, { withCredentials: true })
         return res.data;
     }
 )
 
 export const listSavingSlice = createSlice({
-    name: 'customer',
+    name: 'listSaving',
     initialState,
     reducers: {
+        setPhieuTietKiem: (state, action) => {
+            state.PhieuTietKiem = action.payload;
+        },
         reset: () => initialState,
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchAllAccountById.pending, (state, action) => {
+            .addCase(fetchAllSavingByAccount.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(fetchAllAccountById.fulfilled, (state, action) => {
-                state.listAccounts = action.payload.accounts;
+            .addCase(fetchAllSavingByAccount.fulfilled, (state, action) => {
+                state.listSavings = action.payload.transaction;
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(fetchAllAccountById.rejected, (state, action) => {
+            .addCase(fetchAllSavingByAccount.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 console.log(action.error.message);
@@ -41,6 +45,6 @@ export const listSavingSlice = createSlice({
     }
 })
 
-export const { reset } = listSavingSlice.actions
+export const { setPhieuTietKiem, reset } = listSavingSlice.actions
 
 export default listSavingSlice.reducer

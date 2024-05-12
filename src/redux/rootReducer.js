@@ -5,7 +5,7 @@ import customerReducer from "./customer/customerSlice";
 import counterReducer from './selectBtn/selectBtnSlice';
 import transferReducer from "./customer/transfer/transferSlice";
 import cashtransferReducer from "./customer/cashtransfer/cashtransferSlice";
-import withdrawsavingReducer from "./customer/withdrawsavingSlice/withdrawsavingSlice";
+import customerWithdrawSavingReducer from "./customer/withdrawsavingSlice/withdrawsavingSlice";
 import checkAccountReducer from './system/checkAccountExist/checkExistSlice';
 import sendOtpReducer from "./system/sendOtp/sendOtpSlice";
 import savingTypeReducer from "./getSavingType/savingTypeSlice";
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
     checkAccount: checkAccountReducer,
     sendOtp: sendOtpReducer,
     cashtransfer: cashtransferReducer,
-    withdrawsaving: withdrawsavingReducer,
+    customerWithdrawSaving: customerWithdrawSavingReducer,
     savingTypes: savingTypeReducer,
     cDepositSaving: customerDepositSavingReducer,
     listSaving: listSavingReducer,

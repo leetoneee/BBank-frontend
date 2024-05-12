@@ -1,14 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import readMoney from '../../../utils/n2vi';
 import formatToVND from "../../../utils/formatToVND";
+import {formatDateResult} from "../../../utils/formatDateAndTime";
 import ConfirmationDropdown from '../../Listbox/XacThucDropdown';
 import PopupNotice from "../../Popup/PopupNotice";
-import { useState, forwardRef, useImperativeHandle } from "react";
+import { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { IoReload } from "react-icons/io5";
-import { classNames } from "../../classNames/classNames";
 import { setOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
-
 const people = [
     { name: 'Xác thực qua Email' },
 ]
@@ -17,9 +16,9 @@ const people = [
 function Confirmation(props, ref) {
     const dispatch = useDispatch();
 
-    const TaiKhoanNguon = useSelector((state) => state.withdrawsaving.TaiKhoanNguon);
+    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
+    const PhieuTietKiem = useSelector((state) => state.listSaving.PhieuTietKiem);
     const user = useSelector((state) => state.auth.user);
-    const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
 
     const randomString = Math.random().toString(36).slice(8);
     const [otpEmail, setOtpEmail] = useState('');
@@ -28,7 +27,6 @@ function Confirmation(props, ref) {
     const [valid, setValid] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
 
-
     const refreshString = () => {
         setCapcha(Math.random().toString(36).slice(8));
     };
@@ -36,7 +34,8 @@ function Confirmation(props, ref) {
     const initOtp = () => {
         return Math.floor(Math.random() * 1000000);
     }
-
+    const currentDate = new Date(); // Tạo một đối tượng Date hiện tại
+    const formattedDate = currentDate.toLocaleString();    
 
     useImperativeHandle(ref, () => {
         return {
@@ -88,7 +87,7 @@ function Confirmation(props, ref) {
                             Mã phiếu tiết kiệm
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                            {/* {TaiKhoanDich.SoTaiKhoan} */}
+                            {PhieuTietKiem.MaPhieu}
                         </span>
                     </div>
 
@@ -98,8 +97,8 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Phương thức trả lãi
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {PhieuTietKiem.PhuongThuc}
                         </span>
                     </div>
 
@@ -109,8 +108,8 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Kỳ hạn gửi
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {PhieuTietKiem.LoaiTietKiem.GhiChu}
                         </span>
                     </div>
 
@@ -120,8 +119,8 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Lãi suất
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {Math.round(PhieuTietKiem.LaiSuat * 1000) / 1000}
                         </span>
                     </div>
 
@@ -131,8 +130,8 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Ngày mở phiếu tiết kiệm
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {formatDateResult(PhieuTietKiem.NgayMo)}
                         </span>
                     </div>
 
@@ -142,19 +141,8 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Ngày đến hạn
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
-                        </span>
-                    </div>
-
-                    {/* Ngày tất toán phiếu tiết kiệm */}
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Ngày tất toán phiếu tiết kiệm
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {formatDateResult(PhieuTietKiem.TamTinh.NgayTamRut)}
                         </span>
                     </div>
 
@@ -164,25 +152,36 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Số tiền gửi gốc
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {formatToVND(PhieuTietKiem.SoTienGui)}
                         </span>
                     </div>
 
-                    {/* Số tiền thực lãnh */}
+                    {/* Tổng tiền khi đến hạn */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Số tiền lãnh thực
+                            Tổng tiền khi đến hạn
                         </span>
                         <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
                             <span className="text-xl font-bold">
-                                {/* {formatToVND(Number(SoTien))} */}
+                                {formatToVND(PhieuTietKiem.TamTinh.TienTamTinh)}
                             </span>
                             <span className="text-[15px]">
-                                {/* {readMoney(SoTien)} */}
+                                {readMoney(PhieuTietKiem.TamTinh.TienTamTinh.toString())}
                             </span>
                         </div>
+                    </div>
+
+                    {/* Ngày tất toán phiếu tiết kiệm */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày thực hiện tất toán
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {formatDateResult(formattedDate)}
+                        </span>
                     </div>
                 </div>
             </div>

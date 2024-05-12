@@ -19,7 +19,7 @@ const WithdrawSaving = () => {
     const authenticityRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
 
-    const isTransactionSuccess = useSelector((state) => state.transfer.isTransactionSuccess)
+    const isTransactionSuccess = useSelector((state) => state.customerWithdrawSaving.isTransactionSuccess)
 
     const isError = useSelector((state) => state.transfer.isError)
 

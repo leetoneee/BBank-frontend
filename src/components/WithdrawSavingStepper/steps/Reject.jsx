@@ -2,7 +2,8 @@ import { classNames } from "../../classNames/classNames";
 import { useNavigate } from "react-router-dom";
 import logo from '../../../assets/icons/logo.svg'
 import { FaCircleExclamation } from "react-icons/fa6";
-import { reset as resetTransfer } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
+import { reset as resetWithdrawsaving } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
+import { reset as resetListsaving } from "../../../redux/customer/listSaving/listSavingSlice";
 import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkExistSlice";
 import { useDispatch } from "react-redux";
 
@@ -12,13 +13,15 @@ function Reject(props) {
 
     const handleNavigateHome = () => {
         dispatch(resetCheckAccount());
-        dispatch(resetTransfer());
+        dispatch(resetWithdrawsaving());
+        dispatch(resetListsaving());
         navigate('../home', { replace: true })
     }
 
     const handleInitNewTransaction = () => {
         dispatch(resetCheckAccount());
-        dispatch(resetTransfer());
+        dispatch(resetWithdrawsaving());
+        dispatch(resetListsaving());
         props.handleInitNewTransaction();
     }
 

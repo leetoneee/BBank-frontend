@@ -1,37 +1,40 @@
 import { useSelector, useDispatch } from "react-redux";
 import readMoney from '../../../utils/n2vi';
 import formatToVND from "../../../utils/formatToVND";
+import {formatDateResult} from "../../../utils/formatDateAndTime";
 import PopupNotice from "../../Popup/PopupNotice";
 import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import { classNames } from "../../classNames/classNames";
-import { withdrawsavingMoney } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
+import { withdrawSaving } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
 import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
+
+let KyHan = '';
+let NgayDenHan = '';
 
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
 
-    const TaiKhoanNguon = useSelector((state) => state.withdrawsaving.TaiKhoanNguon);
+    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
+    const PhieuTietKiem = useSelector((state) => state.listSaving.PhieuTietKiem);
     const user = useSelector((state) => state.auth.user);
-    const isLoading = useSelector((state) => state.withdrawsaving.isLoading)
+    const isLoading = useSelector((state) => state.customerWithdrawSaving.isLoading)
 
     const otp = useSelector((state) => state.sendOtp.otp);
-    const [otpInput, setOtpInput] = useState();
+    const [otpInput, setOtpInput] = useState('');
     const [valid, setValid] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
     const [isShowPopupWaiting, setIsShowPopupWaiting] = useState(false);
 
     const createTransaction = () => {
         const raw = {
-            // "SoTien": Number(SoTien),
-            //"NoiDung": NoiDung,
-            //"SoTKNhan": TaiKhoanDich.SoTaiKhoan,
-            "SoTKRut": TaiKhoanNguon.SoTaiKhoan,
-            "MaLoaiGD": 3
+            "MaPhieu": PhieuTietKiem.MaPhieu
         };
-
-        return dispatch(withdrawsavingMoney(raw));
+        return dispatch(withdrawSaving(raw));
     }
+
+    const currentDate = new Date(); // Tạo một đối tượng Date hiện tại
+    const formattedDate = currentDate.toLocaleString(); 
 
     useImperativeHandle(ref, () => {
         return {
@@ -78,6 +81,9 @@ function Authenticity(props, ref) {
         dispatch(sendOtp(raw));
     };
 
+    KyHan = PhieuTietKiem.LoaiTietKiem.GhiChu;
+    NgayDenHan = PhieuTietKiem.TamTinh.NgayTamRut;
+
     return (
         <div className="flex flex-col gap-[50px]">
             {/* Nhập OTP */}
@@ -121,7 +127,7 @@ function Authenticity(props, ref) {
                             Mã phiếu tiết kiệm
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                            {/* {TaiKhoanDich.SoTaiKhoan} */}
+                            {PhieuTietKiem.MaPhieu}
                         </span>
                     </div>
 
@@ -131,8 +137,8 @@ function Authenticity(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Phương thức trả lãi
                         </span>
-                        <span className="col-start-2 col-span-2 text-white font-bold text-xl  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {PhieuTietKiem.PhuongThuc}
                         </span>
                     </div>
 
@@ -142,8 +148,8 @@ function Authenticity(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Kỳ hạn gửi
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {PhieuTietKiem.LoaiTietKiem.GhiChu}
                         </span>
                     </div>
 
@@ -153,8 +159,8 @@ function Authenticity(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Lãi suất
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {Math.round(PhieuTietKiem.LaiSuat * 1000) / 1000}
                         </span>
                     </div>
 
@@ -164,8 +170,8 @@ function Authenticity(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Ngày mở phiếu tiết kiệm
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {formatDateResult(PhieuTietKiem.NgayMo)}
                         </span>
                     </div>
 
@@ -175,19 +181,8 @@ function Authenticity(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Ngày đến hạn
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
-                        </span>
-                    </div>
-
-                    {/* Ngày tất toán phiếu tiết kiệm */}
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Ngày tất toán phiếu tiết kiệm
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {formatDateResult(PhieuTietKiem.TamTinh.NgayTamRut)}
                         </span>
                     </div>
 
@@ -197,25 +192,37 @@ function Authenticity(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Số tiền gửi gốc
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl font-bold  self-center text-right ">
-                            {/* {(TaiKhoanDich.HoTen).toUpperCase()} */}
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {formatToVND(PhieuTietKiem.SoTienGui)}
                         </span>
                     </div>
 
-                    {/* Số tiền thực lãnh */}
+                    {/* Tổng tiền khi đến hạn  */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Số tiền lãnh thực
+                            Tổng tiền khi đến hạn 
                         </span>
                         <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
                             <span className="text-xl font-bold">
-                                {/* {formatToVND(Number(SoTien))} */}
+                                {formatToVND(PhieuTietKiem.TamTinh.TienTamTinh)}
                             </span>
                             <span className="text-[15px]">
-                                {/* {readMoney(SoTien)} */}
+                                {readMoney(PhieuTietKiem.TamTinh.TienTamTinh.toString())}
                             </span>
                         </div>
+                    </div>
+
+                    
+                    {/* Ngày tất toán phiếu tiết kiệm */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày tất toán phiếu tiết kiệm
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {formatDateResult(formattedDate)}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -226,4 +233,5 @@ function Authenticity(props, ref) {
     )
 }
 
+export { KyHan, NgayDenHan };
 export default forwardRef(Authenticity);
