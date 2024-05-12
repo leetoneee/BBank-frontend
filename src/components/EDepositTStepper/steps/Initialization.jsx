@@ -8,6 +8,7 @@ import { getSavingType } from "../../../redux/getSavingType/savingTypeSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setSoTienGui as setSoTien, setTaiKhoanNguon } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
 import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
+import { formatDateSaving } from "../../../utils/formatDateAndTime";
 
 
 function Initialization(props, ref) {
@@ -18,28 +19,25 @@ function Initialization(props, ref) {
     const SoTien = useSelector((state) => state.eDepositSaving.SoTienGui);
     const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
     const listAccounts = useSelector((state) => state.checkCccd.listAccounts)
+    const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
 
     const [soTienGui, setSoTienGui] = useState(SoTien);
     const [account, setAccount] = useState();
     const [isShowEmptyKyHan, setIsShowEmptyKyHan] = useState(false);
     const [isShowEmptySoTienGui, setIsShowEmptySoTienGui] = useState(false);
-    const [isShowEmptyPhuongThuc, setIsShowEmptyPhuongThuc] = useState(false);
+    const [option, setOption] = useState('');
 
-    useEffect(() => {
-        dispatch(getSavingType());
-    }, []);
+    const date = new Date();
 
-
-    useEffect(() => {
-        dispatch(setTaiKhoanNguon(account));
-    }, [setAccount, account])
+    const options = [
+        { name: "Lãi nhập gốc" }
+    ];
 
     useImperativeHandle(ref, () => {
         return {
             validateInputs() {
                 setIsShowEmptyKyHan(false);
                 setIsShowEmptySoTienGui(false);
-                setIsShowEmptyPhuongThuc(false);
 
                 if (!KyHan) {
                     setIsShowEmptyKyHan(true);
@@ -49,19 +47,19 @@ function Initialization(props, ref) {
                     setIsShowEmptySoTienGui(true);
                 }
 
-                if (!PhuongThuc) {
-                    setIsShowEmptyPhuongThuc(true);
-                }
-
-                if (!soTienGui || !KyHan || !PhuongThuc)
+                if (!soTienGui || !KyHan)
                     return true; // Có lỗi
 
                 dispatch(setSoTien(soTienGui));
                 return false; // Không lỗi
             }
         }
-    }, [soTienGui, KyHan, PhuongThuc])
+    }, [soTienGui, KyHan])
 
+    const formatDate = (date) => {
+        let newDate = new Date(date);
+        return formatDateSaving(newDate);
+    }
 
     let listAccountsObjects = [];
 
@@ -74,19 +72,65 @@ function Initialization(props, ref) {
 
     return (
         <div className="flex flex-col gap-7">
-            {/* Tài khoản nguồn & số dư */}
+            {/* Thông tin khách hàng */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
-                <div className="grid grid-cols-3 grid-rows-2 gap-8">
-                    {/* Tài khoản nguồn */}
-                    <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center  ">Tài khoản nguồn</span>
-                    <div className="col-start-2 row-start-1 col-span-2 ">
-                        {listAccountsObjects.length > 0 && <ConfirmationDropdown people={listAccountsObjects} setSelectedValue={setAccount} />}
+                <div className="flex flex-col gap-8">
+                    {/* Họ tên */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                            Tên người mở tài khoản tiết kiệm
+                        </span>
+                        <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                            <span className="text-xl font-bold">{(NguoiDung.HoTen).toUpperCase()}</span>
+                        </div>
                     </div>
 
-                    {/* Số dư */}
-                    <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl self-center">Số dư khả dụng</span>
-                    <div className="col-start-2 row-start-2 col-span-2 self-center">
-                        {TaiKhoanNguon && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon?.SoDu)}</span>}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Địa chỉ */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Địa chỉ
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.DiaChi}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Giấy tờ tuỳ thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            Căng cước công dân
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Số CCCD */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số giấy tờ tuỳ thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.CCCD}
+                        </span>
+                    </div>
+
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Nghề nghiệp */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày mở phiếu tiết kiệm
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {formatDate(date)}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -122,8 +166,7 @@ function Initialization(props, ref) {
                         Hình thức trả lãi
                     </span>
                     <div className="col-start-2 row-start-3 col-span-2 ">
-                        {isShowEmptyPhuongThuc && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng chọn phương thức trả lãi</span>}
-                        <HinhThucSavingDropdown />
+                        <ConfirmationDropdown people={options} setSelectedValue={setOption} />
                     </div>
                 </div>
             </div>

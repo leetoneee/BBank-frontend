@@ -9,18 +9,19 @@ import { reset as resetCccd } from "../../../redux/system/checkCccdExist/checkCc
 import { reset as eResetDepositSaving } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
 import { reset as cResetDepositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
 import roundInterest from "../../../utils/roundInterest";
+import readMoney from "../../../utils/n2vi";
 
 function Result(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     //*
-    const TaiKhoanNguon = useSelector((state) => state.eDepositSaving.TaiKhoanNguon);
     const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
     const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
     //*
 
     const PhieuTietKiem = useSelector((state) => state.eDepositSaving.PhieuTietKiem);
+    const TamTinh = useSelector((state) => state.eDepositSaving.TamTinh);
     const ten = useSelector((state) => state.user.ten);
     const userId = useSelector((state) => state.user.userId);
 
@@ -56,7 +57,7 @@ function Result(props) {
                 </span>
             </div>
 
-            {/* Tài khoản mở */}
+            {/* Thông tin người mở */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
                     <div className="grid grid-cols-2 grid-rows-1 gap-8">
@@ -114,36 +115,88 @@ function Result(props) {
                 </div>
             </div>
 
-            {/* Thông tin chuyển khoản */}
+            {/* Thông tin tiết kiệm */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Kỳ hạn gửi
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {KyHan.GhiChu} – {roundInterest(KyHan.LaiSuat * 100)}%/năm
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Tài khoản nguồn
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {TaiKhoanNguon.SoTaiKhoan}
-                        </span>
-                    </div>
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Mã phiếu tiết kiệm
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
                             {PhieuTietKiem.MaPhieu}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Phương thức trả lãi
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            Lãi nhập gốc
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Kỳ hạn gửi
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {KyHan.GhiChu}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Lãi suất
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {roundInterest(KyHan.LaiSuat * 100)}%/năm
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày mở phiếu tiết kiệm
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {formatDateSaving(PhieuTietKiem.NgayMo)}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày đến hạn
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {formatDateSaving(TamTinh.NgayTamRut)}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số tiền gửi gốc
+                        </span>
+                        <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                            <span className="text-xl font-bold">{formatToVND(PhieuTietKiem.SoTienGui)}</span>
+                            <span className="text-[15px]">{readMoney((PhieuTietKiem.SoTienGui).toString())}</span>
+                        </div>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số tiền tất toán khi đến hạn
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {formatToVND(TamTinh.TienTamTinh)}
                         </span>
                     </div>
                 </div>
