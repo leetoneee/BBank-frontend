@@ -13,12 +13,7 @@ import { createAccountCustomer } from "../../../redux/employee/createCustomerAcc
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
 
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const SoTien = useSelector((state) => state.transfer.SoTien);
-    const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
-    const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const user = useSelector((state) => state.auth.user);
-    const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
     const isLoading = useSelector((state) => state.transfer.isLoading)
     const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
     const LoaiTaiKhoan = useSelector((state) => state.createAccount.LoaiTaiKhoan)
@@ -81,7 +76,7 @@ function Authenticity(props, ref) {
         const otp = Math.floor(Math.random() * 1000000) // Generate 6-digit OTP
         const raw = {
             "otp": otp,
-            "email": user.Email
+            "email": NguoiDung.Email
         };
 
         dispatch(setOtp(otp));

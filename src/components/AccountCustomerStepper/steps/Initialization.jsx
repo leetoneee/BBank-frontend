@@ -10,7 +10,7 @@ import { LoadingFlex as Loading } from "../../Loading/Loading";
 import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
 import { setCCCD as setcccd } from "../../../redux/employee/createCustomerAccount/createCustomerAccountSlice";
 import { checkCccdExist } from "../../../redux/system/checkCccdExist/checkCccdExistSlice";
-import { current } from "@reduxjs/toolkit";
+import { setListAccount } from "../../../redux/system/checkCccdExist/checkCccdExistSlice";
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();
@@ -38,6 +38,9 @@ function Initialization(props, ref) {
 
     let listAccountsObjects = [];
 
+    const resetListAccounts = () => {
+        dispatch(setListAccount(''));
+    }
 
     //*
 
@@ -107,6 +110,7 @@ function Initialization(props, ref) {
                             value={cccd}
                             onChange={(e) => setCCCD(e.target.value)}
                             onBlur={() => checkCCCD(cccd)}
+                            onFocus={() => resetListAccounts()}
                             placeholder="Nhập số giấy tờ tuỳ thân"
                         />
                     </div>

@@ -59,7 +59,7 @@ function Confirmation(props, ref) {
                     let otp = initOtp();
                     let raw = {
                         "otp": otp,
-                        "email": user.Email
+                        "email": NguoiDung.Email
                     }
                     dispatch(setOtp(otp));
                     dispatch(sendOtp(raw));
@@ -242,7 +242,7 @@ function Confirmation(props, ref) {
                         Email nhận mã OTP
                     </span>
                     <div className="col-start-2 row-start-2 col-span-2 bg-white rounded-[10px] py-2 pl-3 pr-10 w-full">
-                        <span className="font-museo-slab-100 text-xl text-[#7AC014]">{user.Email}</span>
+                        <span className="font-museo-slab-100 text-xl text-[#7AC014]">{NguoiDung.Email}</span>
                     </div>
 
                     <span className="col-start-1 row-start-3 text-[#A5ACAE] text-xl  self-center ">Mã kiểm tra</span>
