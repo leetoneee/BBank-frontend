@@ -13,6 +13,7 @@ import customerDepositSavingReducer from "./customer/depositSaving/customerDepos
 import createCustomerProfileReducer from "./employee/createCustomerProfile/createCustomerProfileSlice";
 import createCustomerAccountReducer from "./employee/createCustomerAccount/createCustomerAccountSlice";
 import checkCccdExistReducer from "./system/checkCccdExist/checkCccdExistSlice";
+import employeeDepositSavingReducer from "./employee/depositSaving/employeeDepositSavingSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     createProfile: createCustomerProfileReducer,
     createAccount: createCustomerAccountReducer,
     checkCccd: checkCccdExistReducer,
+    eDepositSaving: employeeDepositSavingReducer,
 });
 
 export default rootReducer;

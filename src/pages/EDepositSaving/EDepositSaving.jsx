@@ -1,48 +1,53 @@
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
-import Stepper from '../../components/AccountCustomerStepper/Stepper';
-import StepperControl from '../../components/AccountCustomerStepper/StepperControl';
-import Initialization from "../../components/AccountCustomerStepper/steps/Initialization";
-import Confirmation from "../../components/AccountCustomerStepper/steps/Confirmation";
-import Authenticity from "../../components/AccountCustomerStepper/steps/Authenticity";
-import Reject from "../../components/AccountCustomerStepper/steps/Reject";
-import Result from "../../components/AccountCustomerStepper/steps/Result";
+import Stepper from '../../components/EDepositStepper/Stepper';
+import Checking from "../../components/EDepositStepper/steps/Checking";
+import StepperControl from '../../components/EDepositStepper/StepperControl';
+import Initialization from "../../components/EDepositStepper/steps/Initialization";
+import Confirmation from "../../components/EDepositStepper/steps/Confirmation";
+import Authenticity from "../../components/EDepositStepper/steps/Authenticity";
+import Reject from "../../components/EDepositStepper/steps/Reject";
+import Result from "../../components/EDepositStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const EAccountCustomer = () => {
+const EDepositSaving = () => {
     const navigate = useNavigate()
+    const checkingRef = useRef();
     const initializationRef = useRef();
     const confirmationRef = useRef();
     const authenticityRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
 
-    const isTransactionSuccess = useSelector((state) => state.createAccount.isTransactionSuccess)
+    const isTransactionSuccess = useSelector((state) => state.eDepositSaving.isTransactionSuccess)
 
     const handleInitNewTransaction = () => {
         setCurrentStep(0);
     };
 
     const steps = [
-        { description: "Tìm kiếm" },
         { description: "Kiểm tra" },
         { description: "Khởi tạo" },
+        { description: "Xác nhận" },
+        { description: "Xác thực" },
         { description: "Kết quả" }
     ];
 
     const displayStep = (steps) => {
         switch (steps) {
             case 0:
-                return <Initialization ref={initializationRef} />
+                return <Checking ref={checkingRef} />
             case 1:
-                return <Confirmation ref={confirmationRef} />
+                return <Initialization ref={initializationRef} />
             case 2:
-                return <Authenticity ref={authenticityRef} />
+                return <Confirmation ref={confirmationRef} />
             case 3:
-                return <Reject handleInitNewTransaction={handleInitNewTransaction} />
+                return <Authenticity ref={authenticityRef} />
             case 4:
+                return <Reject handleInitNewTransaction={handleInitNewTransaction} />
+            case 5:
                 return <Result handleInitNewTransaction={handleInitNewTransaction} />
         }
     }
@@ -60,18 +65,22 @@ const EAccountCustomer = () => {
     const handleClick = async (direction) => {
 
         let newStep = currentStep;
-
         if (newStep === 0) {
-            let error = initializationRef.current.validateInputs();
+            let error = checkingRef.current.validateInputs();
             if (error) {
                 return;
             }
         } else if (newStep === 1 && direction === "next") {
-            let error = confirmationRef.current.validateCapcha();
+            let error = initializationRef.current.validateInputs();
             if (error) {
                 return;
             }
         } else if (newStep === 2 && direction === "next") {
+            let error = confirmationRef.current.validateCapcha();
+            if (error) {
+                return;
+            }
+        } else if (newStep === 3 && direction === "next") {
             const error = authenticityRef.current.validateOtp();
             if (error) {
                 return;
@@ -94,11 +103,11 @@ const EAccountCustomer = () => {
 
     useEffect(() => {
         if (isTransactionSuccess === true) {
-            setCurrentStep(4);
+            setCurrentStep(5);
             return;
         }
         if (isTransactionSuccess === false) {
-            setCurrentStep(3);
+            setCurrentStep(4);
             return;
         }
     }, [isTransactionSuccess])
@@ -124,17 +133,17 @@ const EAccountCustomer = () => {
                             <div className="w-full">
                                 <h1 className="mt-20 text-[40px]
                                             text-white font-bold  ">
-                                    Mở tài khoản khách hàng
+                                    Lập phiếu gửi tiết kiệm
                                 </h1>
                                 <div className="2xl:mt-[23px] text-[20px]
                                             text-[#B0B5B6] flex flex-row">
                                     <span onClick={() => navigate('../home')}
                                         className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Trang chủ </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <span onClick={() => navigate('../home/customer-group')}
-                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Khách hàng </span>
+                                    <span onClick={() => navigate('../home/service-group')}
+                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Dịch vụ </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <p className="text-[#72BF00] hover:cursor-auto"> Mở tài khoản khách hàng </p>
+                                    <p className="text-[#72BF00] hover:cursor-auto"> Lập phiếu gửi tiết kiệm </p>
                                 </div>
                             </div>
 
@@ -166,4 +175,4 @@ const EAccountCustomer = () => {
     )
 }
 
-export default EAccountCustomer;
+export default EDepositSaving;

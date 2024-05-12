@@ -6,7 +6,7 @@ export default function ConfirmationDropdown({ people, setSelectedValue }) {
     const [selected, setSelected] = useState(people[0]);
 
     useEffect(() => {
-        setSelectedValue(selected.name); // Cập nhật giayToTH khi selected thay đổi
+        setSelectedValue(selected); // Cập nhật giayToTH khi selected thay đổi
     }, [selected, setSelectedValue]);
 
     return (
@@ -28,7 +28,7 @@ export default function ConfirmationDropdown({ people, setSelectedValue }) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-30">
                             {people.map((person, personIdx) => (
                                 <Listbox.Option
                                     key={personIdx}

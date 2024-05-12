@@ -40,7 +40,8 @@ const EHome = () => {
     const dichVuGroup = [
         { icon: ic_NopTienMat, content: 'Lập phiếu nộp tiền mặt', href: '' },
         { icon: ic_RutTienMat, content: 'Lập phiếu rút tiền mặt', href: '' },
-        { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm', href: '' },
+        { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm từ tài khoản', href: 'service-group/deposit-saving' },
+        { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm truyền thống', href: '' },
         { icon: ic_RutTietKiem, content: 'Lập phiếu rút tiền tiết kiệm', href: '' },
     ]
 
@@ -131,7 +132,7 @@ const EHome = () => {
                                 <LongTooltip position="right" content="Lãi suất cao, thời gian gửi linh hoạt, bảo mật tuyệt đối, cơ hội tham gia nhiều chương trình khuyến mãi hấp dẫn, miễn phí quản lý tài khoản.">
                                     <div className=" inline-flex">
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2"
-                                            onClick={() => navigate('saving-group')}>
+                                            onClick={() => navigate('service-group')}>
                                             <span className="font-museo-slab-100  ">Dịch vụ</span>
                                         </div>
 
@@ -149,6 +150,7 @@ const EHome = () => {
                                             <div className="grid grid-rows-2  ">
                                                 <img key={index} src={item.icon} alt=""
                                                     className=" bg-[#6B7E84] max-h-[134px] max-w-[134px] transition ease-in-out hover:bg-[#82898B] rounded-[20px] p-10 duration-300 m-auto "
+                                                    onClick={() => navigate(item.href)}
                                                 />
                                                 <span className="font-museo-slab-100 text-2xl text-white text-wrap max-w-[185px] text-center pt-2">{item.content}</span>
                                             </div>
@@ -158,7 +160,7 @@ const EHome = () => {
                             </div>
                         </div>
 
-                        {/* Mục Dịch vụ */}
+                        {/* Mục Báo cáo thống kê */}
                         <div className="bg-[#40494C]/[70%] h-auto z-10">
                             <div className="mt-24">
                                 {/* Title */}

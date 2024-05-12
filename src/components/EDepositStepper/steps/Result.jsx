@@ -5,29 +5,36 @@ import logo from '../../../assets/icons/logo.svg'
 import { useDispatch, useSelector } from "react-redux";
 import formatToVND from "../../../utils/formatToVND";
 import { formatDateSaving, formatDateResult } from "../../../utils/formatDateAndTime";
-import { reset as resetTransfer } from "../../../redux/customer/transfer/transferSlice";
-import { reset as resetDepositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
+import { reset as resetCccd } from "../../../redux/system/checkCccdExist/checkCccdExistSlice";
+import { reset as eResetDepositSaving } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
+import { reset as cResetDepositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
 import roundInterest from "../../../utils/roundInterest";
 
 function Result(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const PhieuTietKiem = useSelector((state) => state.cDepositSaving.PhieuTietKiem);
+    //*
+    const TaiKhoanNguon = useSelector((state) => state.eDepositSaving.TaiKhoanNguon);
+    const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
     const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
+    //*
+
+    const PhieuTietKiem = useSelector((state) => state.eDepositSaving.PhieuTietKiem);
     const ten = useSelector((state) => state.user.ten);
-    const user = useSelector((state) => state.auth.user);
+    const userId = useSelector((state) => state.user.userId);
 
     const handleNavigateHome = () => {
-        dispatch(resetDepositSaving());
-        dispatch(resetTransfer());
+        dispatch(resetCccd());
+        dispatch(eResetDepositSaving());
+        dispatch(cResetDepositSaving());
         navigate('../home', { replace: true })
     }
 
     const handleInitNewTransaction = () => {
-        dispatch(resetDepositSaving());
-        dispatch(resetTransfer());
+        dispatch(resetCccd());
+        dispatch(eResetDepositSaving());
+        dispatch(cResetDepositSaving());
         props.handleInitNewTransaction();
     }
 
@@ -57,7 +64,7 @@ function Result(props) {
                             Tên người mở tài khoản tiết kiệm
                         </span>
                         <span className="col-start-2 col-span-2 text-red-600  text-xl font-bold  self-center text-right ">
-                            {ten.toUpperCase()}
+                            {(NguoiDung.HoTen).toUpperCase()}
                         </span>
                     </div>
 
@@ -68,7 +75,7 @@ function Result(props) {
                             Địa chỉ người mở
                         </span>
                         <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
-                            {user.DiaChi}
+                            {NguoiDung.DiaChi}
                         </span>
                     </div>
 
@@ -90,7 +97,7 @@ function Result(props) {
                             Số giấy tờ tuỳ thân
                         </span>
                         <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
-                            {user.CCCD}
+                            {NguoiDung.CCCD}
                         </span>
                     </div>
 
@@ -137,6 +144,31 @@ function Result(props) {
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
                             {PhieuTietKiem.MaPhieu}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Thông tin chuyển khoản */}
+            <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
+                <div className="flex flex-col gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Mã nhân viên
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {userId}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Tên nhân viên
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {ten}
                         </span>
                     </div>
                 </div>

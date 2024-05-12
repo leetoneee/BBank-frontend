@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import DropdownListbox from "../../Listbox/Listbox";
+import formatToVND from "../../../utils/formatToVND";
+import { useEffect, useState } from "react";
 import { forwardRef, useImperativeHandle } from "react";
+import { setNoiDung, setTaiKhoanDich, setSoTien, setHinhThuc } from '../../../redux/customer/transfer/transferSlice';
 import PopupNotice from "../../Popup/PopupNotice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
 import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
 import { setCCCD as setcccd } from "../../../redux/employee/createCustomerAccount/createCustomerAccountSlice";
 import { checkCccdExist } from "../../../redux/system/checkCccdExist/checkCccdExistSlice";
 import { setListAccount } from "../../../redux/system/checkCccdExist/checkCccdExistSlice";
-
-function Initialization(props, ref) {
+import { setTaiKhoanNguon } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
+function Checking(props, ref) {
     const dispatch = useDispatch();
 
     const [isShowPopup, setIsShowPopup] = useState(false);
@@ -31,8 +34,6 @@ function Initialization(props, ref) {
             dispatch(checkCccdExist(raw));
         }
     }
-
-    let listAccountsObjects = [];
 
     const resetListAccounts = () => {
         dispatch(setListAccount(''));
@@ -64,12 +65,19 @@ function Initialization(props, ref) {
         }
     }, [cccd, isExist])
 
+    useEffect(() => {
+        dispatch(setTaiKhoanNguon(account));
+    }, [account, setAccount]);
+
     const options = [
         { name: "Căng cước công dân" }
     ];
 
+    let listAccountsObjects = [];
+
     if (listAccounts) {
         listAccountsObjects = listAccounts.map((account, index) => ({
+            ...account,
             name: account.SoTaiKhoan
         }));
     }
@@ -112,7 +120,8 @@ function Initialization(props, ref) {
 
                         <div className="col-start-2 col-span-2">
                             <div className="flex flex-row-reverse  ">
-                                {listAccountsObjects.length > 0 && <ConfirmationDropdown people={listAccountsObjects} setSelectedValue={setAccount} />}                            </div>
+                                {listAccountsObjects.length > 0 && <ConfirmationDropdown people={listAccountsObjects} setSelectedValue={setAccount} />}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,4 +133,4 @@ function Initialization(props, ref) {
     )
 }
 
-export default forwardRef(Initialization);
+export default forwardRef(Checking);
