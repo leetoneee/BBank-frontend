@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import formatToVND from "../../../utils/formatToVND";
 import { formatDateResult } from "../../../utils/formatDateAndTime";
 import { reset as resetTransfer } from "../../../redux/customer/transfer/transferSlice";
-import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
 import React, { useRef, useState } from "react";
 import { useReactToPrint } from 'react-to-print';
 

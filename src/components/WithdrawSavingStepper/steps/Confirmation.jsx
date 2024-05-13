@@ -4,10 +4,13 @@ import formatToVND from "../../../utils/formatToVND";
 import {formatDateResult} from "../../../utils/formatDateAndTime";
 import ConfirmationDropdown from '../../Listbox/XacThucDropdown';
 import PopupNotice from "../../Popup/PopupNotice";
+import PopupConfirm from "../../Popup/PopupConfirm";
 import { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { IoReload } from "react-icons/io5";
 import { setOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
+import { chenhLech, tinhChenhLechNgay } from './Initialization';
+
 const people = [
     { name: 'Xác thực qua Email' },
 ]
@@ -26,6 +29,7 @@ function Confirmation(props, ref) {
     const [capchaInput, setCapchaInput] = useState('');
     const [valid, setValid] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
+    const [isShowPopupConfirm, setIsShowPopupConfirm] = useState(false);
 
     const refreshString = () => {
         setCapcha(Math.random().toString(36).slice(8));
@@ -42,6 +46,7 @@ function Confirmation(props, ref) {
             validateCapcha() {
                 setValid(false)
                 setIsShowPopup(false);
+                setIsShowPopupConfirm(false);
 
                 if (capchaInput === capcha) {
                     //match
@@ -55,6 +60,9 @@ function Confirmation(props, ref) {
                     dispatch(sendOtp(raw));
                     return false; //Không lỗi
                 }
+                if (isShowPopup === false && 15 <= chenhLech && chenhLech < tinhChenhLechNgay(PhieuTietKiem.NgayMo, PhieuTietKiem.TamTinh.NgayTamRut)) {
+                    setIsShowPopupConfirm(true);
+                }
                 // not match
                 setValid(false)
                 refreshString();
@@ -64,6 +72,8 @@ function Confirmation(props, ref) {
         }
     }, [capchaInput, capcha, valid])
 
+    console.log("Chênh lệch giữa ngày mở và ngày đóng là:", tinhChenhLechNgay(PhieuTietKiem.NgayMo, PhieuTietKiem.TamTinh.NgayTamRut));
+    console.log(" mở và ngày hiện tại là:", chenhLech);
     return (
         <div className="flex flex-col gap-[50px]">
             {/* Tài khoản nguồn */}
@@ -216,6 +226,8 @@ function Confirmation(props, ref) {
                     </button>
                     {isShowPopup &&
                         <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Mã kiểm tra không chính xác. Quý khách vui lòng kiểm tra lại.' />}
+                    {isShowPopupConfirm &&
+                        <PopupConfirm showPopup={isShowPopupConfirm} setShowPopup={setIsShowPopupConfirm} handleClickComfirm={useImperativeHandle} content='Bạn có chắc chắn muốn thoát khỏi trang này không?' />}
                 </div>
             </div>
         </div>

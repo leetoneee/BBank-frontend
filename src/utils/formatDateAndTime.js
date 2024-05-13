@@ -44,3 +44,6 @@ export function formatDateSaving(date) {
 
 // console.log(formatDateSaving(inputDateString)); // 05/05/2024
 
+const date = new Date('2004-11-16');
+
+console.log("🚀 ~ date:", date.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-'));

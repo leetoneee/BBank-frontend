@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { getSavingType } from "../../redux/getSavingType/savingTypeSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setSoTienGui as setSoTien } from "../../redux/customer/depositSaving/customerDepositSavingSlice";
-import { checkAccountExist } from "../../redux/system/checkAccountExist/checkExistSlice";
+import { checkAccountExist } from "../../redux/system/checkAccountExist/checkAccountExistSlice";
 import PopupNotice from "../../components/Popup/PopupNotice";
 
 function CancelAutoSaving(props, ref) {

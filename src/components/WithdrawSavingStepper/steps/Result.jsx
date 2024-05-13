@@ -8,7 +8,7 @@ import formatToVND from "../../../utils/formatToVND";
 import { formatDateResult } from "../../../utils/formatDateAndTime";
 import { reset as resetWithdrawsaving } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
 import { reset as resetListsaving } from "../../../redux/customer/listSaving/listSavingSlice";
-import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkExistSlice";
+import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
 import { KyHan, NgayDenHan } from './Authenticity';
 import { useReactToPrint } from 'react-to-print';
 

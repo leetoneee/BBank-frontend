@@ -2,13 +2,45 @@ import { useDispatch, useSelector } from "react-redux";
 import DropdownListbox from "../../Listbox/Listbox";
 import ListboxSaving from "../../Listbox/ListboxSaving";
 import formatToVND from "../../../utils/formatToVND";
+import PopupNotice from "../../Popup/PopupNotice";
 import { useEffect, useState } from "react";
 import { fetchAllAccountById } from "../../../redux/customer/customerSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setPhieuTietKiem } from "../../../redux/customer/listSaving/listSavingSlice";
 import { withdrawSaving } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
-import {  } from '../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice';
+import { } from '../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice';
 
+let chenhLech = '';
+
+export function tinhChenhLechNgay(date1, date2) {
+    const ngay1 = new Date(date1).getTime(); // Chuyển đổi ngày 1 sang đối tượng Date
+    const ngay2 = new Date(date2).getTime(); // Chuyển đổi ngày 2 sang đối tượng Date
+
+    // Tính toán chênh lệch thời gian (tính bằng mili-giây)
+    const diff = (ngay2 - ngay1);
+
+    // Chuyển đổi chênh lệch thời gian từ mili-giây sang ngày
+    const ngayChenhLech = Math.floor(diff / (1000 * 60 * 60 * 24));
+    // Trả về chuỗi kết quả
+    return ngayChenhLech;
+}
+
+// export function tinhChenhLechNgay(date1, date2) {
+//     const ngay1 = new Date(date1); // Chuyển đổi ngày 1 sang đối tượng Date
+//     const ngay2 = new Date(date2); // Chuyển đổi ngày 2 sang đối tượng Date
+
+//     // Tính toán chênh lệch thời gian (tính bằng mili-giây)
+//     const diff = (ngay2 - ngay1);
+
+//     // Chuyển đổi chênh lệch thời gian từ mili-giây sang ngày
+//     const ngayChenhLech = new Date(diff);
+
+//     // Lấy các thành phần của chênh lệch thời gian
+//     const ngay = ngayChenhLech.getUTCDate() - 1;
+
+//     // Trả về chuỗi kết quả
+//     return ngay;
+// }
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();
@@ -18,6 +50,10 @@ function Initialization(props, ref) {
     const PhieuTietKiem = useSelector((state) => state.listSaving.PhieuTietKiem);
 
     const [isShowEmptyPhieuTietKiem, setIsShowEmptyPhieuTietKiem] = useState(false);
+    const [isShowPopupNotice, setIsShowPopupNotice] = useState(false);
+
+    const currentDate = new Date();
+    const NgayHienTai = currentDate.toISOString();
 
     useEffect(() => {
         let raw = {
@@ -30,21 +66,33 @@ function Initialization(props, ref) {
     useImperativeHandle(ref, () => {
         return {
             validateInputs() {
-                setIsShowEmptyPhieuTietKiem(false)
+                setIsShowEmptyPhieuTietKiem(false);
+                setIsShowPopupNotice(false);
 
                 if (!PhieuTietKiem) {
                     setIsShowEmptyPhieuTietKiem(true);
-                 }
+                }
 
-                if (!PhieuTietKiem )
+                if (chenhLech < 15) {
+                    setIsShowPopupNotice(true);
+                }
+
+                if (!PhieuTietKiem || chenhLech < 15) {
                     return true; // Có lỗi
+                }
 
                 dispatch(setPhieuTietKiem(PhieuTietKiem));
                 return false; // Không lỗi
             },
-            
+
         }
     }, [PhieuTietKiem])
+
+    const ngay1 = PhieuTietKiem.NgayMo;
+    const ngay2 = NgayHienTai;
+
+    chenhLech = tinhChenhLechNgay(ngay1, ngay2);
+    console.log("Chênh lệch giữa hai ngày là:", chenhLech);
 
     return (
         <div className="flex flex-col gap-7">
@@ -80,9 +128,10 @@ function Initialization(props, ref) {
                     </div>
                 </div>
             </div>
-
+            {isShowPopupNotice &&
+                <PopupNotice showPopup={isShowPopupNotice} setShowPopup={setIsShowPopupNotice} content='Phiếu tiết kiệm này chưa đủ 15 ngày kể từ ngày mở. Không thể thực hiện tất toán phiếu tiết kiệm.' />}
         </div>
     )
 }
-
+export { chenhLech };
 export default forwardRef(Initialization);

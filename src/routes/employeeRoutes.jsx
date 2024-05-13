@@ -1,14 +1,23 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-
+import ECustomerGroup from '../pages/ECustomerGroup/ECustomerGroup'
+import EProfileCustomer from '../pages/EProfileCustomer/EProfileCustomer'
 import EHome from '../pages/EHome/EHome'
-import ESaving from '../pages/ESaving/ESaving'
+import EAccountCustomer from '../pages/EAccountCustomer/EAccountCustomer'
+import EServiceGroup from '../pages/EServiceGroup/EServiceGroup'
+import EDepositSaving from '../pages/EDepositSaving/EDepositSaving'
+import EDepositSavingT from '../pages/EDepositSavingT/EDepositSavingT'
 
 function EmployeeRoutes() {
     return (
         <Routes>
             <Route path='home' element={<EHome />} />
-            <Route exact path='home/saving-group/saving' element={<ESaving />} />
+            <Route path='home/customer-group' element={<ECustomerGroup />} />
+            <Route path='home/customer-group/profile' element={<EProfileCustomer />} />
+            <Route path='home/customer-group/account' element={<EAccountCustomer />} />
+            <Route path='home/service-group' element={<EServiceGroup />} />
+            <Route path='home/service-group/deposit-saving' element={<EDepositSaving />} />
+            <Route path='home/service-group/deposit-saving-traditional' element={<EDepositSavingT />} />
         </Routes>
     )
 }
