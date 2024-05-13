@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { API_ROOT_URL } from '../../../services/api'
-import axios from 'axios'
+import axios from '../../../services/axios'
+
 
 const initialState = {
     isExist: false,
@@ -13,7 +13,7 @@ const initialState = {
 export const checkCccdExist = createAsyncThunk(
     'system/checkCccdExist',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/system/account/cccd-exist`, requestOptions)
+        let res = await axios.post('/system/account/cccd-exist', requestOptions)
         return res.data;
     }
 )

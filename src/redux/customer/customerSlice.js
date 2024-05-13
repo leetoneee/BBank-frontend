@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { API_ROOT_URL } from '../../services/api'
-import axios from 'axios'
+import axios from '../../services/axios'
+
 
 const initialState = {
     listAccounts: "",
@@ -11,7 +11,7 @@ const initialState = {
 export const fetchAllAccountById = createAsyncThunk(
     'customer/fetchAllAccountById',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/customer/account/get-all`, requestOptions)
+        let res = await axios.post('/customer/account/get-all', requestOptions)
         return res.data;
     }
 )

@@ -9,6 +9,8 @@ import WithdrawSaving from '../pages/WithdrawSaving/WithdrawSaving';
 import TransferGroup from '../pages/TransferGroup/TransferGroup';
 import CashTransfer from '../pages/CashTransfer/CashTransfer';
 import DepositSaving from '../pages/DepositSaving/DepositSaving';
+import TransactionHistory from '../pages/TransactionHistory/TransactionHistory';
+
 function CustomerRoutes() {
 
     return (
@@ -20,6 +22,7 @@ function CustomerRoutes() {
             <Route exact path='home/transfer-group' element={<TransferGroup />} />
             <Route exact path='home/saving-group' element={<SavingGroup />} />
             <Route exact path='home/saving-group/saving' element={<DepositSaving />} />
+            <Route exact path='home/account/transaction-history' element={<TransactionHistory />} />
             <Route exact path='utilities' element={<Home />} />
             <Route exact path='setting' element={<Home />} />
             <Route exact path='setting/fastfeatures' element={<FastFeatures />} />

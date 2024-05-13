@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { API_ROOT_URL } from '../../../services/api'
-import axios from 'axios'
+import axios from '../../../services/axios'
+
 
 const initialState = {
     TaiKhoanNguon: "",
@@ -19,7 +19,7 @@ const initialState = {
 export const employeeDepositSaving = createAsyncThunk(
     'employeee/employeeDepositSaving',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/employee/saving/deposit`, requestOptions)
+        let res = await axios.post('/employee/saving/deposit', requestOptions)
         return res.data;
     }
 )

@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import userReducer from './user/userSlice';
-import authReducer from './authentication/authSlice';
+import authReducer from "./authentication/authSlice";
 import customerReducer from "./customer/customerSlice";
 import counterReducer from './selectBtn/selectBtnSlice';
 import transferReducer from "./customer/transfer/transferSlice";
@@ -14,6 +14,7 @@ import createCustomerProfileReducer from "./employee/createCustomerProfile/creat
 import createCustomerAccountReducer from "./employee/createCustomerAccount/createCustomerAccountSlice";
 import checkCccdExistReducer from "./system/checkCccdExist/checkCccdExistSlice";
 import employeeDepositSavingReducer from "./employee/depositSaving/employeeDepositSavingSlice";
+import getTransactionHistoryReducer from "./customer/getTransactionHistory/getTransactionHistorySlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     createAccount: createCustomerAccountReducer,
     checkCccd: checkCccdExistReducer,
     eDepositSaving: employeeDepositSavingReducer,
+    getTransHis: getTransactionHistoryReducer,
 });
 
 export default rootReducer;
