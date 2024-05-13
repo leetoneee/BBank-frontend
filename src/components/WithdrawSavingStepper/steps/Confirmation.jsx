@@ -30,6 +30,7 @@ function Confirmation(props, ref) {
     const [valid, setValid] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
     const [isShowPopupConfirm, setIsShowPopupConfirm] = useState(false);
+    const [isSendOtp, setIsSendOtp] = useState(false);
 
     const refreshString = () => {
         setCapcha(Math.random().toString(36).slice(8));
@@ -39,7 +40,20 @@ function Confirmation(props, ref) {
         return Math.floor(Math.random() * 1000000);
     }
     const currentDate = new Date(); // Tạo một đối tượng Date hiện tại
-    const formattedDate = currentDate.toLocaleString();    
+    const formattedDate = currentDate.toLocaleString(); 
+    
+    const handleClickConfirm = () => {
+        setIsSendOtp(true)
+        setIsShowPopupConfirm(false);
+        setValid(true);
+        let otp = initOtp();
+        let raw = {
+            "otp": otp,
+            "email": user.Email
+        }
+        dispatch(setOtp(otp));
+        dispatch(sendOtp(raw));
+    };
 
     useImperativeHandle(ref, () => {
         return {
@@ -49,7 +63,14 @@ function Confirmation(props, ref) {
                 setIsShowPopupConfirm(false);
 
                 if (capchaInput === capcha) {
-                    //match
+                    if (15 <= chenhLech && chenhLech < tinhChenhLechNgay(PhieuTietKiem.NgayMo, PhieuTietKiem.TamTinh.NgayTamRut)) {
+                        setIsShowPopupConfirm(true);
+                        if(isSendOtp === true){
+                            return false; //Không lỗi
+                        }
+                        else
+                            return true; //có lỗi
+                    }
                     setValid(true);
                     let otp = initOtp();
                     let raw = {
@@ -60,9 +81,7 @@ function Confirmation(props, ref) {
                     dispatch(sendOtp(raw));
                     return false; //Không lỗi
                 }
-                if (isShowPopup === false && 15 <= chenhLech && chenhLech < tinhChenhLechNgay(PhieuTietKiem.NgayMo, PhieuTietKiem.TamTinh.NgayTamRut)) {
-                    setIsShowPopupConfirm(true);
-                }
+
                 // not match
                 setValid(false)
                 refreshString();
@@ -226,11 +245,12 @@ function Confirmation(props, ref) {
                     </button>
                     {isShowPopup &&
                         <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Mã kiểm tra không chính xác. Quý khách vui lòng kiểm tra lại.' />}
-                    {isShowPopupConfirm &&
-                        <PopupConfirm showPopup={isShowPopupConfirm} setShowPopup={setIsShowPopupConfirm} handleClickComfirm={useImperativeHandle} content='Bạn có chắc chắn muốn thoát khỏi trang này không?' />}
                 </div>
             </div>
+            {isShowPopupConfirm &&
+                        <PopupConfirm showPopup={isShowPopupConfirm} setShowPopup={setIsShowPopupConfirm} handleClickComfirm={handleClickConfirm} content='Phiếu tiết kiệm chưa đến hạn. Nếu tất toán trước hạn, quý khách sẽ chịu lãi suất thấp. Quý khách có chắc chắn tất toán phiếu tiết kiệm này không?' />}
         </div>
+        
     )
 }
 

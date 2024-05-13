@@ -8,9 +8,9 @@ import { classNames } from "../../classNames/classNames";
 import { withdrawSaving } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
 import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
+import { chenhLech, tinhChenhLechNgay } from './Initialization';
+import { setKyHan, setNgayDenHan } from '../../../redux/KyHanNgayDenHan/kyhanngaydenhanSlice';
 
-let KyHan = '';
-let NgayDenHan = '';
 
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
@@ -81,8 +81,13 @@ function Authenticity(props, ref) {
         dispatch(sendOtp(raw));
     };
 
-    KyHan = PhieuTietKiem.LoaiTietKiem.GhiChu;
-    NgayDenHan = PhieuTietKiem.TamTinh.NgayTamRut;
+    const KyHan = PhieuTietKiem.LoaiTietKiem.GhiChu;
+    const NgayDenHan = PhieuTietKiem.TamTinh.NgayTamRut;
+
+    dispatch(setKyHan(KyHan));
+    dispatch(setNgayDenHan(NgayDenHan));
+
+    const TienTruocHan = Math.round(PhieuTietKiem.SoTienGui + (PhieuTietKiem.SoTienGui * 0.01 * chenhLech / 365));
 
     return (
         <div className="flex flex-col gap-[50px]">
@@ -164,6 +169,17 @@ function Authenticity(props, ref) {
                         </span>
                     </div>
 
+                    {/* Số tiền gửi gốc */}
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số tiền gửi gốc
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                            {formatToVND(PhieuTietKiem.SoTienGui)}
+                        </span>
+                    </div>
+
                     {/* Ngày mở phiếu tiết kiệm */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
@@ -186,34 +202,6 @@ function Authenticity(props, ref) {
                         </span>
                     </div>
 
-                    {/* Số tiền gửi gốc */}
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Số tiền gửi gốc
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
-                            {formatToVND(PhieuTietKiem.SoTienGui)}
-                        </span>
-                    </div>
-
-                    {/* Tổng tiền khi đến hạn  */}
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Tổng tiền khi đến hạn 
-                        </span>
-                        <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
-                            <span className="text-xl font-bold">
-                                {formatToVND(PhieuTietKiem.TamTinh.TienTamTinh)}
-                            </span>
-                            <span className="text-[15px]">
-                                {readMoney(PhieuTietKiem.TamTinh.TienTamTinh.toString())}
-                            </span>
-                        </div>
-                    </div>
-
-                    
                     {/* Ngày tất toán phiếu tiết kiệm */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
@@ -224,6 +212,59 @@ function Authenticity(props, ref) {
                             {formatDateResult(formattedDate)}
                         </span>
                     </div>
+
+                    {/* Lãi suất trước hạn*/}
+                    {chenhLech < tinhChenhLechNgay(PhieuTietKiem.NgayMo, PhieuTietKiem.TamTinh.NgayTamRut) && (
+                        <>
+                            <div className="border-b-2 border-white h-[2px] w-full self-center"></div>
+                            <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                                <span className="col-start-1 text-[#A5ACAE] text-xl self-center">
+                                    Lãi suất trước hạn
+                                </span>
+                                <span className="col-start-2 col-span-2 text-white text-xl self-center text-right">
+                                    0.01
+                                </span>
+                            </div>
+                        </>
+                    )}
+
+
+                    {/* Tổng tiền  */}
+                    {chenhLech < tinhChenhLechNgay(PhieuTietKiem.NgayMo, PhieuTietKiem.TamTinh.NgayTamRut)
+                    ?
+                    (<>
+                        <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                        <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                            <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                                Tổng tiền rút trước hạn 
+                            </span>
+                            <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                                <span className="text-xl font-bold">
+                                    {formatToVND(TienTruocHan)}
+                                </span>
+                                <span className="text-[15px]">
+                                    {readMoney(TienTruocHan.toString())}
+                                </span>
+                            </div>
+                        </div>
+                    </>)
+                   :
+                   (<>
+                        <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                        <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                            <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                                Tổng tiền khi đến hạn 
+                            </span>
+                            <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                                <span className="text-xl font-bold">
+                                    {formatToVND(PhieuTietKiem.TamTinh.TienTamTinh)}
+                                </span>
+                                <span className="text-[15px]">
+                                    {readMoney(PhieuTietKiem.TamTinh.TienTamTinh.toString())}
+                                </span>
+                            </div>
+                        </div>
+                    </>)} 
                 </div>
             </div>
             {
@@ -233,5 +274,4 @@ function Authenticity(props, ref) {
     )
 }
 
-export { KyHan, NgayDenHan };
 export default forwardRef(Authenticity);

@@ -9,7 +9,6 @@ import { formatDateResult } from "../../../utils/formatDateAndTime";
 import { reset as resetWithdrawsaving } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
 import { reset as resetListsaving } from "../../../redux/customer/listSaving/listSavingSlice";
 import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
-import { KyHan, NgayDenHan } from './Authenticity';
 import { useReactToPrint } from 'react-to-print';
 
 function Result(props) {
@@ -18,6 +17,8 @@ function Result(props) {
 
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
     const GiaoDich = useSelector((state) => state.customerWithdrawSaving.GiaoDich);
+    const KyHan = useSelector((state) => state.kyhan.KyHan);
+    const NgayDenHan = useSelector((state) => state.kyhan.NgayDenHan);
 
     const handleNavigateHome = () => {
         dispatch(resetCheckAccount());
