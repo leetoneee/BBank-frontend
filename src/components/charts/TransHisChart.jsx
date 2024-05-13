@@ -17,9 +17,9 @@ import { formatDateSaving } from '../../utils/formatDateAndTime';
 function TransHisChart({ data }) {
     return (
         <ResponsiveContainer width='100%' height='100%'>
-            <LineChart width={500} height={400} data={data} margin={{ right: 20 }}>
+            <LineChart width={500} height={400} data={data} margin={{ right: 20, left: 10 }}>
                 <YAxis tick={{ stroke: 'white', strokeWidth: 1 }} allowDataOverflow />
-                <XAxis dataKey="date" tick={{ stroke: 'white' }} />
+                <XAxis dataKey="date" tick={{ stroke: 'white' }} tickSize='4' />
                 <CartesianGrid strokeDasharray='3 3' />
                 <Tooltip content={CustomTooltip} />
                 <Brush travellerWidth={5} />
