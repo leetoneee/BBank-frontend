@@ -90,7 +90,7 @@ const TransactionHistory = () => {
             </div>
             <div className="col-end-12 col-span-9 flex flex-col">
                 {/* Header */}
-                <div className="sticky top-0 z-20">
+                <div className="sticky top-0 z-10">
                     <Header />
                 </div>
 

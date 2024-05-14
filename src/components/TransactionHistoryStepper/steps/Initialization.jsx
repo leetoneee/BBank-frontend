@@ -33,6 +33,11 @@ function Initialization(props, ref) {
         dispatch(setThoiGian(option))
     }, [option, setOption])
 
+    useEffect(() => {
+        console.log("🚀 ~ Initialization ~ TaiKhoanNguon:", TaiKhoanNguon)
+
+    }, [TaiKhoanNguon])
+
     //*
 
 
@@ -53,6 +58,7 @@ function Initialization(props, ref) {
             "startDate": startDate,
             "endDate": endDate
         };
+        console.log("🚀 ~ createTransaction ~ raw:", raw)
 
         return dispatch(getTransactionHistory(raw));
     }
@@ -75,7 +81,7 @@ function Initialization(props, ref) {
             },
             createTransaction
         }
-    }, [startDate, endDate, option])
+    }, [startDate, endDate, option, TaiKhoanNguon])
 
 
     return (

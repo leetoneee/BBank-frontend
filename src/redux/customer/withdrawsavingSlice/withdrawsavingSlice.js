@@ -10,16 +10,16 @@ const initialState = {
     isError: false
 }
 
-export const withdrawsavingMoney = createAsyncThunk(
-    'customer/withdrawsavingMoney',
+export const withdrawSaving = createAsyncThunk(
+    'customer/withdrawSaving',
     async (requestOptions) => {
         let res = await axios.post('/customer/account/transfer', requestOptions)
         return res.data;
     }
 )
 
-export const withdrawsavingSlice = createSlice({
-    name: 'transfer',
+export const customerWithdrawSavingSlice = createSlice({
+    name: 'customerWithdrawSaving',
     initialState,
     reducers: {
         setTaiKhoanNguon: (state, action) => {
@@ -29,17 +29,17 @@ export const withdrawsavingSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(withdrawsavingMoney.pending, (state, action) => {
+            .addCase(withdrawSaving.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(withdrawsavingMoney.fulfilled, (state, action) => {
-                state.GiaoDich = action.payload.transaction;
+            .addCase(withdrawSaving.fulfilled, (state, action) => {
+                state.GiaoDich = action.payload.PhieuTietKiem;
                 state.isTransactionSuccess = true;
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(withdrawsavingMoney.rejected, (state, action) => {
+            .addCase(withdrawSaving.rejected, (state, action) => {
                 state.isTransactionSuccess = false;
                 state.isLoading = false;
                 state.isError = true;
@@ -48,6 +48,6 @@ export const withdrawsavingSlice = createSlice({
     }
 })
 
-export const { setTaiKhoanNguon, reset } = withdrawsavingSlice.actions
+export const { setTaiKhoanNguon, reset } = customerWithdrawSavingSlice.actions
 
-export default withdrawsavingSlice.reducer
+export default customerWithdrawSavingSlice.reducer

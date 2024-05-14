@@ -12,13 +12,14 @@ import {
     Brush,
 } from 'recharts';
 import { formatDateSaving } from '../../utils/formatDateAndTime';
-
+import { formatToMoney } from '../../utils/formatToVND';
+import { classNames } from '../classNames/classNames';
 
 function TransHisChart({ data }) {
     return (
         <ResponsiveContainer width='100%' height='100%'>
-            <LineChart width={500} height={400} data={data} margin={{ right: 20, left: 10 }}>
-                <YAxis tick={{ stroke: 'white', strokeWidth: 1 }} allowDataOverflow />
+            <LineChart width={500} height={400} data={data} margin={{ right: 10, left: 30 }}>
+                <YAxis tick={{ stroke: 'white', strokeWidth: 1 }} />
                 <XAxis dataKey="date" tick={{ stroke: 'white' }} tickSize='4' />
                 <CartesianGrid strokeDasharray='3 3' />
                 <Tooltip content={CustomTooltip} />
@@ -42,16 +43,16 @@ const CustomTooltip = ({ active, payload, label }) => {
 
         return (
             <div className='p-4 bg-white flex flex-col gap-4 rounded-md'>
-                <p className='text-medium text-lg'>{formatDateSaving(label)}</p>
-                <p className='text-sm text-blue-500 '>
+                <p className='text-medium text-xl'>{formatDateSaving(label)}</p>
+                <p className='text-base text-blue-500 '>
                     Lúc: {time}
                 </p>
-                <p className='text-sm text-blue-500 '>
-                    Biến động: {bienDong + transactionAmount.toString()}
+                <p className={classNames('text-base', bienDong === '+' ? 'text-[#71BD00]' : 'text-red-500')}>
+                    Biến động: {bienDong + formatToMoney(transactionAmount)}
                 </p>
-                <p className='text-sm text-blue-500 '>
+                <p className='text-base text-blue-500 '>
                     Số dư:
-                    <span className='ml-2'>{payload[0].value}</span>
+                    <span className='ml-2'>{formatToMoney(payload[0].value)}</span>
                 </p>
             </div>
         )

@@ -96,7 +96,7 @@ function Result(props) {
                             Loại thanh toán được tạo
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {LoaiTaiKhoan}
+                            {LoaiTaiKhoan.name}
                         </span>
                     </div>
                 </div>

@@ -4,19 +4,23 @@ import formatToVND from "../../../utils/formatToVND";
 import PopupNotice from "../../Popup/PopupNotice";
 import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import { classNames } from "../../classNames/classNames";
-import { transferMoney } from "../../../redux/customer/transfer/transferSlice";
+import roundInterest from "../../../utils/roundInterest";
+import { depositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
 import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
-import { formatDateSaving } from "../../../utils/formatDateAndTime";
-import { createAccountCustomer } from "../../../redux/employee/createCustomerAccount/createCustomerAccountSlice";
 
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
 
+    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
+    const SoTien = useSelector((state) => state.cDepositSaving.SoTienGui);
     const user = useSelector((state) => state.auth.user);
-    const isLoading = useSelector((state) => state.transfer.isLoading)
-    const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
-    const LoaiTaiKhoan = useSelector((state) => state.createAccount.LoaiTaiKhoan)
+    const userId = useSelector((state) => state.user.userId);
+    const ten = useSelector((state) => state.user.ten);
+    const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
+    const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
+    const NgayMo = useSelector((state) => state.cDepositSaving.NgayMo);
+    const isLoading = useSelector((state) => state.cDepositSaving.isLoading)
 
     const otp = useSelector((state) => state.sendOtp.otp);
     const [otpInput, setOtpInput] = useState();
@@ -24,18 +28,16 @@ function Authenticity(props, ref) {
     const [isShowPopup, setIsShowPopup] = useState(false);
     const [isShowPopupWaiting, setIsShowPopupWaiting] = useState(false);
 
-    const formatDate = (date) => {
-        let newDate = new Date(date);
-        return formatDateSaving(newDate);
-    }
-
     const createTransaction = () => {
         const raw = {
-            "MaKhachHang": NguoiDung.MaNguoiDung,
-            "LoaiTaiKhoan": LoaiTaiKhoan.name
+            "SoTienGui": Number(SoTien),
+            "PhuongThuc": PhuongThuc.name,
+            "MaLoaiTietKiem": KyHan.MaLoaiTietKiem,
+            "MaKhachHang": userId,
+            "SoTK": TaiKhoanNguon.SoTaiKhoan
         };
 
-        return dispatch(createAccountCustomer(raw));
+        return dispatch(depositSaving(raw));
     }
 
     useImperativeHandle(ref, () => {
@@ -76,7 +78,7 @@ function Authenticity(props, ref) {
         const otp = Math.floor(Math.random() * 1000000) // Generate 6-digit OTP
         const raw = {
             "otp": otp,
-            "email": NguoiDung.Email
+            "email": user.Email
         };
 
         dispatch(setOtp(otp));
@@ -89,7 +91,7 @@ function Authenticity(props, ref) {
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col mx-auto gap-2">
                     <span className="self-center text-[#A5ACAE] text-xl">Quý khách vui lòng nhập mã OTP đã được gửi về Email</span>
-                    <span className="self-center text-[#7AC014] text-xl">{NguoiDung.Email}</span>
+                    <span className="self-center text-[#7AC014] text-xl">{user.Email}</span>
                     <input type="number"
                         className="text-xl text-center py-2 text-[#7AC014] bg-white rounded-[10px] mx-16 "
                         placeholder="Nhập mã OTP"
@@ -104,160 +106,112 @@ function Authenticity(props, ref) {
                     <PopupNotice showPopup={isShowPopupWaiting} setShowPopup={setIsShowPopupWaiting} content='Vui lòng đợi 60 giây trước khi yêu cầu mã OTP mới.' />}
             </div>
 
-            {/* username */}
+            {/* Tài khoản nguồn */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="grid grid-cols-3 gap-8">
                     <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
                         Tài khoản nguồn
                     </span>
                     <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                        {NguoiDung.username}
+                        {TaiKhoanNguon.SoTaiKhoan}
                     </span>
                 </div>
             </div>
 
-            {/* Loại Tài khoản */}
+            {/* Tài khoản mở */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Loại thanh toán được tạo
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {LoaiTaiKhoan.name}
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            {/* Thông tin khách hàng */}
-            <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
-                <div className="flex flex-col gap-8">
-                    {/* Ngày đăng ký */}
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Ngày đăng ký
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {
-                                formatDate(NguoiDung.NgayDK)
-                            }
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    {/* Họ tên */}
                     <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Họ và tên
+                            Tên người mở tài khoản tiết kiệm
                         </span>
-                        <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
-                            <span className="text-xl font-bold">{(NguoiDung.HoTen).toUpperCase()}</span>
-                        </div>
+                        <span className="col-start-2 col-span-2 text-red-600  text-xl font-bold  self-center text-right ">
+                            {ten.toUpperCase()}
+                        </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    {/* Ngày sinh */}
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Ngày sinh
+                            Địa chỉ người mở
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {
-                                formatDate(NguoiDung.NgaySinh)
-                            }
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {user.DiaChi}
                         </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    {/* Giới tính */}
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Giới tính
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {
-                                NguoiDung.GioiTinh ? "Nam" : "Nữ"
-                            }
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    {/* Số điện thoại */}
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Số điện thoại
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {NguoiDung.SDT}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Giấy tờ tuỳ thân
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
                             Căng cước công dân
                         </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    {/* Số CCCD */}
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Số
+                            Số giấy tờ tuỳ thân
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {NguoiDung.CCCD}
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {user.CCCD}
                         </span>
                     </div>
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    {/* Địa chỉ */}
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Địa chỉ
+                            Ngày mở phiếu tiết kiệm
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {NguoiDung.DiaChi}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    {/* Nghề nghiệp */}
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Nghề nghiệp
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {NguoiDung.NgheNghiep}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    {/* Email */}
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Email
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {NguoiDung.Email}
+                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                            {NgayMo}
                         </span>
                     </div>
                 </div>
             </div>
 
+            {/* Thông tin chuyển khoản */}
+            <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
+                <div className="flex flex-col gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                            Số tiền
+                        </span>
+                        <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                            <span className="text-xl font-bold">{formatToVND(Number(SoTien))}</span>
+                            <span className="text-[15px]">{readMoney(SoTien)}</span>
+                        </div>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Kỳ hạn gửi
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {KyHan.GhiChu} – {roundInterest(KyHan.LaiSuat * 100)}%/năm
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Phương thức trả lãi
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {PhuongThuc.name}
+                        </span>
+                    </div>
+                </div>
+            </div>
             {
                 isLoading && <Loading />
             }

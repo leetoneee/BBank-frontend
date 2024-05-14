@@ -2,9 +2,8 @@ import { classNames } from "../../classNames/classNames";
 import { useNavigate } from "react-router-dom";
 import logo from '../../../assets/icons/logo.svg'
 import { FaCircleExclamation } from "react-icons/fa6";
-import { reset as resetWithdrawsaving } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
-import { reset as resetListsaving } from "../../../redux/customer/listSaving/listSavingSlice";
-import { reset as resetCheckAccount } from "../../../redux/system/checkAccountExist/checkAccountExistSlice";
+import { reset as resetTransfer } from "../../../redux/customer/transfer/transferSlice";
+import { reset as resetDepositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
 import { useDispatch } from "react-redux";
 
 function Reject(props) {
@@ -12,16 +11,14 @@ function Reject(props) {
     const dispatch = useDispatch();
 
     const handleNavigateHome = () => {
-        dispatch(resetCheckAccount());
-        dispatch(resetWithdrawsaving());
-        dispatch(resetListsaving());
+        dispatch(resetTransfer());
+        dispatch(resetDepositSaving());
         navigate('../home', { replace: true })
     }
 
     const handleInitNewTransaction = () => {
-        dispatch(resetCheckAccount());
-        dispatch(resetWithdrawsaving());
-        dispatch(resetListsaving());
+        dispatch(resetTransfer());
+        dispatch(resetDepositSaving());
         props.handleInitNewTransaction();
     }
 
@@ -36,7 +33,7 @@ function Reject(props) {
                 </div>
 
                 <FaCircleExclamation color="red" className="w-[90px] h-[90px] mx-auto" />
-                <span className="text-white font-bold text-[25px] self-center ">GIAO DỊCH THẤT BẠI</span>
+                <span className="text-white font-bold text-[25px] self-center ">MỞ PHIẾU TIẾT KIỆM THẤT BẠI</span>
                 <span className="text-white text-xl text-center self-center whitespace-normal w-96    ">
                     Xin lỗi quý khách, kết nối tới hệ thống tạm thời gian đoạn. Vui lòng thử lại sau.
                 </span>
@@ -52,7 +49,7 @@ function Reject(props) {
                 {/* new transaction */}
                 <button onClick={() => handleInitNewTransaction()}
                     className="text-2xl self-center  bg-gradient-to-r from-[#57B122] to-[#09812E] hover:from-[#09812E] hover:to-[#57B122] text-white py-2 w-96   rounded-[15px] font-bold cursor-pointer hover:bg-[#475255]/[60%] transition duration-200 ease-in-out">
-                    Thực hiện giao dịch mới
+                    Thực hiện mở phiếu mới
                 </button>
             </div>
         </div >

@@ -5,7 +5,7 @@ import customerReducer from "./customer/customerSlice";
 import counterReducer from './selectBtn/selectBtnSlice';
 import transferReducer from "./customer/transfer/transferSlice";
 import cashtransferReducer from "./customer/cashtransfer/cashtransferSlice";
-import withdrawsavingReducer from "./customer/withdrawsavingSlice/withdrawsavingSlice";
+import customerWithdrawSavingReducer from "./customer/withdrawsavingSlice/withdrawsavingSlice";
 import checkAccountExistReducer from "./system/checkAccountExist/checkAccountExistSlice";
 import sendOtpReducer from "./system/sendOtp/sendOtpSlice";
 import savingTypeReducer from "./getSavingType/savingTypeSlice";
@@ -14,6 +14,8 @@ import createCustomerProfileReducer from "./employee/createCustomerProfile/creat
 import createCustomerAccountReducer from "./employee/createCustomerAccount/createCustomerAccountSlice";
 import checkCccdExistReducer from "./system/checkCccdExist/checkCccdExistSlice";
 import employeeDepositSavingReducer from "./employee/depositSaving/employeeDepositSavingSlice";
+import listSavingReducer from "./customer/listSaving/listSavingSlice";
+import kyhanReducer from './KyHanNgayDenHan/kyhanngaydenhanSlice';
 import getTransactionHistoryReducer from "./customer/getTransactionHistory/getTransactionHistorySlice";
 
 const rootReducer = combineReducers({
@@ -25,13 +27,15 @@ const rootReducer = combineReducers({
     checkAccount: checkAccountExistReducer,
     sendOtp: sendOtpReducer,
     cashtransfer: cashtransferReducer,
-    withdrawsaving: withdrawsavingReducer,
+    customerWithdrawSaving: customerWithdrawSavingReducer,
     savingTypes: savingTypeReducer,
     cDepositSaving: customerDepositSavingReducer,
+    listSaving: listSavingReducer,
     createProfile: createCustomerProfileReducer,
     createAccount: createCustomerAccountReducer,
     checkCccd: checkCccdExistReducer,
     eDepositSaving: employeeDepositSavingReducer,
+    kyhan: kyhanReducer,
     getTransHis: getTransactionHistoryReducer,
 });
 

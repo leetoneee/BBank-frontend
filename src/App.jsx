@@ -21,12 +21,16 @@ function App(props) {
       <Route path='login' element={<Login />} />
       <Route path='admin' element={<Admin />}>
       </Route>
-      <Route path='employee/*' element={<EmployeeLayout />}>
-        <Route path="*" element={<EmployeeRoutes />} />
-      </Route>
-      <Route path='user/*' element={<MainLayout />}>
-        <Route path="*" element={<CustomerRoutes />} />
-      </Route>
+      {maNhom === 2 &&
+        <Route path='employee/*' element={<EmployeeLayout />}>
+          <Route path="*" element={<EmployeeRoutes />} />
+        </Route>
+      }
+      {maNhom === 3 &&
+        <Route path='user/*' element={<MainLayout />}>
+          <Route path="*" element={<CustomerRoutes />} />
+        </Route>
+      }
     </Routes>
   )
 }

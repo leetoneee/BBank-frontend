@@ -6,7 +6,7 @@ import Initialization from "../../components/TransferStepper/steps/Initializatio
 import Confirmation from "../../components/TransferStepper/steps/Confirmation";
 import Authenticity from "../../components/TransferStepper/steps/Authenticity";
 import Reject from "../../components/TransferStepper/steps/Reject";
-import Result from "../../components/TransferStepper/steps/Result";
+import {Result} from "../../components/TransferStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";

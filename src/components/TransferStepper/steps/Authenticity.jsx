@@ -179,7 +179,7 @@ function Authenticity(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Nội dung
                         </span>
-                        <span className={classNames("col-start-2 col-span-2 text-white text-xl  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')} >
+                        <span className={classNames("col-start-2 col-span-2 text-white text-xl text-ellipsis overflow-hidden  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')} >
                             {NoiDung}
                         </span>
                     </div>

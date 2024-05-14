@@ -90,11 +90,11 @@ const FastFeatures = () => {
                                     {/* Chuyển tiền */}
                                     <p className="2xl:mt-[203px] 2xl:ml-[100px] 2xl:text-[30px]
                                             text-white ">Chuyển tiền</p>
-                                    <div className="2xl:mt-[20px] 2xl:ml-[92px] 2xl:mr-[25px] 2xl:h-[164px] 
+                                    <div className="2xl:my-[20px] 2xl:ml-[92px] 2xl:mr-[25px]
                                                 bg-[#24373C] rounded-[20px] flex flex-col">
 
                                         {/* Chuyển tiền trong BBank */}
-                                        <div className="2xl:mt-[35px] 2xl:w-full flex flex-row justify-between">
+                                        <div className="2xl:my-[35px] 2xl:w-full flex flex-row justify-between">
                                             <p className="text-[25px] 2xl:ml-[20px] text-[#879194] font-medium">Chuyển tiền trong BBank</p>
                                             <button onClick={() => handleButtonSelect('button1')} className={`2xl:w-[40px] 2xl:h-[25px] 2xl:mr-[20px] 2xl:mt-[5px]
                                                         border-[1px] border-white rounded-[20px]
@@ -106,7 +106,7 @@ const FastFeatures = () => {
                                             </button>
                                         </div>
 
-                                        {/* Chuyển tiền mặt */}
+                                        {/* Chuyển tiền mặt
                                         <div className="2xl:w-[95%] h-[0.25px] bg-[#879194] mx-[20px] mt-[14px]"></div>
                                         <div className="2xl:mt-[14px] 2xl:w-full flex flex-row justify-between">
                                             <p className="text-[25px] 2xl:ml-[20px] text-[#879194] font-medium">Chuyển tiền mặt</p>
@@ -118,13 +118,13 @@ const FastFeatures = () => {
                                             ${buttonStates['button2'] ? 'bg-white transform translate-x-4' : ''}`}>
                                                 </div>
                                             </button>
-                                        </div>
+                                        </div> */}
                                     </div>
 
                                     {/* Tiết kiệm */}
                                     <p className="2xl:mt-[60px] 2xl:ml-[100px] 2xl:text-[30px]
                                             text-white ">Tiết kiệm</p>
-                                    <div className="2xl:mt-[20px] 2xl:ml-[92px] 2xl:mr-[25px] 2xl:h-[286px] 
+                                    <div className="2xl:mt-[20px] 2xl:ml-[92px] 2xl:mr-[25px] 
                                                 bg-[#24373C] rounded-[20px] flex flex-col">
 
                                         {/* Mở tiết kiệm */}
@@ -154,7 +154,7 @@ const FastFeatures = () => {
                                             </button>
                                         </div>
 
-                                        {/* Tiết kiệm tự động */}
+                                        {/* Tiết kiệm tự động
                                         <div className="2xl:w-[95%] h-[0.25px] bg-[#879194] mx-[20px] mt-[14px]"></div>
                                         <div className="2xl:mt-[14px] 2xl:w-full flex flex-row justify-between">
                                             <p className="text-[25px] 2xl:ml-[20px] text-[#879194] font-medium">Tiết kiệm tự động</p>
@@ -166,11 +166,11 @@ const FastFeatures = () => {
                                                         ${buttonStates['button5'] ? 'bg-white transform translate-x-4' : ''}`}>
                                                 </div>
                                             </button>
-                                        </div>
+                                        </div> */}
 
                                         {/* Hủy tiết kiệm tự động */}
                                         <div className="2xl:w-[95%] h-[0.25px] bg-[#879194] mx-[20px] mt-[14px]"></div>
-                                        <div className="2xl:mt-[14px] 2xl:w-full flex flex-row justify-between">
+                                        <div className="2xl:mt-[14px] 2xl:mb-[20px] 2xl:w-full flex flex-row justify-between">
                                             <p className="text-[25px] 2xl:ml-[20px] text-[#879194] font-medium">Hủy tiết kiệm tự động</p>
                                             <button onClick={() => handleButtonSelect('button6')} className={`2xl:w-[40px] 2xl:h-[25px] 2xl:mr-[20px] 2xl:mt-[5px]
                                                         border-[1px] border-white rounded-[20px]
