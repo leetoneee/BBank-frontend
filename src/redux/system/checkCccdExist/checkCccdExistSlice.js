@@ -25,6 +25,9 @@ export const checkCccdSlice = createSlice({
         setListAccount: (state, action) => {
             state.listAccounts = action.payload;
         },
+        setNguoiDung: (state, action) => {
+            state.NguoiDung = action.payload;
+        },
         reset: () => initialState,
     },
     extraReducers: (builder) => {
@@ -53,6 +56,6 @@ export const checkCccdSlice = createSlice({
     }
 })
 
-export const { setListAccount, reset } = checkCccdSlice.actions
+export const { setListAccount, setNguoiDung, reset } = checkCccdSlice.actions
 
 export default checkCccdSlice.reducer

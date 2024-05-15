@@ -72,7 +72,7 @@ function Confirmation(props, ref) {
         <div className="flex flex-col gap-[50px]">
             {/* Tài khoản nguồn */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
-                <div className="grid grid-cols-3 gap-8">
+                <div className="grid grid-cols-2 gap-8">
                     <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
                         Tài khoản nguồn
                     </span>
@@ -85,7 +85,7 @@ function Confirmation(props, ref) {
             {/* Tài khoản đich */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
                             Tài khoản đích
                         </span>
@@ -94,7 +94,7 @@ function Confirmation(props, ref) {
                         </span>
                     </div>
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Tên người thụ hưởng
                         </span>
@@ -108,7 +108,7 @@ function Confirmation(props, ref) {
             {/* Thông tin chuyển khoản */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
                             Số tiền
                         </span>
@@ -120,7 +120,7 @@ function Confirmation(props, ref) {
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Số tiền phí
                         </span>
@@ -131,7 +131,7 @@ function Confirmation(props, ref) {
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Phí giao dịch
                         </span>

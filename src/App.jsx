@@ -11,6 +11,7 @@ import AdminRoutes from './routes/adminRoutes';
 import Home from './pages/Home/Home';
 import { useSelector } from 'react-redux';
 import Admin from './pages/Admin/Admin';
+import NoMatch from './pages/NoMatch/NoMatch';
 
 function App(props) {
 
@@ -31,6 +32,7 @@ function App(props) {
           <Route path="*" element={<CustomerRoutes />} />
         </Route>
       }
+      <Route path='*' element={<NoMatch />} />
     </Routes>
   )
 }

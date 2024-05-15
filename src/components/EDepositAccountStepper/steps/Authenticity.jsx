@@ -4,8 +4,7 @@ import formatToVND from "../../../utils/formatToVND";
 import PopupNotice from "../../Popup/PopupNotice";
 import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import { classNames } from "../../classNames/classNames";
-import roundInterest from "../../../utils/roundInterest";
-import { depositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
+import { transferMoney } from "../../../redux/customer/transfer/transferSlice";
 import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
 
@@ -13,14 +12,12 @@ function Authenticity(props, ref) {
     const dispatch = useDispatch();
 
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const SoTien = useSelector((state) => state.cDepositSaving.SoTienGui);
+    const SoTien = useSelector((state) => state.transfer.SoTien);
+    const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
+    const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const user = useSelector((state) => state.auth.user);
-    const userId = useSelector((state) => state.user.userId);
-    const ten = useSelector((state) => state.user.ten);
-    const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
-    const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
-    const NgayMo = useSelector((state) => state.cDepositSaving.NgayMo);
-    const isLoading = useSelector((state) => state.cDepositSaving.isLoading)
+    const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
+    const isLoading = useSelector((state) => state.transfer.isLoading)
 
     const otp = useSelector((state) => state.sendOtp.otp);
     const [otpInput, setOtpInput] = useState();
@@ -30,14 +27,14 @@ function Authenticity(props, ref) {
 
     const createTransaction = () => {
         const raw = {
-            "SoTienGui": Number(SoTien),
-            "PhuongThuc": PhuongThuc.name,
-            "MaLoaiTietKiem": KyHan.MaLoaiTietKiem,
-            "MaKhachHang": userId,
-            "SoTK": TaiKhoanNguon.SoTaiKhoan
+            "SoTien": Number(SoTien),
+            "NoiDung": NoiDung,
+            "SoTKNhan": TaiKhoanDich.SoTaiKhoan,
+            "SoTKRut": TaiKhoanNguon.SoTaiKhoan,
+            "MaLoaiGD": 3
         };
 
-        return dispatch(depositSaving(raw));
+        return dispatch(transferMoney(raw));
     }
 
     useImperativeHandle(ref, () => {
@@ -118,59 +115,24 @@ function Authenticity(props, ref) {
                 </div>
             </div>
 
-            {/* Tài khoản mở */}
+            {/* Tài khoản đich */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
-                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                            Tên người mở tài khoản tiết kiệm
+                            Tài khoản đích
                         </span>
-                        <span className="col-start-2 col-span-2 text-red-600  text-xl font-bold  self-center text-right ">
-                            {ten.toUpperCase()}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Địa chỉ người mở
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
-                            {user.DiaChi}
+                        <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
+                            {TaiKhoanDich.SoTaiKhoan}
                         </span>
                     </div>
-
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Giấy tờ tuỳ thân
+                            Tên người thụ hưởng
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
-                            Căng cước công dân
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Số giấy tờ tuỳ thân
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
-                            {user.CCCD}
-                        </span>
-                    </div>
-
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Ngày mở phiếu tiết kiệm
-                        </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
-                            {NgayMo}
+                        <span className="col-start-2 col-span-2 text-red-600 font-bold text-xl  self-center text-right ">
+                            {(TaiKhoanDich.HoTen).toUpperCase()}
                         </span>
                     </div>
                 </div>
@@ -193,10 +155,10 @@ function Authenticity(props, ref) {
 
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Kỳ hạn gửi
+                            Số tiền phí
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {KyHan.GhiChu} – {roundInterest(KyHan.LaiSuat * 100)}%/năm
+                            {formatToVND(0)}
                         </span>
                     </div>
 
@@ -204,10 +166,21 @@ function Authenticity(props, ref) {
 
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
-                            Phương thức trả lãi
+                            Phí giao dịch
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {PhuongThuc.name}
+                            {HinhThuc}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Nội dung
+                        </span>
+                        <span className={classNames("col-start-2 col-span-2 text-white text-xl text-ellipsis overflow-hidden  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')} >
+                            {NoiDung}
                         </span>
                     </div>
                 </div>
