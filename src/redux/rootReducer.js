@@ -18,6 +18,7 @@ import listSavingReducer from "./customer/listSaving/listSavingSlice";
 import kyhanReducer from './KyHanNgayDenHan/kyhanngaydenhanSlice';
 import getTransactionHistoryReducer from "./customer/getTransactionHistory/getTransactionHistorySlice";
 import employeeDepositAccountReducer from "./employee/depositAccount/employeeDepositAccountSlice";
+import getTransactionTypeReducer from "./system/getTransactionType/getTransactionTypeSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
     kyhan: kyhanReducer,
     getTransHis: getTransactionHistoryReducer,
     eDepositAccount: employeeDepositAccountReducer,
+    getTransType: getTransactionTypeReducer,
 });
 
 export default rootReducer;

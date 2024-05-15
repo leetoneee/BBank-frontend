@@ -23,6 +23,7 @@ function Confirmation(props, ref) {
     const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const user = useSelector((state) => state.auth.user);
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
+    const listFee = useSelector((state) => state.getTransType.listFee)
 
     const randomString = Math.random().toString(36).slice(8);
     const [otpEmail, setOtpEmail] = useState('');
@@ -125,7 +126,8 @@ function Confirmation(props, ref) {
                             Số tiền phí
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {formatToVND(0)}
+                            {formatToVND(listFee[1]?.Phi)}
+
                         </span>
                     </div>
 

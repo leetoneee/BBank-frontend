@@ -22,6 +22,7 @@ function Confirmation(props, ref) {
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
     const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
     const userId = useSelector((state) => state.user.userId)
+    const listFee = useSelector((state) => state.getTransType.listFee)
 
     const randomString = Math.random().toString(36).slice(8);
     const [capcha, setCapcha] = useState(randomString);
@@ -152,7 +153,7 @@ function Confirmation(props, ref) {
                             Số tiền phí
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {formatToVND(0)}
+                            {formatToVND(listFee[1]?.Phi)}
                         </span>
                     </div>
 

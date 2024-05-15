@@ -18,6 +18,7 @@ function Authenticity(props, ref) {
     const user = useSelector((state) => state.auth.user);
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
     const isLoading = useSelector((state) => state.transfer.isLoading)
+    const listFee = useSelector((state) => state.getTransType.listFee)
 
     const otp = useSelector((state) => state.sendOtp.otp);
     const [otpInput, setOtpInput] = useState();
@@ -158,7 +159,7 @@ function Authenticity(props, ref) {
                             Số tiền phí
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {formatToVND(0)}
+                            {formatToVND(listFee[1]?.Phi)}
                         </span>
                     </div>
 

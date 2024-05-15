@@ -93,7 +93,7 @@ export function Result(props) {
                                         <>
                                             <td className=" border border-solid border-black p-2">{item.column2}</td>
                                             <td className="font-bold border border-solid border-black p-2">Số tiền phí</td>
-                                            <td className=" border border-solid border-black p-2">{formatToVND(GiaoDich.LoaiGD.Phi)}</td>
+                                            <td className=" border border-solid border-black p-2">{formatToVND(GiaoDich?.LoaiGD?.Phi)}</td>
                                         </>
                                     ) : (
                                         <td className="border border-solid border-black p-2" colSpan={3}>{item.column2}</td>
