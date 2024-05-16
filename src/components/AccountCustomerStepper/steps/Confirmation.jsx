@@ -33,7 +33,7 @@ function Confirmation(props, ref) {
 
     useEffect(() => {
         if (!option) {
-            dispatch(setLoaiTaiKhoan('Napas'));
+            dispatch(setLoaiTaiKhoan(option.name));
         }
         dispatch(setLoaiTaiKhoan(option))
     }, [option, setOption])

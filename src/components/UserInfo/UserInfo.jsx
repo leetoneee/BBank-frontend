@@ -5,9 +5,11 @@ import phone from '../../assets/icons/phone.svg';
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentAccount } from "../../redux/user/userSlice";
 import formatToVND from "../../utils/formatToVND";
+import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const lastLoginTime = useSelector((state) => state.auth.lastLoginTime);
     const listAccounts = useSelector((state) => state.customer.listAccounts);
@@ -46,7 +48,8 @@ const UserInfo = () => {
                 <span className="text-white mt-[18px] text-[13px] font-normal">Tài khoản thanh toán</span>
                 <div className="flex flex-row justify-between">
                     <span className="text-white mt-[5px] text-[17px] font-bold">{!currentAccount ? "" : currentAccount.SoTaiKhoan}</span>
-                    <div className="text-[#62A110] hover:bg-[#62A110] hover:text-white bg-[#4E5E62] rounded-full p-[2px] self-center">
+                    <div className="text-[#62A110] hover:bg-[#62A110] hover:text-white bg-[#4E5E62] rounded-full p-[2px] self-center"
+                        onClick={() => navigate('/user/home/account/transaction-history')}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>

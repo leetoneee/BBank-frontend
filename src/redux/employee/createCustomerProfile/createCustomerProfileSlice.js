@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { API_ROOT_URL } from '../../../services/api'
-import axios from 'axios'
+import axios from '../../../services/axios'
+
 
 const initialState = {
     NgayDangKy: "",
@@ -22,7 +22,7 @@ const initialState = {
 export const createProfileCustomer = createAsyncThunk(
     'employeee/createProfileCustomer',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/employee/cif/create`, requestOptions)
+        let res = await axios.post('/employee/cif/create', requestOptions)
         return res.data;
     }
 )
@@ -67,7 +67,7 @@ export const createCustomerProfileSlice = createSlice({
                 state.isError = false;
             })
             .addCase(createProfileCustomer.fulfilled, (state, action) => {
-                if (action.payload.errCode === 0) {
+                if (action.payload.errMessage === 0) {
                     state.isTransactionSuccess = true;
                 } else {
                     state.message = action.payload.message

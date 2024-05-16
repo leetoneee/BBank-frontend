@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { API_ROOT_URL } from '../../services/api'
-import axios from 'axios'
+import axios from '../../services/axios'
+
 
 const initialState = {
     listSavingTypes: '',
@@ -11,7 +11,7 @@ const initialState = {
 export const getSavingType = createAsyncThunk(
     'user/getSavingType',
     async () => {
-        let res = await axios.get(`${API_ROOT_URL}/saving-type/get-all`, { withCredentials: true })
+        let res = await axios.get('/saving-type/get-all')
         return res.data;
     }
 )

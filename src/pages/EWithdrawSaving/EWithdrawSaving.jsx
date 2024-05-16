@@ -1,45 +1,45 @@
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
-import Stepper from '../../components/ESavingStepper/Stepper';
-import StepperControl from '../../components/ESavingStepper/StepperControl';
-import Initialization from "../../components/ESavingStepper/steps/Initialization";
-import Confirmation from "../../components/ESavingStepper/steps/Confirmation";
-import Authenticity from "../../components/ESavingStepper/steps/Authenticity";
-import Reject from "../../components/ESavingStepper/steps/Reject";
-import Result from "../../components/ESavingStepper/steps/Result";
+import Stepper from "../../components/EWithdrawSavingStepper/Stepper";
+import Checking from "../../components/EWithdrawSavingStepper/steps/Checking";
+import StepperControl from '../../components/EWithdrawSavingStepper/StepperControl';
+import Initialization from "../../components/EWithdrawSavingStepper/steps/Initialization";
+import Confirmation from "../../components/EWithdrawSavingStepper/steps/Confirmation";
+import Reject from "../../components/EWithdrawSavingStepper/steps/Reject";
+import Result from "../../components/EWithdrawSavingStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const ESaving = () => {
+const EWithdrawSaving = () => {
     const navigate = useNavigate()
+    const checkingRef = useRef();
     const initializationRef = useRef();
     const confirmationRef = useRef();
-    const authenticityRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
 
-    const isTransactionSuccess = useSelector((state) => state.cDepositSaving.isTransactionSuccess)
+    const isTransactionSuccess = useSelector((state) => state.eWithdrawSaving.isTransactionSuccess)
 
     const handleInitNewTransaction = () => {
         setCurrentStep(0);
     };
 
     const steps = [
+        { description: "Kiểm tra" },
         { description: "Khởi tạo" },
         { description: "Xác nhận" },
-        { description: "Xác thực" },
         { description: "Kết quả" }
     ];
 
     const displayStep = (steps) => {
         switch (steps) {
             case 0:
-                return <Initialization ref={initializationRef} />
+                return <Checking ref={checkingRef} />
             case 1:
-                return <Confirmation ref={confirmationRef} />
+                return <Initialization ref={initializationRef} />
             case 2:
-                return <Authenticity ref={authenticityRef} />
+                return <Confirmation ref={confirmationRef} />
             case 3:
                 return <Reject handleInitNewTransaction={handleInitNewTransaction} />
             case 4:
@@ -49,7 +49,7 @@ const ESaving = () => {
 
     const createTransaction = async () => {
         try {
-            await authenticityRef.current.createTransaction();
+            await confirmationRef.current.createTransaction();
 
         } catch (error) {
             console.error("Error creating transaction:", error);
@@ -60,19 +60,18 @@ const ESaving = () => {
     const handleClick = async (direction) => {
 
         let newStep = currentStep;
-
         if (newStep === 0) {
-            let error = initializationRef.current.validateInputs();
+            let error = checkingRef.current.validateInputs();
             if (error) {
                 return;
             }
         } else if (newStep === 1 && direction === "next") {
-            let error = confirmationRef.current.validateCapcha();
+            let error = initializationRef.current.validateCapcha();
             if (error) {
                 return;
             }
         } else if (newStep === 2 && direction === "next") {
-            const error = authenticityRef.current.validateOtp();
+            const error = confirmationRef.current.validateOtp();
             if (error) {
                 return;
             }
@@ -118,29 +117,23 @@ const ESaving = () => {
                 <div className="w-auto overflow-auto flex flex-col">
                     <img src={uitPattern} alt="UIT-Pattern" className="fixed contrast-50 w-1/2 self-center mt-14" />
 
-                    <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10">
+                    <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10 min-h-screen overflow-auto no-scrollbar">
                         <div className="w-1/2 self-center">
                             {/* Title */}
                             <div className="w-full">
                                 <h1 className="mt-20 text-[40px]
                                             text-white font-bold  ">
-                                    Mở tiết kiệm
+                                    Lập phiếu rút tiền tiết kiệm
                                 </h1>
                                 <div className="2xl:mt-[23px] text-[20px]
                                             text-[#B0B5B6] flex flex-row">
                                     <span onClick={() => navigate('../home')}
-                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">
-                                        Trang chủ
-                                    </span>
+                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Trang chủ </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <span onClick={() => navigate('../home/saving-group')}
-                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">
-                                        Tiết kiệm
-                                    </span>
+                                    <span onClick={() => navigate('../home/service-group')}
+                                        className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Dịch vụ </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <p className="text-[#72BF00] hover:cursor-auto">
-                                        Mở tiết kiệm
-                                    </p>
+                                    <p className="text-[#72BF00] hover:cursor-auto"> Lập phiếu rút tiền tiết kiệm </p>
                                 </div>
                             </div>
 
@@ -172,4 +165,4 @@ const ESaving = () => {
     )
 }
 
-export default ESaving;
+export default EWithdrawSaving;

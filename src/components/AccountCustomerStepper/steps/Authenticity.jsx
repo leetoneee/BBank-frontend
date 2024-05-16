@@ -32,7 +32,7 @@ function Authenticity(props, ref) {
     const createTransaction = () => {
         const raw = {
             "MaKhachHang": NguoiDung.MaNguoiDung,
-            "LoaiTaiKhoan": LoaiTaiKhoan
+            "LoaiTaiKhoan": LoaiTaiKhoan.name
         };
 
         return dispatch(createAccountCustomer(raw));
@@ -89,7 +89,7 @@ function Authenticity(props, ref) {
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col mx-auto gap-2">
                     <span className="self-center text-[#A5ACAE] text-xl">Quý khách vui lòng nhập mã OTP đã được gửi về Email</span>
-                    <span className="self-center text-[#7AC014] text-xl">{user.Email}</span>
+                    <span className="self-center text-[#7AC014] text-xl">{NguoiDung.Email}</span>
                     <input type="number"
                         className="text-xl text-center py-2 text-[#7AC014] bg-white rounded-[10px] mx-16 "
                         placeholder="Nhập mã OTP"
@@ -124,7 +124,7 @@ function Authenticity(props, ref) {
                             Loại thanh toán được tạo
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
-                            {LoaiTaiKhoan}
+                            {LoaiTaiKhoan.name}
                         </span>
                     </div>
                 </div>

@@ -2,22 +2,23 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../../../services/axios'
 
 const initialState = {
+    isExist: false,
     PhieuTietKiem: "",
-    listSavings: "",
+    elistSavings: "",
     isLoading: false,
     isError: false,
 }
 
 export const fetchAllSavingByAccount = createAsyncThunk(
-    'customer/fetchAllSavingByAccount',
-    async (requestOptions) => {
-        let res = await axios.post('/customer/saving/get-all', requestOptions)
+    'employee/fetchAllSavingByAccount',
+    async (cccd, requestOptions) => {
+        let res = await axios.get(`/employee/saving/get-all/${cccd}/1`, requestOptions)
         return res.data;
     }
 )
 
-export const listSavingSlice = createSlice({
-    name: 'listSaving',
+export const elistSavingSlice = createSlice({
+    name: 'elistSaving',
     initialState,
     reducers: {
         setPhieuTietKiem: (state, action) => {
@@ -32,11 +33,17 @@ export const listSavingSlice = createSlice({
                 state.isError = false;
             })
             .addCase(fetchAllSavingByAccount.fulfilled, (state, action) => {
-                state.listSavings = action.payload.transaction;
+                if (action.payload.errMessage === 1) {
+                    state.isExist = false;
+                } else {
+                    state.isExist = true;
+                    state.elistSavings = action.payload.transaction;
+                }
                 state.isLoading = false;
                 state.isError = false;
             })
             .addCase(fetchAllSavingByAccount.rejected, (state, action) => {
+                state.isExist = false;
                 state.isLoading = false;
                 state.isError = true;
                 console.log(action.error.message);
@@ -44,6 +51,6 @@ export const listSavingSlice = createSlice({
     }
 })
 
-export const { setPhieuTietKiem, reset } = listSavingSlice.actions
+export const { setPhieuTietKiem, reset } = elistSavingSlice.actions
 
-export default listSavingSlice.reducer
+export default elistSavingSlice.reducer

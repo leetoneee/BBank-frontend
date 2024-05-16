@@ -7,6 +7,7 @@ import EAccountCustomer from '../pages/EAccountCustomer/EAccountCustomer'
 import EServiceGroup from '../pages/EServiceGroup/EServiceGroup'
 import EDepositSaving from '../pages/EDepositSaving/EDepositSaving'
 import EDepositSavingT from '../pages/EDepositSavingT/EDepositSavingT'
+import EWithdrawSaving from '../pages/EWithdrawSaving/EWithdrawSaving'
 
 function EmployeeRoutes() {
     return (
@@ -18,6 +19,7 @@ function EmployeeRoutes() {
             <Route path='home/service-group' element={<EServiceGroup />} />
             <Route path='home/service-group/deposit-saving' element={<EDepositSaving />} />
             <Route path='home/service-group/deposit-saving-traditional' element={<EDepositSavingT />} />
+            <Route path='home/service-group/withdraw-saving' element={<EWithdrawSaving />} />
         </Routes>
     )
 }

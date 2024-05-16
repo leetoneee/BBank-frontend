@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { API_ROOT_URL } from '../../services/api'
-import axios from 'axios'
+import axios from '../../services/axios';
 
 const initialState = {
     user: "",
@@ -10,11 +9,10 @@ const initialState = {
     isError: false,
 }
 
-
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
     async (requestOptions) => {
-        let res = await axios.post(`${API_ROOT_URL}/login`, requestOptions, { withCredentials: true })
+        let res = await axios.post('/login', requestOptions);
         return res.data;
     }
 )

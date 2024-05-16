@@ -42,7 +42,7 @@ const EHome = () => {
         { icon: ic_RutTienMat, content: 'Lập phiếu rút tiền mặt', href: '' },
         { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm từ tài khoản', href: 'service-group/deposit-saving' },
         { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm truyền thống', href: 'service-group/deposit-saving-traditional' },
-        { icon: ic_RutTietKiem, content: 'Lập phiếu rút tiền tiết kiệm', href: '' },
+        { icon: ic_RutTietKiem, content: 'Lập phiếu rút tiền tiết kiệm', href: 'service-group/withdraw-saving' },
     ]
 
     const thongKeGroup = [

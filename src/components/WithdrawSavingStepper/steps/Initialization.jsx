@@ -9,38 +9,9 @@ import { forwardRef, useImperativeHandle } from "react";
 import { setPhieuTietKiem } from "../../../redux/customer/listSaving/listSavingSlice";
 import { withdrawSaving } from "../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice";
 import { } from '../../../redux/customer/withdrawsavingSlice/withdrawsavingSlice';
+import tinhChenhLechNgay from "../../../utils/difDate";
 
 let chenhLech = '';
-
-export function tinhChenhLechNgay(date1, date2) {
-    const ngay1 = new Date(date1).getTime(); // Chuyển đổi ngày 1 sang đối tượng Date
-    const ngay2 = new Date(date2).getTime(); // Chuyển đổi ngày 2 sang đối tượng Date
-
-    // Tính toán chênh lệch thời gian (tính bằng mili-giây)
-    const diff = (ngay2 - ngay1);
-
-    // Chuyển đổi chênh lệch thời gian từ mili-giây sang ngày
-    const ngayChenhLech = Math.floor(diff / (1000 * 60 * 60 * 24));
-    // Trả về chuỗi kết quả
-    return ngayChenhLech;
-}
-
-// export function tinhChenhLechNgay(date1, date2) {
-//     const ngay1 = new Date(date1); // Chuyển đổi ngày 1 sang đối tượng Date
-//     const ngay2 = new Date(date2); // Chuyển đổi ngày 2 sang đối tượng Date
-
-//     // Tính toán chênh lệch thời gian (tính bằng mili-giây)
-//     const diff = (ngay2 - ngay1);
-
-//     // Chuyển đổi chênh lệch thời gian từ mili-giây sang ngày
-//     const ngayChenhLech = new Date(diff);
-
-//     // Lấy các thành phần của chênh lệch thời gian
-//     const ngay = ngayChenhLech.getUTCDate() - 1;
-
-//     // Trả về chuỗi kết quả
-//     return ngay;
-// }
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();
@@ -62,7 +33,7 @@ function Initialization(props, ref) {
 
         dispatch(fetchAllAccountById(raw));
     }, []);
-
+    
     useImperativeHandle(ref, () => {
         return {
             validateInputs() {

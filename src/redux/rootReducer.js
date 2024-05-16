@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import userReducer from './user/userSlice';
-import authReducer from './authentication/authSlice';
+import authReducer from "./authentication/authSlice";
 import customerReducer from "./customer/customerSlice";
 import counterReducer from './selectBtn/selectBtnSlice';
 import transferReducer from "./customer/transfer/transferSlice";
@@ -14,7 +14,10 @@ import createCustomerProfileReducer from "./employee/createCustomerProfile/creat
 import createCustomerAccountReducer from "./employee/createCustomerAccount/createCustomerAccountSlice";
 import checkCccdExistReducer from "./system/checkCccdExist/checkCccdExistSlice";
 import employeeDepositSavingReducer from "./employee/depositSaving/employeeDepositSavingSlice";
+import employeeWithdrawSavingReducer from "./employee/EwithdrawsavingSlice/EwithdrawsavingSlice";
+import getTransactionHistoryReducer from "./customer/getTransactionHistory/getTransactionHistorySlice";
 import listSavingReducer from "./customer/listSaving/listSavingSlice";
+import elistSavingReducer from "./employee/listSaving/listSavingSlice";
 import kyhanReducer from './KyHanNgayDenHan/kyhanngaydenhanSlice';
 
 const rootReducer = combineReducers({
@@ -30,10 +33,13 @@ const rootReducer = combineReducers({
     savingTypes: savingTypeReducer,
     cDepositSaving: customerDepositSavingReducer,
     listSaving: listSavingReducer,
+    elistSaving: elistSavingReducer,
     createProfile: createCustomerProfileReducer,
     createAccount: createCustomerAccountReducer,
     checkCccd: checkCccdExistReducer,
     eDepositSaving: employeeDepositSavingReducer,
+    eWithdrawSaving: employeeWithdrawSavingReducer,
+    getTransHis: getTransactionHistoryReducer,
     kyhan: kyhanReducer,
 });
 
