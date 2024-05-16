@@ -14,9 +14,11 @@ import createCustomerProfileReducer from "./employee/createCustomerProfile/creat
 import createCustomerAccountReducer from "./employee/createCustomerAccount/createCustomerAccountSlice";
 import checkCccdExistReducer from "./system/checkCccdExist/checkCccdExistSlice";
 import employeeDepositSavingReducer from "./employee/depositSaving/employeeDepositSavingSlice";
-import listSavingReducer from "./customer/listSaving/listSavingSlice";
-import kyhanReducer from './KyHanNgayDenHan/kyhanngaydenhanSlice';
+import employeeWithdrawSavingReducer from "./employee/EwithdrawsavingSlice/EwithdrawsavingSlice";
 import getTransactionHistoryReducer from "./customer/getTransactionHistory/getTransactionHistorySlice";
+import listSavingReducer from "./customer/listSaving/listSavingSlice";
+import elistSavingReducer from "./employee/listSaving/listSavingSlice";
+import kyhanReducer from './KyHanNgayDenHan/kyhanngaydenhanSlice';
 import employeeDepositAccountReducer from "./employee/depositAccount/employeeDepositAccountSlice";
 import getTransactionTypeReducer from "./system/getTransactionType/getTransactionTypeSlice";
 import employeeWithdrawAccountReducer from "./employee/withdrawAccount/employeeWithdrawAccountSlice";
@@ -34,12 +36,14 @@ const rootReducer = combineReducers({
     savingTypes: savingTypeReducer,
     cDepositSaving: customerDepositSavingReducer,
     listSaving: listSavingReducer,
+    elistSaving: elistSavingReducer,
     createProfile: createCustomerProfileReducer,
     createAccount: createCustomerAccountReducer,
     checkCccd: checkCccdExistReducer,
     eDepositSaving: employeeDepositSavingReducer,
-    kyhan: kyhanReducer,
+    eWithdrawSaving: employeeWithdrawSavingReducer,
     getTransHis: getTransactionHistoryReducer,
+    kyhan: kyhanReducer,
     eDepositAccount: employeeDepositAccountReducer,
     getTransType: getTransactionTypeReducer,
     eWithdrawAccount: employeeWithdrawAccountReducer,

@@ -52,7 +52,7 @@ function Initialization(props, ref) {
     };
 
     const options = [
-        { name: "Căng cước công dân" }
+        { name: "Căn cước công dân" }
     ];
 
     useEffect(() => {
@@ -185,7 +185,7 @@ function Initialization(props, ref) {
                             <div className="col-start-2 col-span-2">
                                 <div type="number" min={2000}
                                     className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] bg-white ">
-                                    {NguoiDung.HoTen}
+                                    {(NguoiDung.HoTen).toUpperCase()}
                                 </div>
                             </div>
                         </>

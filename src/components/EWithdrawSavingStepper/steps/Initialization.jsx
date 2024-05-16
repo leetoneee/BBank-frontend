@@ -1,38 +1,61 @@
 import { useDispatch, useSelector } from "react-redux";
-import readMoney from '../../../utils/n2vi';
-import formatToVND from "../../../utils/formatToVND";
+import DropdownListbox from "../../Listbox/Listbox";
+import InterestDropdown from "../../Listbox/InterestDropdown";
+import HinhThucSavingDropdown from "../../Listbox/HinhThucSavingDropdown";
 import {formatDateResult} from "../../../utils/formatDateAndTime";
-import ConfirmationDropdown from '../../Listbox/XacThucDropdown';
+import formatToVND from "../../../utils/formatToVND";
+import { useEffect, useState } from "react";
+import { getSavingType } from "../../../redux/getSavingType/savingTypeSlice";
+import { forwardRef, useImperativeHandle } from "react";
+import { setSoTienGui as setSoTien, setTaiKhoanNguon } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
+import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
+import readMoney from '../../../utils/n2vi';
+import { formatDateSaving } from "../../../utils/formatDateAndTime";
 import PopupNotice from "../../Popup/PopupNotice";
 import PopupConfirm from "../../Popup/PopupConfirm";
-import { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { IoReload } from "react-icons/io5";
 import { setOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
-import { chenhLech } from './Initialization';
+import { chenhLech } from './Checking';
 import tinhChenhLechNgay from "../../../utils/difDate";
 
 const people = [
     { name: 'Xác thực qua Email' },
 ]
 
-
-function Confirmation(props, ref) {
+function Initialization(props, ref) {
     const dispatch = useDispatch();
 
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
-    const PhieuTietKiem = useSelector((state) => state.listSaving.PhieuTietKiem);
+    const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
+    const TaiKhoanNguon = useSelector((state) => state.eDepositSaving.TaiKhoanNguon);
+    const SoTien = useSelector((state) => state.eDepositSaving.SoTienGui);
+    const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
+    const listAccounts = useSelector((state) => state.checkCccd.listAccounts)
+    const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
+    const PhieuTietKiem = useSelector((state) => state.elistSaving.PhieuTietKiem);
     const user = useSelector((state) => state.auth.user);
 
     const randomString = Math.random().toString(36).slice(8);
+    const [soTienGui, setSoTienGui] = useState(SoTien);
     const [otpEmail, setOtpEmail] = useState('');
-    const [capcha, setCapcha] = useState(randomString);
-    const [capchaInput, setCapchaInput] = useState('');
+    const [account, setAccount] = useState();
+    const [isShowEmptyKyHan, setIsShowEmptyKyHan] = useState(false);
+    const [isShowEmptySoTienGui, setIsShowEmptySoTienGui] = useState(false);
+    const [option, setOption] = useState('');
     const [valid, setValid] = useState(false);
+    const [capchaInput, setCapchaInput] = useState('');
     const [isShowPopup, setIsShowPopup] = useState(false);
     const [isShowPopupConfirm, setIsShowPopupConfirm] = useState(false);
     const [isSendOtp, setIsSendOtp] = useState(false);
+    const [capcha, setCapcha] = useState(randomString);
 
+    const date = new Date();
+
+    const options = [
+        { name: "Lãi nhập gốc" }
+    ];
+
+    
     const refreshString = () => {
         setCapcha(Math.random().toString(36).slice(8));
     };
@@ -40,9 +63,10 @@ function Confirmation(props, ref) {
     const initOtp = () => {
         return Math.floor(Math.random() * 1000000);
     }
+
     const currentDate = new Date(); // Tạo một đối tượng Date hiện tại
     const formattedDate = currentDate.toLocaleString(); 
-    
+
     const handleClickConfirm = () => {
         setIsSendOtp(true)
         setIsShowPopupConfirm(false);
@@ -92,23 +116,133 @@ function Confirmation(props, ref) {
         }
     }, [capchaInput, capcha, valid])
 
-    console.log("Chênh lệch giữa ngày mở và ngày đóng là:", tinhChenhLechNgay(PhieuTietKiem.NgayMo, PhieuTietKiem.TamTinh.NgayTamRut));
-    console.log(" mở và ngày hiện tại là:", chenhLech);
+    const formatDate = (date) => {
+        let newDate = new Date(date);
+        return formatDateSaving(newDate);
+    }
+
+    let listAccountsObjects = [];
+
+    if (listAccounts) {
+        listAccountsObjects = listAccounts.map((account, index) => ({
+            ...account,
+            name: account.SoTaiKhoan
+        }));
+    }
+
     return (
-        <div className="flex flex-col gap-[50px]">
-            {/* Tài khoản nguồn */}
+        <div className="flex flex-col gap-7">
+            {/* Thông tin khách hàng */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
-                <div className="grid grid-cols-3 gap-8">
-                    <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                        Tài khoản nguồn
-                    </span>
-                    <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                        {TaiKhoanNguon.SoTaiKhoan}
-                    </span>
+                <div className="flex flex-col gap-8">
+                    {/* Họ tên */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                            Tên người mở tài khoản tiết kiệm
+                        </span>
+                        <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                            <span className="text-xl font-bold">{(NguoiDung.HoTen).toUpperCase()}</span>
+                        </div>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Ngày sinh*/}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Ngày sinh
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {formatDate(NguoiDung.NgaySinh)}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Giới tính */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Giới tính
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.GioiTinh === 1 ? 'Nam' : 'Nữ'}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Số điện thoại */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số điện thoại
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.SDT}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Giấy tờ tuỳ thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            Căn cước công dân
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Số CCCD */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Số giấy tờ tuỳ thân
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.CCCD}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Địa chỉ */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Địa chỉ
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.DiaChi}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Nghề nghiệp */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Nghề nghiệp
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.NgheNghiep}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    {/* Email */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Email
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {NguoiDung.Email}
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            {/* Các thông tin tất toán */}
+            {/* Thông tin phiếu tiết kiệm */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="flex flex-col gap-8">
                     {/* Mã phiếu tiết kiệm */}
@@ -116,40 +250,43 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
                             Mã phiếu tiết kiệm
                         </span>
-                        <span className="col-start-2 col-span-2 text-white text-xl font-museo-slab-100  self-center text-right ">
-                            {PhieuTietKiem.MaPhieu}
-                        </span>
+                        <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                            <span className="text-xl font-bold">{PhieuTietKiem.MaPhieu}</span>
+                        </div>
                     </div>
 
-                    {/* Phương thức trả lãi */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+
+                    {/* Phương thức trả lãi */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Phương thức trả lãi
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl  self-center text-right ">
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {PhieuTietKiem.PhuongThuc}
                         </span>
                     </div>
 
-                    {/* Kỳ hạn gửi */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+
+                    {/* Kỳ hạn gửi */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Kỳ hạn gửi
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
-                            {PhieuTietKiem.LoaiTietKiem.GhiChu}
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {PhieuTietKiem.LoaiTietKiem.KyHan} tháng
                         </span>
                     </div>
 
-                    {/* Lãi suất */}
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+
+                    {/* Lãi suất */}
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Lãi suất
                         </span>
-                        <span className="col-start-2 col-span-2 text-white  text-xl self-center text-right ">
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {Math.round(PhieuTietKiem.LaiSuat * 1000) / 1000}
                         </span>
                     </div>
@@ -251,8 +388,7 @@ function Confirmation(props, ref) {
             {isShowPopupConfirm &&
                         <PopupConfirm showPopup={isShowPopupConfirm} setShowPopup={setIsShowPopupConfirm} handleClickComfirm={handleClickConfirm} content='Phiếu tiết kiệm chưa đến hạn. Nếu tất toán trước hạn, quý khách sẽ chịu lãi suất thấp. Quý khách có chắc chắn tất toán phiếu tiết kiệm này không?' />}
         </div>
-        
     )
 }
 
-export default forwardRef(Confirmation);
+export default forwardRef(Initialization);

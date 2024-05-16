@@ -11,15 +11,15 @@ const initialState = {
 }
 
 export const withdrawSaving = createAsyncThunk(
-    'customer/withdrawSaving',
+    'employee/withdrawSaving',
     async (requestOptions) => {
-        let res = await axios.post('/customer/saving/withdraw', requestOptions)
+        let res = await axios.post('/employee/saving/withdraw', requestOptions)
         return res.data;
     }
 )
 
-export const customerWithdrawSavingSlice = createSlice({
-    name: 'customerWithdrawSaving',
+export const employeeWithdrawSavingSlice = createSlice({
+    name: 'employeeWithdrawSaving',
     initialState,
     reducers: {
         setTaiKhoanNguon: (state, action) => {
@@ -48,6 +48,6 @@ export const customerWithdrawSavingSlice = createSlice({
     }
 })
 
-export const { setTaiKhoanNguon, reset } = customerWithdrawSavingSlice.actions
+export const { setTaiKhoanNguon, reset } = employeeWithdrawSavingSlice.actions
 
-export default customerWithdrawSavingSlice.reducer
+export default employeeWithdrawSavingSlice.reducer

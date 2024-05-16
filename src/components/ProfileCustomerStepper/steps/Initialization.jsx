@@ -125,7 +125,7 @@ function Initialization(props, ref) {
     };
 
     const options = [
-        { name: "Căng cước công dân" }
+        { name: "Căn cước công dân" }
     ];
 
 

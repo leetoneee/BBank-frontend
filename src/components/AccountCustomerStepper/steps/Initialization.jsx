@@ -65,7 +65,7 @@ function Initialization(props, ref) {
     }, [cccd, isExist])
 
     const options = [
-        { name: "Căng cước công dân" }
+        { name: "Căn cước công dân" }
     ];
 
     if (listAccounts) {
