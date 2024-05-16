@@ -134,7 +134,7 @@ function Result(props) {
                             Giấy tờ tuỳ thân
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            Căng cước công dân
+                            Căn cước công dân
                         </span>
                     </div>
 

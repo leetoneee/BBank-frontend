@@ -111,24 +111,31 @@ import axios from "axios";
 // }
 // callAPI(raw);
 
-const raw = {
-    "CCCD": "538104417"
-}
+// const raw = {
+//     "CCCD": "538104417"
+// }
 
-const raw = {
-    "SoTienGui": 6000000,
-    "PhuongThuc": "Lãi nhập gốc",
-    "MaLoaiTietKiem": 1,
-    "MaKhachHang": 40,
-    "SoTK": "11538104417"
-};
+// const raw = {
+//     "SoTienGui": 6000000,
+//     "PhuongThuc": "Lãi nhập gốc",
+//     "MaLoaiTietKiem": 1,
+//     "MaKhachHang": 40,
+//     "SoTK": "11538104417"
+// };
 
 
-const callAPI = async (requestOptions) => {
-    let res = await axios.post("http://localhost:3005/api/v1/system/account/cccd-exist", requestOptions)
+// const callAPI = async (requestOptions) => {
+//     let res = await axios.post("http://localhost:3005/api/v1/system/account/cccd-exist", requestOptions)
+//     console.log(res.data)
+//     return res.data
+// }
+// callAPI(raw);
+
+
+const callAPI = async () => {
+    let res = await axios.get("http://localhost:3005/api/v1//transaction-fees")
     console.log(res.data)
     return res.data
 }
-callAPI(raw);
-
+callAPI();
 

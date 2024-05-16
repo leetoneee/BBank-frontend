@@ -55,8 +55,8 @@ function Initialization(props, ref) {
             "SoTaiKhoan": soTK
         };
 
-        dispatch(checkAccountExist(raw));
-        console.log(isExist);
+        if (soTK)
+            dispatch(checkAccountExist(raw));
     }
 
     useImperativeHandle(ref, () => {
@@ -116,7 +116,7 @@ function Initialization(props, ref) {
                     </div>
                     {/* Số dư */}
                     <div className="col-start-2 row-start-2 col-span-2 self-center">
-                        {TaiKhoanNguon !== "" && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon.SoDu)}</span>}             
+                        {TaiKhoanNguon !== "" && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon.SoDu)}</span>}
                     </div>
                 </div>
             </div>
@@ -173,7 +173,7 @@ function Initialization(props, ref) {
                         className="col-start-2 row-start-3 col-span-2 rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
                         value={noiDung}
                         onChange={(e) => setnoiDung(e.target.value)}
-                        maxLength={100}
+                        maxLength={200}
                     />
                 </div>
             </div>

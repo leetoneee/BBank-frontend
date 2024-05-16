@@ -10,6 +10,7 @@ import { loginUser as login } from "../../redux/authentication/authSlice";
 import { fetchAllAccountById } from '../../redux/customer/customerSlice';
 import { setUserId, setTen, setMaNhom } from "../../redux/user/userSlice";
 import PopupNotice from "../../components/Popup/PopupNotice";
+import { getTransactionType } from '../../redux/system/getTransactionType/getTransactionTypeSlice';
 
 function Login() {
   const navigate = useNavigate();
@@ -131,6 +132,7 @@ function Login() {
         const currentTime = formatDateLogin(new Date());
         dispatch(setLastLoginTime(currentTime));
         dispatchFetchAllAccount();
+        dispatch(getTransactionType());
         dispatch(setTen(user.HoTen));
         dispatch(setUserId(user.MaNguoiDung));
         dispatch(setMaNhom(user.MaNhom));

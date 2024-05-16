@@ -70,9 +70,9 @@ export const createCustomerProfileSlice = createSlice({
                 if (action.payload.errMessage === 0) {
                     state.isTransactionSuccess = true;
                 } else {
-                    state.message = action.payload.message
                     state.isTransactionSuccess = false;
                 }
+                state.message = action.payload.message
                 state.isLoading = false;
                 state.isError = false;
             })

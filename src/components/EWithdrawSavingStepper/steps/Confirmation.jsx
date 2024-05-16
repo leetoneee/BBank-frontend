@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import readMoney from '../../../utils/n2vi';
 import formatToVND from "../../../utils/formatToVND";
-import {formatDateResult} from "../../../utils/formatDateAndTime";
+import { formatDateResult } from "../../../utils/formatDateAndTime";
 import PopupNotice from "../../Popup/PopupNotice";
 import { useState, forwardRef, useImperativeHandle, useRef } from "react";
 import { classNames } from "../../classNames/classNames";
@@ -44,7 +44,7 @@ function Confirmation(props, ref) {
     }
 
     const currentDate = new Date(); // Tạo một đối tượng Date hiện tại
-    const formattedDate = currentDate.toLocaleString(); 
+    const formattedDate = currentDate.toLocaleString();
 
     useImperativeHandle(ref, () => {
         return {
@@ -239,7 +239,7 @@ function Confirmation(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
                             Mã phiếu tiết kiệm
                         </span>
-                        <span className="col-start-2 col-span-2 text-red-600 text-xl font-museo-slab-100  self-center text-right ">
+                        <span className="col-start-2 col-span-2 text-red-600 text-xl font-museo-slab-100 font-extrabold  self-center text-right ">
                             {PhieuTietKiem.MaPhieu}
                         </span>
                     </div>
@@ -339,55 +339,55 @@ function Confirmation(props, ref) {
 
                     {/* Tổng tiền  */}
                     {chenhLech < tinhChenhLechNgay(PhieuTietKiem.NgayMo, PhieuTietKiem.TamTinh.NgayTamRut)
-                    ?
-                    (<>
-                        <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                        <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                            <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                                Tổng tiền khi đến hạn 
-                            </span>
-                            <div className="col-start-2 col-span-2 text-white self-center text-right flex flex-col ">
-                                <span className="text-xl ">
-                                    {formatToVND(PhieuTietKiem.TamTinh.TienTamTinh)}
+                        ?
+                        (<>
+                            <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                            <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                                <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                                    Tổng tiền khi đến hạn
                                 </span>
-                                <span className="text-[15px]">
-                                    {readMoney(PhieuTietKiem.TamTinh.TienTamTinh.toString())}
-                                </span>
+                                <div className="col-start-2 col-span-2 text-white self-center text-right flex flex-col ">
+                                    <span className="text-xl ">
+                                        {formatToVND(PhieuTietKiem.TamTinh.TienTamTinh)}
+                                    </span>
+                                    <span className="text-[15px]">
+                                        {readMoney(PhieuTietKiem.TamTinh.TienTamTinh.toString())}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                        <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                            <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                                Tổng tiền rút trước hạn 
-                            </span>
-                            <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
-                                <span className="text-xl font-bold">
-                                    {formatToVND(TienTruocHan)}
+                            <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                            <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                                <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                                    Tổng tiền rút trước hạn
                                 </span>
-                                <span className="text-[15px]">
-                                    {readMoney(TienTruocHan.toString())}
-                                </span>
+                                <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                                    <span className="text-xl font-bold">
+                                        {formatToVND(TienTruocHan)}
+                                    </span>
+                                    <span className="text-[15px]">
+                                        {readMoney(TienTruocHan.toString())}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </>)
-                   :
-                   (<>
-                        <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                        <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                            <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
-                                Tổng tiền khi đến hạn 
-                            </span>
-                            <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
-                                <span className="text-xl font-bold">
-                                    {formatToVND(PhieuTietKiem.TamTinh.TienTamTinh)}
+                        </>)
+                        :
+                        (<>
+                            <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                            <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                                <span className="col-start-1 text-[#A5ACAE] text-xl  self-center  ">
+                                    Tổng tiền khi đến hạn
                                 </span>
-                                <span className="text-[15px]">
-                                    {readMoney(PhieuTietKiem.TamTinh.TienTamTinh.toString())}
-                                </span>
+                                <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col ">
+                                    <span className="text-xl font-bold">
+                                        {formatToVND(PhieuTietKiem.TamTinh.TienTamTinh)}
+                                    </span>
+                                    <span className="text-[15px]">
+                                        {readMoney(PhieuTietKiem.TamTinh.TienTamTinh.toString())}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </>)} 
+                        </>)}
                 </div>
             </div>
             {

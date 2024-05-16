@@ -18,6 +18,7 @@ function Authenticity(props, ref) {
     const user = useSelector((state) => state.auth.user);
     const TaiKhoanDich = useSelector((state) => state.checkAccount.TaiKhoan)
     const isLoading = useSelector((state) => state.transfer.isLoading)
+    const listFee = useSelector((state) => state.getTransType.listFee)
 
     const otp = useSelector((state) => state.sendOtp.otp);
     const [otpInput, setOtpInput] = useState();
@@ -158,7 +159,7 @@ function Authenticity(props, ref) {
                             Số tiền phí
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {formatToVND(0)}
+                            {formatToVND(listFee[2]?.Phi)}
                         </span>
                     </div>
 
@@ -179,7 +180,7 @@ function Authenticity(props, ref) {
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
                             Nội dung
                         </span>
-                        <span className={classNames("col-start-2 col-span-2 text-white text-xl  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')} >
+                        <span className={classNames("col-start-2 col-span-2 text-white text-xl text-ellipsis overflow-hidden  self-center", NoiDung.length <= 33 ? 'text-right' : 'text-justify')} >
                             {NoiDung}
                         </span>
                     </div>

@@ -70,7 +70,7 @@ function Checking(props, ref) {
     }, [account, setAccount]);
 
     const options = [
-        { name: "Căng cước công dân" }
+        { name: "Căn cước công dân" }
     ];
 
     let listAccountsObjects = [];
