@@ -146,7 +146,7 @@ function Login() {
           return;
         }
         if (user.MaNhom === 1) {
-          navigate(`/admin/home`, { replace: true });
+          navigate(`/admin/dashboard`, { replace: true });
           return;
         }
       }
