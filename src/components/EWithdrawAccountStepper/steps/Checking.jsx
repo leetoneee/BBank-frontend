@@ -7,18 +7,20 @@ import { setNoiDung, setTaiKhoanDich, setSoTien, setHinhThuc } from '../../../re
 import PopupNotice from "../../Popup/PopupNotice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
 import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
-import { setCCCD as setcccd } from "../../../redux/employee/createCustomerAccount/createCustomerAccountSlice";
 import { checkCccdExist } from "../../../redux/system/checkCccdExist/checkCccdExistSlice";
 import { setListAccount } from "../../../redux/system/checkCccdExist/checkCccdExistSlice";
-import { setTaiKhoanNguon } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
+import { setTaiKhoanNguon } from "../../../redux/employee/withdrawAccount/employeeWithdrawAccountSlice";
+
 function Checking(props, ref) {
     const dispatch = useDispatch();
 
     const [isShowPopup, setIsShowPopup] = useState(false);
+    const [isShowPopupNoAccount, setIsShowPopupNoAccount] = useState(false);
 
     //*
     const listAccounts = useSelector((state) => state.checkCccd.listAccounts)
     const isExist = useSelector((state) => state.checkCccd.isExist)
+    const TaiKhoanNguon = useSelector((state) => state.eWithdrawAccount.TaiKhoanNguon);
 
     const [cccd, setCCCD] = useState('');
 
@@ -56,13 +58,18 @@ function Checking(props, ref) {
                     setIsShowPopup(true);
                 }
 
-                if (!cccd || !isExist)
+                if (!listAccounts) {
+                    setIsShowPopup(true);
+                }
+
+
+                if (!cccd || !isExist || !listAccounts)
                     return true; // Có lỗi
 
                 return false; // Không lỗi
             }
         }
-    }, [cccd, isExist])
+    }, [cccd, isExist, listAccounts])
 
     useEffect(() => {
         dispatch(setTaiKhoanNguon(account));
@@ -113,14 +120,17 @@ function Checking(props, ref) {
 
             {isExist && listAccounts &&
                 <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
-                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
-                        {/* Giấy tờ tuỳ thân */}
-                        <span className="col-start-1  text-[#A5ACAE] text-xl  self-center ">Tài khoản đã có</span>
+                    <div className="grid grid-cols-3 grid-rows-2 gap-8">
+                        {/* Tài khoản nguồn */}
+                        <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center  ">Tài khoản nguồn</span>
+                        <div className="col-start-2 row-start-1 col-span-2 ">
+                            {listAccountsObjects.length > 0 && <ConfirmationDropdown people={listAccountsObjects} setSelectedValue={setAccount} />}
+                        </div>
 
-                        <div className="col-start-2 col-span-2">
-                            <div className="flex flex-row-reverse  ">
-                                {listAccountsObjects.length > 0 && <ConfirmationDropdown people={listAccountsObjects} setSelectedValue={setAccount} />}
-                            </div>
+                        {/* Số dư */}
+                        <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl self-center">Số dư khả dụng</span>
+                        <div className="col-start-2 row-start-2 col-span-2 self-center">
+                            {TaiKhoanNguon && <span className="text-white font-[500] text-[18px] font-museo-slab-100  ">{formatToVND(TaiKhoanNguon?.SoDu)}</span>}
                         </div>
                     </div>
                 </div>
@@ -128,6 +138,8 @@ function Checking(props, ref) {
 
             {isShowPopup &&
                 <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Thông tin khách hàng không tồn tại. Vui lòng kiểm tra lại.' />}
+            {isShowPopupNoAccount &&
+                <PopupNotice showPopup={isShowPopupNoAccount} setShowPopup={setIsShowPopupNoAccount} content='Khách hàng không sở hữu bất kỳ tài khoản nào. Vui lòng kiểm tra lại.' />}
         </div>
     )
 }
