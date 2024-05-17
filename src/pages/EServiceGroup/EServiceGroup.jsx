@@ -14,7 +14,7 @@ function EServiceGroup() {
 
     const dichVuGroup = [
         { icon: ic_NopTienMat, content: 'Lập phiếu nộp tiền mặt', href: 'deposit-account' },
-        { icon: ic_RutTienMat, content: 'Lập phiếu rút tiền mặt', href: '' },
+        { icon: ic_RutTienMat, content: 'Lập phiếu rút tiền mặt', href: 'withdraw-account' },
         { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm từ tài khoản', href: 'deposit-saving' },
         { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm truyền thống', href: 'deposit-saving-traditional' },
         { icon: ic_RutTietKiem, content: 'Lập phiếu rút tiền tiết kiệm', href: 'withdraw-saving' },

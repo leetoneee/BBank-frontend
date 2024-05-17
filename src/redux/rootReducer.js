@@ -21,6 +21,7 @@ import elistSavingReducer from "./employee/listSaving/listSavingSlice";
 import kyhanReducer from './KyHanNgayDenHan/kyhanngaydenhanSlice';
 import employeeDepositAccountReducer from "./employee/depositAccount/employeeDepositAccountSlice";
 import getTransactionTypeReducer from "./system/getTransactionType/getTransactionTypeSlice";
+import employeeWithdrawAccountReducer from "./employee/withdrawAccount/employeeWithdrawAccountSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
     kyhan: kyhanReducer,
     eDepositAccount: employeeDepositAccountReducer,
     getTransType: getTransactionTypeReducer,
+    eWithdrawAccount: employeeWithdrawAccountReducer,
 });
 
 export default rootReducer;

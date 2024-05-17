@@ -1,26 +1,25 @@
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
-import Stepper from '../../components/EDepositAccountStepper/Stepper';
-import StepperControl from '../../components/EDepositAccountStepper/StepperControl';
-import Checking from "../../components/EDepositAccountStepper/steps/Checking";
-import Initialization from "../../components/EDepositAccountStepper/steps/Initialization";
-import Confirmation from "../../components/EDepositAccountStepper/steps/Confirmation";
-import Reject from "../../components/EDepositAccountStepper/steps/Reject";
-import { Result } from "../../components/EDepositAccountStepper/steps/Result";
+import Stepper from '../../components/EWithdrawAccountStepper/Stepper';
+import Checking from "../../components/EWithdrawAccountStepper/steps/Checking";
+import StepperControl from '../../components/EWithdrawAccountStepper/StepperControl';
+import Initialization from "../../components/EWithdrawAccountStepper/steps/Initialization";
+import Confirmation from "../../components/EWithdrawAccountStepper/steps/Confirmation";
+import Reject from "../../components/EWithdrawAccountStepper/steps/Reject";
+import Result from "../../components/EWithdrawAccountStepper/steps/Result";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const EDepositAccount = () => {
+const EWithdrawAccount = () => {
     const navigate = useNavigate()
-
     const checkingRef = useRef();
     const initializationRef = useRef();
     const confirmationRef = useRef();
     const [currentStep, setCurrentStep] = useState(0);
 
-    const isTransactionSuccess = useSelector((state) => state.eDepositAccount.isTransactionSuccess)
+    const isTransactionSuccess = useSelector((state) => state.eWithdrawAccount.isTransactionSuccess)
 
     const handleInitNewTransaction = () => {
         setCurrentStep(0);
@@ -61,7 +60,6 @@ const EDepositAccount = () => {
     const handleClick = async (direction) => {
 
         let newStep = currentStep;
-
         if (newStep === 0) {
             let error = checkingRef.current.validateInputs();
             if (error) {
@@ -73,7 +71,7 @@ const EDepositAccount = () => {
                 return;
             }
         } else if (newStep === 2 && direction === "next") {
-            const error = confirmationRef.current.validateCapcha();
+            let error = confirmationRef.current.validateCapcha();
             if (error) {
                 return;
             }
@@ -119,13 +117,13 @@ const EDepositAccount = () => {
                 <div className="w-auto overflow-auto flex flex-col">
                     <img src={uitPattern} alt="UIT-Pattern" className="fixed contrast-50 w-1/2 self-center mt-14" />
 
-                    <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10 min-h-screen">
+                    <div className="bg-[#40494C]/[70%] h-auto flex flex-col pt-[72px] z-10 min-h-screen overflow-auto no-scrollbar">
                         <div className="w-1/2 self-center">
                             {/* Title */}
                             <div className="w-full">
                                 <h1 className="mt-20 text-[40px]
                                             text-white font-bold  ">
-                                    Lập phiếu nộp tiền mặt
+                                    Lập phiếu rút tiền mặt
                                 </h1>
                                 <div className="2xl:mt-[23px] text-[20px]
                                             text-[#B0B5B6] flex flex-row">
@@ -135,7 +133,7 @@ const EDepositAccount = () => {
                                     <span onClick={() => navigate('../home/service-group')}
                                         className="hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"> Dịch vụ </span>
                                     <p>&nbsp;&gt;&nbsp;</p>
-                                    <p className="text-[#72BF00] hover:cursor-auto"> Lập phiếu nộp tiền mặt </p>
+                                    <p className="text-[#72BF00] hover:cursor-auto"> Lập phiếu rút tiền mặt </p>
                                 </div>
                             </div>
 
@@ -167,4 +165,4 @@ const EDepositAccount = () => {
     )
 }
 
-export default EDepositAccount;
+export default EWithdrawAccount;
