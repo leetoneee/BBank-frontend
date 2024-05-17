@@ -1,10 +1,11 @@
+import { Route, Routes } from 'react-router-dom';
 import React from 'react'
-import Home from '../pages/Home/Home';
+import Admin from '../pages/Admin/Admin';
 
 function AdminRoutes() {
     return (
         <Routes>
-            <Route path='dashboard' element={<Home />} />
+            <Route path='dashboard' element={<Admin />} />
         </Routes>
     )
 }
