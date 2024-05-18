@@ -11,7 +11,7 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PopupEdit from "../../components/Popup/PopupEdit";
 import axios from '../../services/axios';
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchAllSavingByAccount, reset } from '../../redux/employee/listSaving/listSavingSlice';
 import { setPhieuTietKiem } from "../../redux/employee/listSaving/listSavingSlice";
 
@@ -20,10 +20,10 @@ const AAccount = () => {
     const navigate = useNavigate();
     const [records, setRecords] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:3005/api/v1/employee/saving/get-all/538104417/2')
-        .then(res => {
-            setRecords(res.data.transaction)
-        })
+        axios.get('http://localhost:3005/api/v1/accounts')
+            .then(res => {
+                setRecords(res.data.accounts)
+            })
     }, []);
 
     const handleUpdateClick = (transaction) => {
@@ -45,24 +45,21 @@ const AAccount = () => {
     // };
 
     return (
-        <div className="grid grid-cols-11 grid-flow-col-dense ">
-            <div className="col-start-1 col-span-2">
-                <UserInfo />
-            </div>
+        <div>
             <div className="col-end-12 col-span-9 flex flex-col">
                 {/* Header */}
-                <div className="sticky top-0 z-20">
+                <div className="sticky h-20 top-0 z-10">
                     <div className="w-full bg-blue-800 flex justify-center">
                         <div className="flex items-center mb-[22px]">
                             <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">Tài khoản</span>
                         </div>
                     </div>
-                </div>
+                </div>  
 
                 {/* Search & table*/}
-                <div className="h-auto flex flex-col z-10 min-h-screen overflow-x-auto no-scrollbar">
+                <div className="h-auto flex flex-col min-h-screen  no-scrollbar">
                     {/* Search & button */}
-                    <div className=" py-7 bg-white flex flex-row justify-between px-4">
+                    <div className=" h-[90px] py-4 bg-white flex flex-row justify-between px-4 sticky top-20 z-10 ">
                         <div className="relative mt-1 ">
                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg className="w-[20px] text-gray-500 h-[20px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -87,8 +84,8 @@ const AAccount = () => {
                     </div>
 
                     {/* table */}
-                    <table className="w-full text-[20px] text-left text-gray-500 table ">
-                        <thead className="text-[25px] text-gray-700 uppercase bg-gray-200 sticky">
+                    <table className="w-full text-[20px] text-left text-gray-500 table">
+                        <thead className="text-[25px] text-gray-700 uppercase bg-gray-200 sticky top-[170px] z-10 ">
                             <tr>
                                 <th className="p-4">Mã phiếu</th>
                                 <th>Số tiền gửi</th>
@@ -123,7 +120,6 @@ const AAccount = () => {
 
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>

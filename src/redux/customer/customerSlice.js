@@ -11,7 +11,7 @@ const initialState = {
 export const fetchAllAccountById = createAsyncThunk(
     'customer/fetchAllAccountById',
     async (requestOptions) => {
-        let res = await axios.post('/customer/account/get-all', requestOptions)
+        let res = await axios.get('/accounts', requestOptions)
         return res.data;
     }
 )
