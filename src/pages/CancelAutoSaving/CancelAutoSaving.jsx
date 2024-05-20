@@ -27,11 +27,7 @@ function CancelAutoSaving(props, ref) {
     const [isShowEmptyPhieuTietKiem, setIsShowEmptyPhieuTietKiem] = useState(false);
 
     useEffect(() => {
-        let raw = {
-            "MaKhachHang": userId
-        };
-
-        dispatch(fetchAllAccountById(raw));
+        dispatch(fetchAllAccountById());
     }, []);
 
     // useImperativeHandle(ref, () => {

@@ -44,7 +44,25 @@ export const DASHBOARD_SIDEBAR_LINKS = [
         label: 'Rules',
         path: 'rules',
         icon: <HiOutlineDocumentText />
-    }
+    },
+    {
+        key: 'Chức năng',
+        label: 'Chức năng',
+        path: 'features',
+        icon: <HiOutlineDocumentText />
+    },
+    {
+        key: 'Phân quyền',
+        label: 'Phân quyền',
+        path: 'roles',
+        icon: <HiOutlineDocumentText />
+    },
+    {
+        key: 'Nhóm người dùng',
+        label: 'Nhóm người dùng',
+        path: 'group-user',
+        icon: <HiOutlineDocumentText />
+    },
 ]
 
 export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [

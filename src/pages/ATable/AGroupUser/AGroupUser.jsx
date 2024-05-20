@@ -1,28 +1,18 @@
-import UserInfo from "../../components/UserInfo/UserInfo";
-import Header from "../../components/Header/Header";
-import Stepper from '../../components/ProfileCustomerStepper/Stepper';
-import StepperControl from '../../components/ProfileCustomerStepper/StepperControl';
-import Initialization from "../../components/ProfileCustomerStepper/steps/Initialization";
-import Confirmation from "../../components/ProfileCustomerStepper/steps/Confirmation";
-import Reject from "../../components/ProfileCustomerStepper/steps/Reject";
-import Result from "../../components/ProfileCustomerStepper/steps/Result";
-import uitPattern from '../../assets/icons/uitPattern.svg'
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import PopupEdit from "../../components/Popup/PopupEdit";
-import axios from '../../services/axios';
+import axios from '../../../services/axios';
 import { Link, useNavigate } from "react-router-dom";
-import { fetchAllSavingByAccount, reset } from '../../redux/employee/listSaving/listSavingSlice';
-import { setPhieuTietKiem } from "../../redux/employee/listSaving/listSavingSlice";
+import formatToVND from "../../../utils/formatToVND";
+import { formatDateResult, formatDateSaving } from "../../../utils/formatDateAndTime";
 
-const AAccount = () => {
+const AGroupUser = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
     const [records, setRecords] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:3005/api/v1/accounts')
+        axios.get('/group/get-all')
             .then(res => {
-                setRecords(res.data.accounts)
+                setRecords(res.data.listRole)
             })
     }, []);
 
@@ -44,6 +34,21 @@ const AAccount = () => {
     //     setSelectedTransaction(transaction);
     // };
 
+    const handleDelete = (MaNhom) => {
+        const conf = window.confirm("Do you want to delete?");
+        if(conf) {
+        axios.post('/group/delete', { MaNhom })
+        .then(res => {
+            alert("Data Deleted Successfully!");
+            navigate('/admin/group-user');
+            axios.get('/group/get-all')
+            .then(res => {
+                setRecords(res.data.listRole)
+            });
+        }).catch(err => console.log(err))
+        }
+    }
+
     return (
         <div>
             <div className="col-end-12 col-span-9 flex flex-col">
@@ -51,10 +56,10 @@ const AAccount = () => {
                 <div className="sticky h-20 top-0 z-10">
                     <div className="w-full bg-blue-800 flex justify-center">
                         <div className="flex items-center mb-[22px]">
-                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">Tài khoản</span>
+                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">Nhóm người dùng</span>
                         </div>
                     </div>
-                </div>  
+                </div>
 
                 {/* Search & table*/}
                 <div className="h-auto flex flex-col min-h-screen  no-scrollbar">
@@ -77,42 +82,36 @@ const AAccount = () => {
                         </div>
 
                         <div className="text-end self-center">
-                            <Link to="./creat" className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-4 px-4 rounded">
+                            <Link to="./create" className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-4 px-4 rounded">
                                 Add +
                             </Link>
                         </div>
                     </div>
 
                     {/* table */}
-                    <table className="w-full text-[20px] text-left text-gray-500 table">
-                        <thead className="text-[25px] text-gray-700 uppercase bg-gray-200 sticky top-[170px] z-10 ">
+                    <table className="w-full text-left text-gray-500 table">
+                        <thead className="text-[23px] text-gray-700 uppercase bg-gray-200 sticky top-[170px] z-10 ">
                             <tr>
-                                <th className="p-4">Mã phiếu</th>
-                                <th>Số tiền gửi</th>
-                                <th>Mã khách hàng</th>
-                                <th>Mã loại tiết kiệm</th>
-                                <th>Trạng thái</th>
+                                <th className="p-4">Mã nhóm</th>
+                                <th>Tên nhóm</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody className=" text-orange-600 text-[22px]">
                             {
                                 records.map((d, i) => (
-                                    <tr key={i} className="hover:bg-gray-100 border-b">
-                                        <td className="p-3">{d.MaPhieu}</td>
-                                        <td>{d.SoTienGui}</td>
-                                        <td>{d.MaKhachHang}</td>
-                                        <td>{d.MaLoaiTietKiem}</td>
-                                        <td>{d.TrangThai}</td>
+                                    <tr key={i} className="hover:bg-gray-400 border-b">
+                                        <td className="p-3">{d.MaNhom}</td>
+                                        <td>{d.TenNhom}</td>
                                         <td>
                                             <button
                                                 onClick={() => handleUpdateClick(d)}
                                                 className="bg-green-500 hover:bg-green-700 text-white py-1 px-3 rounded text-lg">
-                                                Update
+                                                Xem
                                             </button>
-                                            <Link to="./delete" className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-lg ml-2">
-                                                Delete
-                                            </Link>
+                                            <button onClick={() => handleDelete(d.MaNhom)} className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-lg ml-2">
+                                                Xóa
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
@@ -126,4 +125,4 @@ const AAccount = () => {
     )
 }
 
-export default AAccount;
+export default AGroupUser;

@@ -118,11 +118,7 @@ function Login() {
   };
 
   const dispatchFetchAllAccount = () => {
-    let raw = {
-      "MaKhachHang": user.MaNguoiDung,
-    }
-
-    dispatch(fetchAllAccountById(raw));
+    dispatch(fetchAllAccountById());
   }
 
   useEffect(() => {

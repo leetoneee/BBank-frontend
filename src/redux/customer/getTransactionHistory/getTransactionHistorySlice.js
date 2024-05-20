@@ -14,7 +14,7 @@ const initialState = {
 export const getTransactionHistory = createAsyncThunk(
     'customer/getTransactionHistory',
     async (requestOptions) => {
-        let res = await axios.post('/customer/transaction/get-all', requestOptions)
+        let res = await axios.post('/transactions/get-all', requestOptions)
         return res.data;
     }
 )
