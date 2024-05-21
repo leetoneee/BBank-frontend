@@ -5,11 +5,11 @@ import AHeader from "../components/Header/AHeader";
 
 function AdminLayout() {
     return (
-        <div className="bg-neutral-100 h-screen w-screen overflow-hidden flex flex-row">
-            <ASidebar />
+        <div className="bg-neutral-100 h-screen w-screen flex flex-row overflow-hidden">
+            <ASidebar/>
             <div className="flex flex-col flex-1">
                 <AHeader />
-                <div className="flex-1 min-h-0 px-4 overflow-auto">
+                <div className="flex-1 min-h-0 px-4 overflow-scroll overflow-x-scroll">
                     <Outlet />
                 </div>
             </div>

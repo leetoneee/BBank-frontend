@@ -31,7 +31,7 @@ export default function ASidebar() {
     }
 
     return (
-        <div className="bg-neutral-900 w-60 p-3 flex flex-col justify-center">
+        <div className="bg-neutral-900 w-64 p-3 flex flex-col justify-centern sticky left-0 top-0 z-30">
             {/* Logo */}
             <div className="flex items-center self-center ">
                 <img src={logo} alt="" className="w-[44px] mr-2" />

@@ -16,15 +16,9 @@ export const DASHBOARD_SIDEBAR_LINKS = [
         icon: <HiOutlineViewGrid />
     },
     {
-        key: 'employees',
-        label: 'Employees',
-        path: 'employees',
-        icon: <FaUserTie />
-    },
-    {
-        key: 'customers',
-        label: 'Customers',
-        path: 'customers',
+        key: 'users',
+        label: 'Users',
+        path: 'users',
         icon: <HiOutlineUsers />
     },
     {

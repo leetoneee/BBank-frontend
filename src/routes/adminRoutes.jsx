@@ -13,12 +13,25 @@ import EditRoles from '../pages/ATable/ARoles/Edit';
 import AGroupUser from '../pages/ATable/AGroupUser/AGroupUser';
 import AddGroupUser from '../pages/ATable/AGroupUser/Add';
 import EditGroupUser from '../pages/ATable/AGroupUser/Edit';
+import AUsers from '../pages/ATable/AUsers/AUsers';
+import AddUsers from '../pages/ATable/AUsers/Add';
+import EditUsers from '../pages/ATable/AUsers/Edit';
+import ARules from '../pages/ATable/ARules/ARules';
+import AddRules from '../pages/ATable/ARules/Add';
+import EditRules from '../pages/ATable/ARules/Edit';
 function AdminRoutes() {
     return (
         <Routes>
             <Route path='dashboard' element={<AAccount />} />
-            <Route path='employees' element={<AAccount />} />
-            <Route path='customers' element={<AAccount />} />
+            
+            <Route path='users' element={<AUsers />} />
+            <Route exact path='users/create' element={<AddUsers />} />
+            <Route exact path='users/update' element={<EditUsers />} />
+
+            <Route path='rules' element={<ARules />} />
+            <Route exact path='rules/create' element={<AddRules />} />
+            <Route exact path='rules/update' element={<EditRules />} />
+
             <Route path='accounts' element={<AAccount />} />
             <Route exact path='accounts/create' element={<AddAcount />} />
             <Route exact path='accounts/update' element={<EditAccount />} />
