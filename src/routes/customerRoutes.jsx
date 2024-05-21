@@ -17,18 +17,16 @@ function CustomerRoutes() {
     return (
         <Routes>
             <Route path='home' element={<Home />} />
+            <Route exact path='home/transfer-group' element={<TransferGroup />} />
             <Route exact path='home/transfer-group/transfer' element={<Transfer />} />
             <Route exact path='home/saving-group/withdraw' element={<WithdrawSaving />} />
-            <Route exact path='home/transfer-group' element={<TransferGroup />} />
             <Route exact path='home/saving-group' element={<SavingGroup />} />
             <Route exact path='home/saving-group/saving' element={<DepositSaving />} />
             <Route exact path='home/account/transaction-history' element={<TransactionHistory />} />
             <Route exact path='home/saving-group/cancel-auto-saving' element={<CancelAutoSaving />} />
             <Route exact path='home/account/transaction-history' element={<TransactionHistory />} />
-            <Route exact path='utilities' element={<Home />} />
             <Route exact path='setting' element={<Home />} />
             <Route exact path='setting/fastfeatures' element={<FastFeatures />} />
-            <Route exact path='contact' element={<Home />} />
         </Routes>
     )
 }
