@@ -42,7 +42,6 @@ function Result(props) {
     const transactions = useSelector((state) => state.getTransHis.transactions);
 
     const [isShowPopup, setIsShowPopup] = useState(false);
-    const [selectedTransaction, setSelectedTransaction] = useState(null);
 
     const formattedData = transactions.map((item) => ({
         ...item,
@@ -63,10 +62,9 @@ function Result(props) {
     console.log("🚀 ~ Result ~ reversedData:", reversedData)
     console.log("🚀 ~ sortedData ~ sortedData:", sortedData)
 
-    const handleShowTransaction = (item) => {
-        setSelectedTransaction(item);
+    const handleShowTransaction = () => {
         setIsShowPopup(true);
-    };
+    }
     //*
 
     return (
@@ -156,7 +154,7 @@ function Result(props) {
                                     </span>
                                 </div>
                                 {isShowPopup &&
-                                    <PopupTransHis showPopup={isShowPopup} setShowPopup={setIsShowPopup} content={selectedTransaction} />
+                                    <PopupTransHis showPopup={isShowPopup} setShowPopup={setIsShowPopup} content={item} />
                                 }
                             </div>
                         ))

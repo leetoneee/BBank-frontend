@@ -17,7 +17,7 @@ const initialState = {
 export const employeeWithdrawAccount = createAsyncThunk(
     'employeee/employeeWithdrawAccount',
     async (requestOptions) => {
-        let res = await axios.post('/employee/account/withdraw', requestOptions)
+        let res = await axios.post('/accounts/withdraw', requestOptions)
         return res.data;
     }
 )

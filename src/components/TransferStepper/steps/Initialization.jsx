@@ -36,11 +36,7 @@ function Initialization(props, ref) {
     const [isShowPopup, setIsShowPopup] = useState(false);
 
     useEffect(() => {
-        let raw = {
-            "MaKhachHang": userId
-        };
-
-        dispatch(fetchAllAccountById(raw));
+        dispatch(fetchAllAccountById());
     }, []);
 
     useEffect(() => {
@@ -51,12 +47,8 @@ function Initialization(props, ref) {
     }, [ten]);
 
     const checkAccount = (soTK) => {
-        let raw = {
-            "SoTaiKhoan": soTK
-        };
-
         if (soTK)
-            dispatch(checkAccountExist(raw));
+            dispatch(checkAccountExist(soTK));
     }
 
     useImperativeHandle(ref, () => {

@@ -64,11 +64,8 @@ function Checking(props, ref) {
       }, [ cccd, dispatch]);
 
     useEffect(() => {
-        const raw = {
-            "CCCD": cccd
-        };
         if (cccd) {
-            dispatch(checkCccdExist(raw));
+            dispatch(checkCccdExist(cccd));
         }
     }, [ cccd, dispatch]);
 

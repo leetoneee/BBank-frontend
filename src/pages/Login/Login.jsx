@@ -118,11 +118,7 @@ function Login() {
   };
 
   const dispatchFetchAllAccount = () => {
-    let raw = {
-      "MaKhachHang": user.MaNguoiDung,
-    }
-
-    dispatch(fetchAllAccountById(raw));
+    dispatch(fetchAllAccountById());
   }
 
   useEffect(() => {
@@ -146,7 +142,7 @@ function Login() {
           return;
         }
         if (user.MaNhom === 1) {
-          navigate(`/admin/home`, { replace: true });
+          navigate(`/admin/dashboard`, { replace: true });
           return;
         }
       }

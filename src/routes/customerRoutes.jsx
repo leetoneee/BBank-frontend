@@ -11,7 +11,6 @@ import DepositSaving from '../pages/DepositSaving/DepositSaving';
 import TransactionHistory from '../pages/TransactionHistory/TransactionHistory';
 import CancelAutoSaving from '../pages/CancelAutoSaving/CancelAutoSaving';
 
-
 function CustomerRoutes() {
 
     return (
@@ -24,8 +23,9 @@ function CustomerRoutes() {
             <Route exact path='home/saving-group/saving' element={<DepositSaving />} />
             <Route exact path='home/account/transaction-history' element={<TransactionHistory />} />
             <Route exact path='home/saving-group/cancel-auto-saving' element={<CancelAutoSaving />} />
-            <Route exact path='home/account/transaction-history' element={<TransactionHistory />} />
+
             <Route exact path='utilities' element={<Home />} />
+
             <Route exact path='setting' element={<Home />} />
             <Route exact path='setting/fastfeatures' element={<FastFeatures />} />
             <Route exact path='contact' element={<Home />} />

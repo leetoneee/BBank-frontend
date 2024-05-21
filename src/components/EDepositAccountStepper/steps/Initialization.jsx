@@ -63,11 +63,8 @@ function Initialization(props, ref) {
     }, [NguoiDung]);
 
     const checkCCCD = (cccd) => {
-        const raw = {
-            "CCCD": cccd
-        };
         if (cccd) {
-            dispatch(checkCccdExist(raw));
+            dispatch(checkCccdExist(cccd));
         }
     }
 

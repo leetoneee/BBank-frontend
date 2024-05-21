@@ -16,7 +16,7 @@ const initialState = {
 export const transferMoney = createAsyncThunk(
     'customer/transferMoney',
     async (requestOptions) => {
-        let res = await axios.post('/customer/account/transfer', requestOptions)
+        let res = await axios.post('/accounts/transfer', requestOptions)
         return res.data;
     }
 )

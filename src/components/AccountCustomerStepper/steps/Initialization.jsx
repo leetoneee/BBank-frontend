@@ -24,11 +24,8 @@ function Initialization(props, ref) {
     const [isShowEmptyCCCD, setIsShowEmptyCCCD] = useState(false);
 
     const checkCCCD = (cccd) => {
-        const raw = {
-            "CCCD": cccd
-        };
         if (cccd) {
-            dispatch(checkCccdExist(raw));
+            dispatch(checkCccdExist(cccd));
         }
     }
 
