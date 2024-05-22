@@ -32,7 +32,7 @@ export const listSavingSlice = createSlice({
                 state.isError = false;
             })
             .addCase(fetchAllSavingByAccount.fulfilled, (state, action) => {
-                state.listSavings = action.payload.transaction;
+                state.listSavings = action.payload.accounts;
                 state.isLoading = false;
                 state.isError = false;
             })

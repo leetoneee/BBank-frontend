@@ -173,11 +173,11 @@ function Initialization(props, ref) {
                     {/* Giới tính */}
                     <span className="col-start-1  text-[#A5ACAE] text-xl  self-center ">Giới tính</span>
                     <div className="col-start-2  self-center">
-                        <input className="h-4 w-4 accent-[#73C001]" type="radio" name="gioi_tinh" value={1} checked={GioiTinh === 1} onChange={handleRadioChange} />
+                        <input className="h-4 w-4 accent-[#73C001]" type="radio" name="gioi_tinh" value={'1'} checked={GioiTinh === '1'} onChange={handleRadioChange} />
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Nam</label>
                     </div>
                     <div className="col-start-3  self-center">
-                        <input className="h-4 w-4 accent-[#73C001] " type="radio" name="gioi_tinh" value={0} checked={GioiTinh === 0} onChange={handleRadioChange} />
+                        <input className="h-4 w-4 accent-[#73C001] " type="radio" name="gioi_tinh" value={'0'} checked={GioiTinh === '0'} onChange={handleRadioChange} />
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Nữ</label>
                         <span className=" text-red-500 text-3xl absolute translate-x-[158px] text-center">*</span>
                     </div>

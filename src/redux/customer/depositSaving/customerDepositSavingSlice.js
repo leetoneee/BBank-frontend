@@ -54,6 +54,7 @@ export const customerDepositSavingSlice = createSlice({
             })
             .addCase(depositSaving.fulfilled, (state, action) => {
                 state.PhieuTietKiem = action.payload.PhieuTietKiem;
+                console.log("🚀 ~ .addCase ~ state.PhieuTietKiem:", state.PhieuTietKiem)
                 state.isTransactionSuccess = true;
                 state.isLoading = false;
                 state.isError = false;

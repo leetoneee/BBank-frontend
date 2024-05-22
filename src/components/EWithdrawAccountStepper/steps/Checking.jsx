@@ -45,6 +45,7 @@ function Checking(props, ref) {
             validateInputs() {
                 setIsShowEmptyCCCD(false);
                 setIsShowPopup(false);
+                setIsShowPopupNoAccount(false);
 
 
                 if (!cccd) {
@@ -55,8 +56,8 @@ function Checking(props, ref) {
                     setIsShowPopup(true);
                 }
 
-                if (!listAccounts) {
-                    setIsShowPopup(true);
+                if (!listAccounts && isExist) {
+                    setIsShowPopupNoAccount(true);
                 }
 
 

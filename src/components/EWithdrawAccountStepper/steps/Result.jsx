@@ -113,7 +113,7 @@ function Result(props) {
 
                 <FaCheckCircle color="#7AC014" className="w-[90px]  h-[90px] mx-auto" />
                 <span className="text-white font-bold text-[25px] self-center ">GIAO DỊCH THÀNH CÔNG</span>
-                <span className="text-[25px] text-[#7AC014] font-bold self-center">{formatToVND(GiaoDich.TongTien)}</span>
+                <span className="text-[25px] text-[#7AC014] font-bold self-center">{formatToVND(GiaoDich.SoTien)}</span>
                 <span className="text-white text-[25px] self-center   ">
                     {formatDateResult(GiaoDich.ThoiGian)}
                 </span>
@@ -198,7 +198,7 @@ function Result(props) {
                         </span>
                     </div>
 
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    {/* <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
@@ -207,7 +207,7 @@ function Result(props) {
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
                             Người chuyển trả
                         </span>
-                    </div>
+                    </div> */}
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 

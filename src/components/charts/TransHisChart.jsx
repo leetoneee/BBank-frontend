@@ -18,7 +18,7 @@ import { classNames } from '../classNames/classNames';
 function TransHisChart({ data }) {
     return (
         <ResponsiveContainer width='100%' height='100%'>
-            <LineChart width={500} height={400} data={data} margin={{ right: 10, left: 30 }}>
+            <LineChart width={500} height={400} data={data} margin={{ right: 30, left: 30 }}>
                 <YAxis tick={{ stroke: 'white', strokeWidth: 1 }} />
                 <XAxis dataKey="date" tick={{ stroke: 'white' }} tickSize='4' />
                 <CartesianGrid strokeDasharray='3 3' />

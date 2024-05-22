@@ -20,6 +20,12 @@ const AGroupUser = () => {
         navigate('./update', { state: { transaction } });
     };
 
+    const filteredData =
+        searchTerm === ''
+            ? records
+            : records.filter((record) => {
+                return record?.TenNhom.toLowerCase().includes(searchTerm.toLowerCase())
+            })
 
     // const filteredData = data.filter(item =>
     //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -36,16 +42,16 @@ const AGroupUser = () => {
 
     const handleDelete = (MaNhom) => {
         const conf = window.confirm("Do you want to delete?");
-        if(conf) {
-        axios.post('/group/delete', { MaNhom })
-        .then(res => {
-            alert("Data Deleted Successfully!");
-            navigate('/admin/group-user');
-            axios.get('/group/get-all')
-            .then(res => {
-                setRecords(res.data.listRole)
-            });
-        }).catch(err => console.log(err))
+        if (conf) {
+            axios.post('/group/delete', { MaNhom })
+                .then(res => {
+                    alert("Data Deleted Successfully!");
+                    navigate('/admin/group-user');
+                    axios.get('/group/get-all')
+                        .then(res => {
+                            setRecords(res.data.listRole)
+                        });
+                }).catch(err => console.log(err))
         }
     }
 
@@ -74,8 +80,8 @@ const AGroupUser = () => {
                             <input
                                 type="text"
                                 id="table-search"
-                                className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                                placeholder="Search for items"
+                                className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-[400px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                                placeholder="Tìm kiếm theo Tên nhóm"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -99,7 +105,7 @@ const AGroupUser = () => {
                         </thead>
                         <tbody className=" text-orange-600 text-[22px]">
                             {
-                                records.map((d, i) => (
+                                filteredData.map((d, i) => (
                                     <tr key={i} className="hover:bg-gray-400 border-b">
                                         <td className="p-3">{d.MaNhom}</td>
                                         <td>{d.TenNhom}</td>

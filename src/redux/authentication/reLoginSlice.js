@@ -9,21 +9,18 @@ const initialState = {
     isError: false,
 }
 
-export const loginUser = createAsyncThunk(
-    'auth/loginUser',
-    async (requestOptions) => {
-        let res = await axios.post('/login', requestOptions);
+export const reLoginUser = createAsyncThunk(
+    'auth/reLoginUser',
+    async () => {
+        let res = await axios.get('/user/info');
         return res.data;
     }
 )
 
-export const authSlice = createSlice({
-    name: 'auth',
+export const reLoginSlice = createSlice({
+    name: 'reLogin',
     initialState,
     reducers: {
-        setUser: (state, action) => {
-            state.user = action.payload;
-        },
         setLastLoginTime: (state, action) => {
             state.lastLoginTime = action.payload;
         },
@@ -34,11 +31,11 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(loginUser.pending, (state, action) => {
+            .addCase(reLoginUser.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(loginUser.fulfilled, (state, action) => {
+            .addCase(reLoginUser.fulfilled, (state, action) => {
                 if (action.payload.errCode === 0) {
                     // Login success
                     state.isLoginSuccess = true;
@@ -50,7 +47,7 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(loginUser.rejected, (state, action) => {
+            .addCase(reLoginUser.rejected, (state, action) => {
                 state.isLoginSuccess = false;
                 state.isLoading = false;
                 state.isError = true;
@@ -59,8 +56,8 @@ export const authSlice = createSlice({
     }
 })
 
-export const { setUser, setLastLoginTime, setIsLoginSuccess, logout } = authSlice.actions
+export const { setLastLoginTime, setIsLoginSuccess, logout } = reLoginSlice.actions
 
-export default authSlice.reducer
+export default reLoginSlice.reducer
 
 

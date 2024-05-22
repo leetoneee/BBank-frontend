@@ -20,6 +20,12 @@ const AAccount = () => {
         navigate('./update', { state: { transaction } });
     };
 
+    const filteredData =
+        searchTerm === ''
+            ? records
+            : records.filter((record) => {
+                return record?.SoTaiKhoan.toLowerCase().includes(searchTerm.toLowerCase())
+            })
 
     // const filteredData = data.filter(item =>
     //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -54,8 +60,8 @@ const AAccount = () => {
                             <input
                                 type="text"
                                 id="table-search"
-                                className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                                placeholder="Search for items"
+                                className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-[400px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                                placeholder="Tìm kiếm theo Số tài khoản"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -83,7 +89,7 @@ const AAccount = () => {
                         </thead>
                         <tbody className=" text-orange-600 text-[22px]">
                             {
-                                records.map((d, i) => (
+                                filteredData.map((d, i) => (
                                     <tr key={i} className="hover:bg-gray-400 border-b">
                                         <td className="p-3">{d.SoTaiKhoan}</td>
                                         <td>{d.MaKhachHang}</td>

@@ -22,9 +22,11 @@ import kyhanReducer from './KyHanNgayDenHan/kyhanngaydenhanSlice';
 import employeeDepositAccountReducer from "./employee/depositAccount/employeeDepositAccountSlice";
 import getTransactionTypeReducer from "./system/getTransactionType/getTransactionTypeSlice";
 import employeeWithdrawAccountReducer from "./employee/withdrawAccount/employeeWithdrawAccountSlice";
+import reLoginReducer from "./authentication/reLoginSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    reLogin: reLoginReducer,
     user: userReducer,
     customer: customerReducer,
     counter: counterReducer,

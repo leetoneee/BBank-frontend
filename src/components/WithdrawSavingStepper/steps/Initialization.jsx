@@ -29,7 +29,7 @@ function Initialization(props, ref) {
     useEffect(() => {
         dispatch(fetchAllAccountById());
     }, []);
-    
+
     useImperativeHandle(ref, () => {
         return {
             validateInputs() {

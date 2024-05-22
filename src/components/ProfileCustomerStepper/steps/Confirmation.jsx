@@ -63,7 +63,7 @@ function Confirmation(props, ref) {
             "CCCD": CCCD,
             "HoTen": HoTen,
             "NgaySinh": formatedBirthday,
-            "GioiTinh": GioiTinh,
+            "GioiTinh": Number(GioiTinh),
             "username": SoDT,
             "password": "12345678",
             "MaNhom": 3
@@ -152,7 +152,7 @@ function Confirmation(props, ref) {
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {
-                                GioiTinh ? "Nam" : "Nữ"
+                                GioiTinh === '1' ? "Nam" : "Nữ"
                             }
                         </span>
                     </div>

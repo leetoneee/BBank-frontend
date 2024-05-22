@@ -120,9 +120,9 @@ const EHome = () => {
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
                                     </div>
                                 </LongTooltip>
 
@@ -155,9 +155,9 @@ const EHome = () => {
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
                                     </div>
                                 </LongTooltip>
 

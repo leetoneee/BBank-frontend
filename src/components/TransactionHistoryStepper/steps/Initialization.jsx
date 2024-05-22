@@ -4,7 +4,7 @@ import { forwardRef, useImperativeHandle } from "react";
 import PopupNotice from "../../Popup/PopupNotice";
 import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
 import DropdownListbox from "../../Listbox/Listbox";
-import { setThoiGian, setStartDate as SetStartDate, setEndDate as SetEndDate } from "../../../redux/customer/getTransactionHistory/getTransactionHistorySlice";
+import { setThoiGian, setStartDate as SetStartDate, setEndDate as SetEndDate, setTaiKhoanNguon } from "../../../redux/customer/getTransactionHistory/getTransactionHistorySlice";
 import { getTransactionHistory } from "../../../redux/customer/getTransactionHistory/getTransactionHistorySlice";
 function Initialization(props, ref) {
     const dispatch = useDispatch();
@@ -34,8 +34,7 @@ function Initialization(props, ref) {
     }, [option, setOption])
 
     useEffect(() => {
-        console.log("🚀 ~ Initialization ~ TaiKhoanNguon:", TaiKhoanNguon)
-
+        dispatch(setTaiKhoanNguon(TaiKhoanNguon))
     }, [TaiKhoanNguon])
 
     //*
