@@ -4,15 +4,15 @@ import Header from "../../components/Header/Header";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate } from 'react-router-dom';
-import ic_LapHoSoKH from '../../assets/icons/ic_LapHoSoKH.svg'
-import ic_MoTaiKhoan from '../../assets/icons/ic_MoTaiKhoan.svg'
+import ic_LapHoSoKHGreen from '../../assets/icons/ic_LapHoSoGreen.svg'
+import ic_MoTaiKhoanGreen from '../../assets/icons/ic_MoTaiKhoanGreen.svg'
 
 function ECustomerGroup() {
     const navigate = useNavigate()
 
     const khachHangGroup = [
-        { icon: ic_LapHoSoKH, content: 'Lập hồ sơ thông tin khách hàng', href: 'profile' },
-        { icon: ic_MoTaiKhoan, content: 'Mở tài khoản khách hàng', href: 'account' },
+        { icon: ic_LapHoSoKHGreen, content: 'Lập hồ sơ thông tin khách hàng', href: 'profile' },
+        { icon: ic_MoTaiKhoanGreen, content: 'Mở tài khoản khách hàng', href: 'account' },
     ]
 
     return (
@@ -67,12 +67,10 @@ function ECustomerGroup() {
                                 <div className="flex flex-wrap mb-20 px-36 gap-11 items-center mt-20 ">
                                     {
                                         khachHangGroup.map((item, index) => (
-                                            <div className="grid grid-rows-2  ">
-                                                <img key={index} src={item.icon} alt=""
-                                                    className=" bg-[#6B7E84] max-h-[134px] max-w-[134px] transition ease-in-out hover:bg-[#82898B] rounded-[20px] p-10 duration-300 m-auto "
-                                                    onClick={() => navigate(item.href)} />
-                                                <span className="font-museo-slab-100 text-2xl text-white text-wrap max-w-[185px] text-center pt-2">{item.content}</span>
-                                            </div>
+                                            <img key={index} src={item.icon}
+                                                alt=""
+                                                className="h-[134px] min-w-[185px] self-center transition ease-in-out delay-150 hover:-translate-y-1 hover:drop-shadow-2xl-green duration-300"
+                                                onClick={() => navigate(item.href)} />
                                         ))
                                     }
                                 </div>
