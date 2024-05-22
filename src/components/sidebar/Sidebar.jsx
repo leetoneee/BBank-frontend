@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/authentication/authSlice';
+import { logout } from '../../redux/authentication/logoutSlice';
 import PopupConfirm from '../Popup/PopupConfirm';
 import { useState } from 'react';
 import { reset as resetUser } from '../../redux/user/userSlice';
