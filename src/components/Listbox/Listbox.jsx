@@ -31,11 +31,7 @@ export default function DropdownListbox() {
     }, [listAccounts, TaiKhoanNguon, dispatch]);
 
     useEffect(() => {
-        let raw = {
-            "MaKhachHang": userId
-        };
-
-        dispatch(fetchAllAccountById(raw));
+        dispatch(fetchAllAccountById());
     }, [selected]);
 
     return (

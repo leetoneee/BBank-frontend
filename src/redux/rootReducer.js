@@ -22,9 +22,12 @@ import kyhanReducer from './KyHanNgayDenHan/kyhanngaydenhanSlice';
 import employeeDepositAccountReducer from "./employee/depositAccount/employeeDepositAccountSlice";
 import getTransactionTypeReducer from "./system/getTransactionType/getTransactionTypeSlice";
 import employeeWithdrawAccountReducer from "./employee/withdrawAccount/employeeWithdrawAccountSlice";
+import reLoginReducer from "./authentication/reLoginSlice";
+import logoutReducer from "./authentication/logoutSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    reLogin: reLoginReducer,
     user: userReducer,
     customer: customerReducer,
     counter: counterReducer,
@@ -47,6 +50,7 @@ const rootReducer = combineReducers({
     eDepositAccount: employeeDepositAccountReducer,
     getTransType: getTransactionTypeReducer,
     eWithdrawAccount: employeeWithdrawAccountReducer,
+    logout: logoutReducer
 });
 
 export default rootReducer;

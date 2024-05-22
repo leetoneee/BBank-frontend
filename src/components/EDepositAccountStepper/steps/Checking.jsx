@@ -24,11 +24,8 @@ function Checking(props, ref) {
     const [isShowEmptyTKDich, setIsShowEmptyTKDich] = useState(false);
 
     const checkAccount = (soTK) => {
-        let raw = {
-            "SoTaiKhoan": soTK
-        };
         if (soTK)
-            dispatch(checkAccountExist(raw));
+            dispatch(checkAccountExist(soTK));
     }
 
 

@@ -46,9 +46,7 @@ const EHome = () => {
     ]
 
     const thongKeGroup = [
-        { icon: ic_ThongKe, content: 'Báo cáo thống kê gửi tiết kiệm', href: '' },
-        { icon: ic_SaoKe, content: 'Sao kê tài khoản ngân hàng', href: '' },
-        { icon: ic_TraCuu, content: 'Tra cứu phiếu tiết kiệm ngân hàng', href: '' },
+        { icon: ic_ThongKe, content: 'Báo cáo thống kê gửi tiết kiệm', href: 'statistic-group/saving-date' },
     ]
 
     return (
@@ -76,21 +74,6 @@ const EHome = () => {
                                             <img key={index} className="object-fill h-56 min-w-[1256px]" src={s} />))
                                     }
                                 </Carousel>
-                            </div>
-
-                            {/* Fast Features */}
-                            <div className="flex flex-wrap mb-20 px-36 gap-11 items-center  ">
-                                {
-                                    fastFeatures.map((item, index) => (
-                                        <img key={index} src={item.icon}
-                                            alt=""
-                                            className="h-[134px] min-w-[185px] self-center transition ease-in-out delay-150 hover:-translate-y-1 hover:drop-shadow-2xl-green duration-300"
-                                            onClick={() => navigate(item.href)} />
-                                    ))
-                                }
-                                <img src={luaChonChucNang} alt=""
-                                    className="h-[134px] w-auto transition ease-in-out delay-150 hover:-translate-y-1 hover:drop-shadow-green hover:border hover:border-dashed hover:border-green-500 rounded-[20px] duration-300"
-                                    onClick={() => navigate('../setting/fastfeatures')} />
                             </div>
 
                             {/* Mục Khách hàng */}
@@ -137,9 +120,9 @@ const EHome = () => {
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
                                     </div>
                                 </LongTooltip>
 
@@ -167,14 +150,14 @@ const EHome = () => {
                                 <LongTooltip position="right" content="Lãi suất cao, thời gian gửi linh hoạt, bảo mật tuyệt đối, cơ hội tham gia nhiều chương trình khuyến mãi hấp dẫn, miễn phí quản lý tài khoản.">
                                     <div className=" inline-flex">
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-[310px] text-2xl py-2 pr-8 text-right  text-white mr-2"
-                                            onClick={() => navigate('saving-group')}>
+                                            onClick={() => navigate('statistic-group')}>
                                             <span className="font-museo-slab-100  ">Báo cáo/Thống kê</span>
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
                                     </div>
                                 </LongTooltip>
 
@@ -185,6 +168,7 @@ const EHome = () => {
                                             <div className="grid grid-rows-2  ">
                                                 <img key={index} src={item.icon} alt=""
                                                     className=" bg-[#6B7E84] max-h-[134px] max-w-[134px] transition ease-in-out hover:bg-[#82898B] rounded-[20px] p-10 duration-300 m-auto "
+                                                    onClick={() => navigate(item.href)}
                                                 />
                                                 <span className="font-museo-slab-100 text-2xl text-white text-wrap max-w-[185px] text-center pt-2">{item.content}</span>
                                             </div>

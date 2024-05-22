@@ -4,20 +4,20 @@ import Header from "../../components/Header/Header";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate } from 'react-router-dom';
-import ic_NopTienMat from '../../assets/icons/ic_NopTienMat.svg'
-import ic_RutTienMat from '../../assets/icons/ic_RutTienMat.svg'
-import ic_GuiTietKiem from '../../assets/icons/ic_GuiTietKiem.svg'
-import ic_RutTietKiem from '../../assets/icons/ic_RutTietKiem.svg'
+import ic_NopTienMatGreen from '../../assets/icons/ic_NopTienMatGreen.svg'
+import ic_RutTienMatGreen from '../../assets/icons/ic_RutTienMatGreen.svg'
+import ic_GuiTietKiemGreen from '../../assets/icons/ic_GuiTietKiemGreen.svg'
+import ic_RutTietKiemGreen from '../../assets/icons/ic_RutTietKiemGreen.svg'
 
 function EServiceGroup() {
     const navigate = useNavigate()
 
     const dichVuGroup = [
-        { icon: ic_NopTienMat, content: 'Lập phiếu nộp tiền mặt', href: 'deposit-account' },
-        { icon: ic_RutTienMat, content: 'Lập phiếu rút tiền mặt', href: 'withdraw-account' },
-        { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm từ tài khoản', href: 'deposit-saving' },
-        { icon: ic_GuiTietKiem, content: 'Lập phiếu gửi tiền tiết kiệm truyền thống', href: 'deposit-saving-traditional' },
-        { icon: ic_RutTietKiem, content: 'Lập phiếu rút tiền tiết kiệm', href: 'withdraw-saving' },
+        { icon: ic_NopTienMatGreen, content: 'Lập phiếu nộp tiền mặt', href: 'deposit-account' },
+        { icon: ic_RutTienMatGreen, content: 'Lập phiếu rút tiền mặt', href: 'withdraw-account' },
+        { icon: ic_GuiTietKiemGreen, content: 'Lập phiếu gửi tiền tiết kiệm từ tài khoản', href: 'deposit-saving' },
+        { icon: ic_GuiTietKiemGreen, content: 'Lập phiếu gửi tiền tiết kiệm truyền thống', href: 'deposit-saving-traditional' },
+        { icon: ic_RutTietKiemGreen, content: 'Lập phiếu rút tiền tiết kiệm', href: 'withdraw-saving' },
     ]
 
     return (
@@ -62,9 +62,9 @@ function EServiceGroup() {
                                         </div>
 
                                         <div className="bg-[#485356] -translate-x-4 -skew-x-[15deg] h-12 w-2"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
-                                        <div class="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
+                                        <div className="bg-[#485356] h-5 w-5 rounded-full self-center ml-1"></div>
                                     </div>
                                 </LongTooltip>
 
@@ -72,13 +72,10 @@ function EServiceGroup() {
                                 <div className="flex flex-wrap mb-20 px-36 gap-11 items-center mt-20 ">
                                     {
                                         dichVuGroup.map((item, index) => (
-                                            <div className="grid grid-rows-2  ">
-                                                <img key={index} src={item.icon} alt=""
-                                                    className=" bg-[#6B7E84] max-h-[134px] max-w-[134px] transition ease-in-out hover:bg-[#82898B] rounded-[20px] p-10 duration-300 m-auto "
-                                                    onClick={() => navigate(item.href)}
-                                                />
-                                                <span className="font-museo-slab-100 text-2xl text-white text-wrap max-w-[185px] text-center pt-2">{item.content}</span>
-                                            </div>
+                                            <img key={index} src={item.icon}
+                                                alt=""
+                                                className="h-[134px] min-w-[185px] self-center transition ease-in-out delay-150 hover:-translate-y-1 hover:drop-shadow-2xl-green duration-300"
+                                                onClick={() => navigate(item.href)} />
                                         ))
                                     }
                                 </div>

@@ -29,11 +29,8 @@ function Checking(props, ref) {
     const [isShowEmptyCCCD, setIsShowEmptyCCCD] = useState(false);
 
     const checkCCCD = (cccd) => {
-        const raw = {
-            "CCCD": cccd
-        };
         if (cccd) {
-            dispatch(checkCccdExist(raw));
+            dispatch(checkCccdExist(cccd));
         }
     }
 
@@ -48,6 +45,7 @@ function Checking(props, ref) {
             validateInputs() {
                 setIsShowEmptyCCCD(false);
                 setIsShowPopup(false);
+                setIsShowPopupNoAccount(false);
 
 
                 if (!cccd) {
@@ -58,8 +56,8 @@ function Checking(props, ref) {
                     setIsShowPopup(true);
                 }
 
-                if (!listAccounts) {
-                    setIsShowPopup(true);
+                if (!listAccounts && isExist) {
+                    setIsShowPopupNoAccount(true);
                 }
 
 

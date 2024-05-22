@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../../../services/axios'
 
 const initialState = {
+    TaiKhoanNguon: '',
     ThoiGian: undefined,
     StartDate: "",
     EndDate: "",
@@ -14,7 +15,7 @@ const initialState = {
 export const getTransactionHistory = createAsyncThunk(
     'customer/getTransactionHistory',
     async (requestOptions) => {
-        let res = await axios.post('/customer/transaction/get-all', requestOptions)
+        let res = await axios.post('/transaction/get-all', requestOptions)
         return res.data;
     }
 )
@@ -23,6 +24,9 @@ export const getTransactionHistorySlice = createSlice({
     name: 'getTransactionHistory',
     initialState,
     reducers: {
+        setTaiKhoanNguon: (state, action) => {
+            state.TaiKhoanNguon = action.payload;
+        },
         setThoiGian: (state, action) => {
             state.ThoiGian = action.payload;
         },
@@ -55,6 +59,6 @@ export const getTransactionHistorySlice = createSlice({
     }
 })
 
-export const { setThoiGian, setStartDate, setEndDate, reset } = getTransactionHistorySlice.actions
+export const { setTaiKhoanNguon, setThoiGian, setStartDate, setEndDate, reset } = getTransactionHistorySlice.actions
 
 export default getTransactionHistorySlice.reducer

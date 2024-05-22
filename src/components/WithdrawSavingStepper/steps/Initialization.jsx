@@ -27,13 +27,9 @@ function Initialization(props, ref) {
     const NgayHienTai = currentDate.toISOString();
 
     useEffect(() => {
-        let raw = {
-            "MaKhachHang": userId
-        };
-
-        dispatch(fetchAllAccountById(raw));
+        dispatch(fetchAllAccountById());
     }, []);
-    
+
     useImperativeHandle(ref, () => {
         return {
             validateInputs() {

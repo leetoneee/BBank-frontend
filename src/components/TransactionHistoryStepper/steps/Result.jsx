@@ -35,14 +35,13 @@ function Result(props) {
     }
 
     //*
-    const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
+    const TaiKhoanNguon = useSelector((state) => state.getTransHis.TaiKhoanNguon);
     const ThoiGian = useSelector((state) => state.getTransHis.ThoiGian);
     const StartDate = useSelector((state) => state.getTransHis.StartDate);
     const EndDate = useSelector((state) => state.getTransHis.EndDate);
     const transactions = useSelector((state) => state.getTransHis.transactions);
 
     const [isShowPopup, setIsShowPopup] = useState(false);
-    const [selectedTransaction, setSelectedTransaction] = useState(null);
 
     const formattedData = transactions.map((item) => ({
         ...item,
@@ -53,21 +52,22 @@ function Result(props) {
         moneyAfterTransaction: item.SoTKNhan === TaiKhoanNguon.SoTaiKhoan ? item?.SoDuDich : item?.SoDuNguon
     }));
 
-    const sortedData = formattedData.sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
-        return dateA - dateB;
-    });
+    formattedData.sort((a, b) => a.MaGiaoDich - b.MaGiaoDich);
 
-    const reversedData = [...sortedData].reverse();
+
+    const reversedData = [...formattedData].reverse();
     console.log("🚀 ~ Result ~ reversedData:", reversedData)
-    console.log("🚀 ~ sortedData ~ sortedData:", sortedData)
+    console.log("🚀 ~ sortedData ~ sortedData:", formattedData)
 
-    const handleShowTransaction = (item) => {
-        setSelectedTransaction(item);
-        setIsShowPopup(true);
-    };
+    const [popupStates, setPopupStates] = useState(new Array(reversedData.length).fill(false));
+
+    const handleShowTransaction = (index) => {
+        const newPopupStates = [...popupStates];
+        newPopupStates[index] = !newPopupStates[index];
+        setPopupStates(newPopupStates);
+    }
     //*
+
 
     return (
         <div className=" container flex flex-col gap-[50px] mt-4 mb-8 ">
@@ -90,9 +90,9 @@ function Result(props) {
                 </div>
             }
 
-            {sortedData && sortedData.length > 0 &&
-                <div className="w-full h-[550px]">
-                    <TransHisChart data={sortedData} />
+            {formattedData && formattedData.length > 0 &&
+                <div className="w-[175%] h-[550px] -translate-x-1/4  ">
+                    <TransHisChart data={formattedData} />
                 </div>
             }
 
@@ -105,7 +105,7 @@ function Result(props) {
                         reversedData.map((item, index) => (
                             <div key={index}>
                                 <div className="grid grid-cols-8 grid-rows-2 w-full h-28 p-3 bg-[#4E4E4E]/[70%] transition ease-in-out hover:bg-[#4E4E4E] rounded-[10px] duration-200 m-auto"
-                                    onClick={() => handleShowTransaction(item)}>
+                                    onClick={() => handleShowTransaction(index)}>
                                     {/* Thời gian */}
                                     <span className="col-start-1 col-span-5 text-sm text-[#8d9191]">
                                         {formatDateResult(item.ThoiGian)}
@@ -124,7 +124,7 @@ function Result(props) {
                                     {
                                         item && item.MaLoaiGD === 1 &&
                                         <span className="col-start-1 col-end-6 row-start-2  text-white text-2xl truncate  ">
-                                            RÚT TIỀN TỪ TÀI KHOẢN
+                                            {item.NoiDung}
                                         </span>
                                     }
                                     {
@@ -155,8 +155,8 @@ function Result(props) {
                                         {item.bienDong} {formatToMoney(item.TongTien)}
                                     </span>
                                 </div>
-                                {isShowPopup &&
-                                    <PopupTransHis showPopup={isShowPopup} setShowPopup={setIsShowPopup} content={selectedTransaction} />
+                                {popupStates[index] &&
+                                    <PopupTransHis pos={index} showPopup={popupStates[index]} setShowPopup={(index) => handleShowTransaction(index)} content={reversedData[index]} />
                                 }
                             </div>
                         ))

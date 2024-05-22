@@ -63,11 +63,8 @@ function Initialization(props, ref) {
     }, [NguoiDung]);
 
     const checkCCCD = (cccd) => {
-        const raw = {
-            "CCCD": cccd
-        };
         if (cccd) {
-            dispatch(checkCccdExist(raw));
+            dispatch(checkCccdExist(cccd));
         }
     }
 
@@ -237,7 +234,7 @@ function Initialization(props, ref) {
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Người chuyển trả</label>
                     </div>
                     <div className="col-start-3 row-start-2 self-center">
-                        <input className="h-4 w-4 accent-[#73C001] " type="radio" name="hinh_thuc" value="Người nhận trả" checked={HinhThuc === "Người nhận trả"} onChange={handleRadioChange} />
+                        <input className="h-4 w-4 accent-[#73C001] " type="radio" name="hinh_thuc" value="Người nhận trả" checked={HinhThuc === "Người nhận trả"} onChange={handleRadioChange} disabled />
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Người nhận trả</label>
                     </div>
 

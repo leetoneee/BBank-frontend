@@ -22,7 +22,7 @@ const initialState = {
 export const createProfileCustomer = createAsyncThunk(
     'employeee/createProfileCustomer',
     async (requestOptions) => {
-        let res = await axios.post('/employee/cif/create', requestOptions)
+        let res = await axios.post('/user/create', requestOptions)
         return res.data;
     }
 )

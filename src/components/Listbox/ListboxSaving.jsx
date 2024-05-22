@@ -27,32 +27,27 @@ const ListboxSaving = () => {
     // }, [listSavings, PhieuTietKiem, dispatch]);
 
     useEffect(() => {
-        let raw = {
-            "SoTaiKhoan": TaiKhoanNguon.SoTaiKhoan,
-            "TrangThai": 1  
-        };
-
-        dispatch(fetchAllSavingByAccount(raw));
+        dispatch(fetchAllSavingByAccount(TaiKhoanNguon.SoTaiKhoan));
     }, []);
     
     useEffect(() => {
         // Gọi API fetchAllSavingByAccount khi TaiKhoanNguon thay đổi
         if (TaiKhoanNguon) {
             dispatch(reset());
-          dispatch(fetchAllSavingByAccount({ SoTaiKhoan: TaiKhoanNguon.SoTaiKhoan, "TrangThai": 1 }));
+          dispatch(fetchAllSavingByAccount(TaiKhoanNguon.SoTaiKhoan));
           setSelected(PhieuTietKiem);
         }
       }, [ TaiKhoanNguon, dispatch]);
 
     return (
         <>
-            {listSavings !== "" &&
+            
                 <div className="w-full">
                     <Listbox value={selected} onChange={(selected) => handleChooseSaving(selected)}>
                         <div className="relative">
                             <Listbox.Button className="relative w-full cursor-default rounded-[5px] bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                             {
-                                    selected && listSavings.length !== 0 ?
+                                    selected && listSavings ?
                                         (
                                             <span className="block truncate text-xl text-[#7AC014] font-museo-slab-100">{selected.MaPhieu}</span>
                                         )
@@ -77,7 +72,7 @@ const ListboxSaving = () => {
                                 leaveTo="opacity-0"
                             >
                                 <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm z-20">
-                                    {listSavings.map((account, accountIdx) => (
+                                    {listSavings && listSavings.map((account, accountIdx) => (
                                         <Listbox.Option
                                             key={accountIdx}
                                             className={({ active }) =>
@@ -107,7 +102,7 @@ const ListboxSaving = () => {
                             </Transition>
                         </div>
                     </Listbox>
-                </div>}
+                </div>
         </>
 
     )

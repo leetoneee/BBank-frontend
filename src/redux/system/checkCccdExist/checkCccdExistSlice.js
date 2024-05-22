@@ -12,8 +12,8 @@ const initialState = {
 
 export const checkCccdExist = createAsyncThunk(
     'system/checkCccdExist',
-    async (requestOptions) => {
-        let res = await axios.post('/system/account/cccd-exist', requestOptions)
+    async (cccd) => {
+        let res = await axios.get(`/accounts/cccd-exist/${cccd}`)
         return res.data;
     }
 )
