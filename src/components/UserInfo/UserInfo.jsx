@@ -15,11 +15,13 @@ const UserInfo = () => {
     const listAccounts = useSelector((state) => state.customer.listAccounts);
     const currentAccount = useSelector((state) => state.user.currentAccount);
     const ten = useSelector((state) => state.user.ten);
+    const maNhom = useSelector((state) => state.user.maNhom);
+
     const [showBalance, setShowBalance] = useState(false);
 
     useEffect(() => {
         dispatch(setCurrentAccount(listAccounts[0]));
-    }, [])
+    }, [listAccounts])
 
     return (
         <div className="sticky top-0 bg-[#404040]/[70%] px-7 py-9 w-auto min-h-screen max-h-max min-w-full
@@ -46,15 +48,18 @@ const UserInfo = () => {
                     <span className="text-[#72BF00] mt-2 text-[14px] font-normal hover:cursor-pointer relative inline before:bg-[#72BF00] before:absolute before:-bottom-[2px] before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">Chi tiết</span>
                 </div>
                 <span className="text-white mt-[18px] text-[13px] font-normal">Tài khoản thanh toán</span>
-                <div className="flex flex-row justify-between">
-                    <span className="text-white mt-[5px] text-[17px] font-bold">{!currentAccount ? "" : currentAccount.SoTaiKhoan}</span>
-                    <div className="text-[#62A110] hover:bg-[#62A110] hover:text-white bg-[#4E5E62] rounded-full p-[2px] self-center"
-                        onClick={() => navigate('/user/home/account/transaction-history')}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                        </svg>
+                {maNhom && maNhom === 3 &&
+                    <div className="flex flex-row justify-between">
+                        <span className="text-white mt-[5px] text-[17px] font-bold">{!currentAccount ? "" : currentAccount.SoTaiKhoan}</span>
+                        <div className="text-[#62A110] hover:bg-[#62A110] hover:text-white bg-[#4E5E62] rounded-full p-[2px] self-center"
+                            onClick={() => navigate('/user/home/account/transaction-history')}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </div>
                     </div>
-                </div>
+                }
+
 
                 <span className="text-white mt-[23px] text-[13px] font-normal">Số dư</span>
                 {
