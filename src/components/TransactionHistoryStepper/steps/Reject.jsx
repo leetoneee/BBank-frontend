@@ -10,7 +10,6 @@ function Reject(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const message = useSelector((state) => state.createProfile.message)
 
     const handleNavigateHome = () => {
         dispatch(resetTransfer());
@@ -39,25 +38,6 @@ function Reject(props) {
                 {!message && <span className="text-white text-xl text-center self-center whitespace-normal w-96    ">
                     Xin lỗi quý khách, kết nối tới hệ thống tạm thời gian đoạn. Vui lòng thử lại sau.
                 </span>}
-            </div>
-
-            <div className="w-full flex flex-col bg-[#26383C] rounded-[10px] py-10 px-10 gap-4 shadow-rose-400 shadow-sm">
-
-                {message.map((error, index) => (
-                    <div key={index} >
-                        <div className="grid grid-cols-3 gap-8">
-                            <span className="col-start-1 text-[#A5ACAE] text-xl self-center">
-                                Error {index + 1}
-                            </span>
-                            <div className="col-start-2 col-span-2 text-red-600 self-center text-right flex flex-col">
-                                <span className="text-xl font-bold">
-                                    {error}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
-                    </div>
-                ))}
             </div>
 
             <div className=" container flex justify-around " >

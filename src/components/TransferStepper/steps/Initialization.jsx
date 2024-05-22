@@ -47,12 +47,8 @@ function Initialization(props, ref) {
     }, [ten]);
 
     const checkAccount = (soTK) => {
-        let raw = {
-            "SoTaiKhoan": soTK
-        };
-
         if (soTK)
-            dispatch(checkAccountExist(raw));
+            dispatch(checkAccountExist(soTK));
     }
 
     useImperativeHandle(ref, () => {

@@ -13,7 +13,7 @@ const initialState = {
 export const withdrawSaving = createAsyncThunk(
     'customer/withdrawSaving',
     async (requestOptions) => {
-        let res = await axios.post('/customer/saving/withdraw', requestOptions)
+        let res = await axios.post('saving-accounts/withdraw', requestOptions)
         return res.data;
     }
 )

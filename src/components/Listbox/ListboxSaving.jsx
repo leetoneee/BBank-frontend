@@ -27,19 +27,14 @@ const ListboxSaving = () => {
     // }, [listSavings, PhieuTietKiem, dispatch]);
 
     useEffect(() => {
-        let raw = {
-            "SoTaiKhoan": TaiKhoanNguon.SoTaiKhoan,
-            "TrangThai": 1  
-        };
-
-        dispatch(fetchAllSavingByAccount(raw));
+        dispatch(fetchAllSavingByAccount());
     }, []);
     
     useEffect(() => {
         // Gọi API fetchAllSavingByAccount khi TaiKhoanNguon thay đổi
         if (TaiKhoanNguon) {
             dispatch(reset());
-          dispatch(fetchAllSavingByAccount({ SoTaiKhoan: TaiKhoanNguon.SoTaiKhoan, "TrangThai": 1 }));
+          dispatch(fetchAllSavingByAccount());
           setSelected(PhieuTietKiem);
         }
       }, [ TaiKhoanNguon, dispatch]);

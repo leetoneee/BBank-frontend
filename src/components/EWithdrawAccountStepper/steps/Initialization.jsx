@@ -83,9 +83,9 @@ function Initialization(props, ref) {
         }
     }, [soTienRut, buttonStates, noiDung, TaiKhoanNguon])
 
-    const handleRadioChange = (event) => {
-        dispatch(sethinhthuc(event.target.value));
-    };
+    // const handleRadioChange = (event) => {
+    //     dispatch(sethinhthuc(event.target.value));
+    // };
 
     return (
         <div className="flex flex-col gap-7">
@@ -169,7 +169,7 @@ function Initialization(props, ref) {
 
             {/* Số tiền & Phí giao dịch nội dung */}
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
-                <div className="grid grid-cols-3 grid-rows-3 gap-8">
+                <div className="grid grid-cols-3 grid-rows-2 gap-8">
                     {/* Số tiền */}
                     <span className="col-start-1 row-start-1 text-[#A5ACAE] text-xl  self-center ">Số tiền rút</span>
 
@@ -185,20 +185,20 @@ function Initialization(props, ref) {
 
 
                     {/* Phí giao dịch */}
-                    <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl  self-center ">Phí giao dịch</span>
+                    {/* <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl  self-center ">Phí giao dịch</span>
                     <div className="col-start-2 row-start-2 self-center">
                         <input className="h-4 w-4 accent-[#73C001]" type="radio" name="hinh_thuc" value="Người chuyển trả" checked={HinhThuc === "Người chuyển trả"} onChange={handleRadioChange} />
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Người chuyển trả</label>
                     </div>
                     <div className="col-start-3 row-start-2 self-center">
-                        <input className="h-4 w-4 accent-[#73C001] " type="radio" name="hinh_thuc" value="Người nhận trả" checked={HinhThuc === "Người nhận trả"} onChange={handleRadioChange} />
+                        <input className="h-4 w-4 accent-[#73C001] " type="radio" name="hinh_thuc" value="Người nhận trả" checked={HinhThuc === "Người nhận trả"} onChange={handleRadioChange} disabled />
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Người nhận trả</label>
-                    </div>
+                    </div> */}
 
                     {/* Nội dung */}
-                    <span className="col-start-1 row-start-3 text-[#A5ACAE] text-xl  self-center ">Nội dung</span>
+                    <span className="col-start-1 row-start-2 text-[#A5ACAE] text-xl  self-center ">Nội dung</span>
                     <input
-                        className="col-start-2 row-start-3 col-span-2 rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
+                        className="col-start-2 row-start-2 col-span-2 rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
                         value={noiDung}
                         onChange={(e) => setNoiDung(e.target.value)}
                         maxLength={200}

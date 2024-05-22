@@ -19,7 +19,7 @@ function Confirmation(props, ref) {
     const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
     const SoTien = useSelector((state) => state.eWithdrawAccount.SoTienRut);
     const listFee = useSelector((state) => state.getTransType.listFee)
-    const HinhThuc = useSelector((state) => state.eWithdrawAccount.HinhThuc)
+    // const HinhThuc = useSelector((state) => state.eWithdrawAccount.HinhThuc)
     const NoiDung = useSelector((state) => state.eWithdrawAccount.NoiDung);
     const userId = useSelector((state) => state.user.userId);
 
@@ -160,7 +160,7 @@ function Confirmation(props, ref) {
                         </span>
                     </div>
 
-                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+                    {/* <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 
                     <div className="grid grid-cols-2 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
@@ -169,7 +169,7 @@ function Confirmation(props, ref) {
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
                             {HinhThuc}
                         </span>
-                    </div>
+                    </div> */}
 
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
 

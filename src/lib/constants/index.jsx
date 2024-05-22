@@ -12,46 +12,58 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     {
         key: 'dashboard',
         label: 'Dashboard',
-        path: '/',
+        path: 'dashboard',
         icon: <HiOutlineViewGrid />
     },
     {
-        key: 'employees',
-        label: 'Employees',
-        path: '/employees',
-        icon: <FaUserTie />
-    },
-    {
-        key: 'customers',
-        label: 'Customers',
-        path: '/customers',
+        key: 'users',
+        label: 'Users',
+        path: 'users',
         icon: <HiOutlineUsers />
     },
     {
         key: 'accounts',
         label: 'Accounts',
-        path: '/accounts',
+        path: 'accounts',
         icon: <MdAccountBalance />
     },
     {
         key: 'transactions',
         label: 'Transactions',
-        path: '/transactions',
+        path: 'transactions',
         icon: <FaMoneyBillTransfer />
     },
     {
         key: 'rules',
         label: 'Rules',
-        path: '/rules',
+        path: 'rules',
         icon: <HiOutlineDocumentText />
-    }
+    },
+    {
+        key: 'Chức năng',
+        label: 'Chức năng',
+        path: 'features',
+        icon: <HiOutlineDocumentText />
+    },
+    {
+        key: 'Phân quyền',
+        label: 'Phân quyền',
+        path: 'roles',
+        icon: <HiOutlineDocumentText />
+    },
+    {
+        key: 'Nhóm người dùng',
+        label: 'Nhóm người dùng',
+        path: 'group-user',
+        icon: <HiOutlineDocumentText />
+    },
 ]
 
 export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
     {
         key: 'support',
         label: 'Help & Support',
-        path: '/support',
+        path: 'support',
         icon: <HiOutlineQuestionMarkCircle />
     }
 ]

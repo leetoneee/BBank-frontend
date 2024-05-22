@@ -34,7 +34,7 @@ function Authenticity(props, ref) {
             "PhuongThuc": PhuongThuc.name,
             "MaLoaiTietKiem": KyHan.MaLoaiTietKiem,
             "MaKhachHang": userId,
-            "SoTK": TaiKhoanNguon.SoTaiKhoan
+            "SoTaiKhoan": TaiKhoanNguon.SoTaiKhoan
         };
 
         return dispatch(depositSaving(raw));

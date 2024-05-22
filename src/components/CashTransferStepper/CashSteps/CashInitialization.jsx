@@ -53,11 +53,7 @@ function CashInitialization(props, ref) {
     const [inputType, setInputType] = useState('text');
 
     useEffect(() => {
-        let raw = {
-            "MaKhachHang": userId
-        };
-
-        dispatch(fetchAllAccountById(raw));
+        dispatch(fetchAllAccountById());
     }, []);
 
     useEffect(() => {
@@ -68,11 +64,7 @@ function CashInitialization(props, ref) {
     }, [ten]);
 
     const checkAccount = (soTK) => {
-        let raw = {
-            "SoTaiKhoan": soTK
-        };
-
-        dispatch(checkAccountExist(raw));
+        dispatch(checkAccountExist(soTK));
         console.log(isExist);
     }
 

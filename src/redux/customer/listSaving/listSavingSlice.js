@@ -10,8 +10,8 @@ const initialState = {
 
 export const fetchAllSavingByAccount = createAsyncThunk(
     'customer/fetchAllSavingByAccount',
-    async (requestOptions) => {
-        let res = await axios.post('/customer/saving/get-all', requestOptions)
+    async () => {
+        let res = await axios.get('/saving-accounts')
         return res.data;
     }
 )
@@ -32,7 +32,7 @@ export const listSavingSlice = createSlice({
                 state.isError = false;
             })
             .addCase(fetchAllSavingByAccount.fulfilled, (state, action) => {
-                state.listSavings = action.payload.transaction;
+                state.listSavings = action.payload.accounts;
                 state.isLoading = false;
                 state.isError = false;
             })

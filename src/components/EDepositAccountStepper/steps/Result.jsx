@@ -21,6 +21,8 @@ export function Result(props) {
     const GiaoDich = useSelector((state) => state.eDepositAccount.GiaoDich);
     const HinhThuc = useSelector((state) => state.eDepositAccount.HinhThuc);
     const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
+    const ten = useSelector((state) => state.user.ten);
+    const userId = useSelector((state) => state.user.userId);
 
     const handleNavigateHome = () => {
         dispatch(resetCheckAccount());
@@ -64,9 +66,9 @@ export function Result(props) {
         { column1: 'Tài khoản đích', column2: GiaoDich.SoTKNhan },
         { column1: 'Tên người thụ hưởng', column2: (TaiKhoanDich.HoTen).toUpperCase() },
         { column1: 'Tên ngân hàng hưởng', column2: 'BBank' },
-        { column1: 'Họ tên người nộp', column2: (NguoiDung.HoTen).toUpperCase()},
-        { column1: 'Giấy tờ tùy thân', column2: 'Căn cước công dân'},
-        { column1: 'Số giấy tờ tùy thân', column2: NguoiDung.CCCD},
+        { column1: 'Họ tên người nộp', column2: (NguoiDung.HoTen).toUpperCase() },
+        { column1: 'Giấy tờ tùy thân', column2: 'Căn cước công dân' },
+        { column1: 'Số giấy tờ tùy thân', column2: NguoiDung.CCCD },
         { column1: 'Loại phí', column2: HinhThuc },
         { column1: 'Số tiền nộp', column2: formatToVND(GiaoDich.SoTien) },
         { column1: 'Số tiền phí', column2: formatToVND(GiaoDich.LoaiGD.Phi) },
@@ -93,12 +95,12 @@ export function Result(props) {
                     <table className="w-full border-collapse ">
                         <tbody>
                             {tableData.map((item, rowIndex) => (
-                            <tr key={rowIndex}>
-                            {/* Cột 1 */}
-                            <td className="font-bold border border-solid border-black p-2">{item.column1}</td>
-                            <td className="border border-solid border-black p-2" colSpan={3}>{item.column2}</td>
-                            </tr>
-                        ))}
+                                <tr key={rowIndex}>
+                                    {/* Cột 1 */}
+                                    <td className="font-bold border border-solid border-black p-2">{item.column1}</td>
+                                    <td className="border border-solid border-black p-2" colSpan={3}>{item.column2}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
@@ -116,7 +118,7 @@ export function Result(props) {
 
                 <FaCheckCircle color="#7AC014" className="w-[90px]  h-[90px] mx-auto" />
                 <span className="text-white font-bold text-[25px] self-center ">GIAO DỊCH THÀNH CÔNG</span>
-                <span className="text-[25px] text-[#7AC014] font-bold self-center">{formatToVND(GiaoDich.TongTien)}</span>
+                <span className="text-[25px] text-[#7AC014] font-bold self-center">{formatToVND(GiaoDich.SoTien)}</span>
                 <span className="text-white text-[25px] self-center   ">
                     {formatDateResult(GiaoDich.ThoiGian)}
                 </span>
@@ -230,6 +232,30 @@ export function Result(props) {
                 </div>
             </div>
 
+            {/* Thông tin chuyển khoản */}
+            <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
+                <div className="flex flex-col gap-8">
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Mã nhân viên
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
+                            {userId}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-3 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Tên nhân viên
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {ten}
+                        </span>
+                    </div>
+                </div>
+            </div>
 
             <div className=" container flex justify-between " >
                 {/* back control */}
