@@ -7,6 +7,7 @@ import logo from '../../assets/icons/logo.svg';
 import { reset as resetUser } from '../../redux/user/userSlice';
 import { reset as resetCustomer } from '../../redux/customer/customerSlice';
 import { reset as resetTransfer } from '../../redux/customer/transfer/transferSlice';
+import { logout as logoutAuth } from '../../redux/authentication/authSlice'
 import { logout } from '../../redux/authentication/logoutSlice'
 import { useDispatch } from 'react-redux';
 import PopupConfirm from '../Popup/PopupConfirm';
@@ -26,6 +27,7 @@ export default function ASidebar() {
         dispatch(resetUser());
         dispatch(resetCustomer());
         dispatch(resetTransfer());
+        dispatch(logoutAuth());
         dispatch(logout());
         navigate('/login', { replace: true });
     }

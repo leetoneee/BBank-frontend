@@ -90,13 +90,10 @@ const AFeatures = () => {
                             <tr>
                                 <th className="p-4 w-0">Mã người dùng</th>
                                 <th className="p-4 w-0">Ngày đăng ký</th>
-                                <th className="p-4 w-0 ">Nghề nghiệp</th>
                                 <th className="p-4 w-0 ">Email</th>
                                 <th className="p-4 w-0 ">Số điện thoại</th>
-                                <th className="p-4 w-0 ">Địa chỉ</th>
                                 <th className="p-4 w-0 ">CCCD</th>
                                 <th className="p-4 w-0 ">Họ tên</th>
-                                <th className="p-4 w-0 ">Ngày sinh</th>
                                 <th className="p-4 w-0 ">Giới tính</th>
                                 <th className="p-4 w-0 ">username</th>
                                 <th className="p-4 w-0 ">password</th>
@@ -110,13 +107,10 @@ const AFeatures = () => {
                                     <tr key={i} className="hover:bg-gray-400 border-b">
                                         <td className="p-3 ">{d.MaNguoiDung}</td>
                                         <td className="p-3 ">{formatDateSaving(d.NgayDK)}</td>
-                                        <td className="p-3 ">{d.NgheNghiep}</td>
                                         <td className="p-3 ">{d.Email}</td>
                                         <td className="p-3 ">{d.SDT}</td>
-                                        <td className="p-3 ">{d.DiaChi}</td>
                                         <td className="p-3 ">{d.CCCD}</td>
                                         <td className="p-3 ">{d.HoTen}</td>
-                                        <td className="p-3 ">{formatDateSaving(d.NgaySinh)}</td>
                                         <td className="p-3 ">{d.GioiTinh === "1" ? "Nam" : "Nữ"}</td>
                                         <td className="p-3 ">{d.username}</td>
                                         <td className="p-3 ">{d.password}</td>

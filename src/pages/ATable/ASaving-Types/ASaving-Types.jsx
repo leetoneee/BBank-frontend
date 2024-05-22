@@ -4,36 +4,50 @@ import axios from '../../../services/axios';
 import { Link, useNavigate } from "react-router-dom";
 import formatToVND from "../../../utils/formatToVND";
 import { formatDateResult, formatDateSaving } from "../../../utils/formatDateAndTime";
+import { getSavingType } from "../../../redux/getSavingType/savingTypeSlice";
+import roundInterest from "../../../utils/roundInterest";
 
-const AAccount = () => {
+const ARoles = () => {
+    const dispatch = useDispatch();
+
+    const listSavingTypes = useSelector((state) => state.savingTypes.listSavingTypes);
+
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
     const [records, setRecords] = useState([]);
+
     useEffect(() => {
-        axios.get('/accounts')
-            .then(res => {
-                setRecords(res.data.accounts)
-            })
+        dispatch(getSavingType());
     }, []);
 
     const handleUpdateClick = (transaction) => {
         navigate('./update', { state: { transaction } });
     };
 
-    const filteredData =
-        searchTerm === ''
-            ? records
-            : records.filter((record) => {
-                return record?.SoTaiKhoan.toLowerCase().includes(searchTerm.toLowerCase())
-            })
 
     // const filteredData = data.filter(item =>
     //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
     // );
 
+
     // const handleUpdateClick = (transaction) => {
     //     setSelectedTransaction(transaction);
     // };
+
+    const handleDelete = (MaLoaiTietKiem) => {
+        const conf = window.confirm("Do you want to delete?");
+        if (conf) {
+            axios.post('/saving-type/delete', { MaLoaiTietKiem })
+                .then(res => {
+                    alert("Data Deleted Successfully!");
+                    navigate('/admin/saving-types');
+                    dispatch(getSavingType())
+                        .then(res => {
+                            setRecords(res.data.listRole)
+                        });
+                }).catch(err => console.log(err))
+        }
+    }
 
     return (
         <div>
@@ -42,7 +56,7 @@ const AAccount = () => {
                 <div className="sticky h-20 top-0 z-10">
                     <div className="w-full bg-blue-800 flex justify-center">
                         <div className="flex items-center mb-[22px]">
-                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none font-bold">TÀI KHOẢN</span>
+                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">LOẠI TIẾT KIỆM</span>
                         </div>
                     </div>
                 </div>
@@ -60,8 +74,8 @@ const AAccount = () => {
                             <input
                                 type="text"
                                 id="table-search"
-                                className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-[400px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                                placeholder="Tìm kiếm theo Số tài khoản"
+                                className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                                placeholder="Search for items"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -78,30 +92,29 @@ const AAccount = () => {
                     <table className="w-full text-left text-gray-500 table">
                         <thead className="text-[23px] text-gray-700 uppercase bg-gray-200 sticky top-[170px] z-10 ">
                             <tr>
-                                <th className="p-4">Số tài khoản</th>
-                                <th>Mã khách hàng</th>
-                                <th>Loại tài khoản</th>
-                                <th>Số dư</th>
-                                <th>Ngày mở</th>
-                                <th>Trạng thái</th>
+                                <th className="p-4">Mã loại tiết kiệm</th>
+                                <th>Kỳ hạn</th>
+                                <th>Lãi suất</th>
+                                <th>Ghi chú</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody className=" text-orange-600 text-[22px]">
                             {
-                                filteredData.map((d, i) => (
+                                listSavingTypes && listSavingTypes.map((d, i) => (
                                     <tr key={i} className="hover:bg-gray-400 border-b">
-                                        <td className="p-3">{d.SoTaiKhoan}</td>
-                                        <td>{d.MaKhachHang}</td>
-                                        <td>{d.LoaiTaiKhoan}</td>
-                                        <td>{formatToVND(d.SoDu)}</td>
-                                        <td>{formatDateResult(d.NgayMo)}</td>
-                                        <td>{d.TrangThai ? 'Mở' : 'Đóng'}</td>
+                                        <td className="p-3">{d.MaLoaiTietKiem}</td>
+                                        <td>{d.KyHan}</td>
+                                        <td>{roundInterest(d.LaiSuat * 100)}%</td>
+                                        <td>{d.GhiChu}</td>
                                         <td>
                                             <button
                                                 onClick={() => handleUpdateClick(d)}
                                                 className="bg-green-500 hover:bg-green-700 text-white py-1 px-3 rounded text-lg">
                                                 Xem
+                                            </button>
+                                            <button onClick={() => handleDelete(d.MaLoaiTietKiem)} className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-lg ml-2">
+                                                Xóa
                                             </button>
                                         </td>
                                     </tr>
@@ -116,4 +129,4 @@ const AAccount = () => {
     )
 }
 
-export default AAccount;
+export default ARoles;

@@ -87,7 +87,7 @@ function Result(props) {
     return (
         <div className=" container flex flex-col gap-[50px] mt-4 mb-8 ">
             {/* Print receipt */}
-            <div ref={contentToPrint} className="printer w-full flex flex-col bg-white rounded-[10px] py-10 px-10 shadow-white shadow-sm">
+            <div ref={contentToPrint} className="printer w-full hidden flex-col bg-white rounded-[10px] py-10 px-10 shadow-white shadow-sm">
                 <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[20px] select-none font-museo-slab-500 text-center">Ngân hàng TMCP Ngoại Thương UIT-Together</span>
                 <div className="flex justify-center items-center">
                     <div className="flex items-center gap-4">
