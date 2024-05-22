@@ -10,8 +10,8 @@ const initialState = {
 
 export const fetchAllSavingByAccount = createAsyncThunk(
     'customer/fetchAllSavingByAccount',
-    async () => {
-        let res = await axios.get('/savings-accounts')
+    async (sotaikhoan) => {
+        let res = await axios.get(`/saving-accounts/detail/${sotaikhoan}`)
         return res.data;
     }
 )

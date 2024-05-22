@@ -4,16 +4,20 @@ import axios from '../../../services/axios';
 import { Link, useNavigate } from "react-router-dom";
 import formatToVND from "../../../utils/formatToVND";
 import { formatDateResult, formatDateSaving } from "../../../utils/formatDateAndTime";
+import { getSavingType } from "../../../redux/getSavingType/savingTypeSlice";
+import roundInterest from "../../../utils/roundInterest";
 
 const ARoles = () => {
+    const dispatch = useDispatch();
+
+    const listSavingTypes = useSelector((state) => state.savingTypes.listSavingTypes);
+
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
     const [records, setRecords] = useState([]);
+
     useEffect(() => {
-        axios.get('/rule/get-all')
-            .then(res => {
-                setRecords(res.data.listRole)
-            })
+        dispatch(getSavingType());
     }, []);
 
     const handleUpdateClick = (transaction) => {
@@ -30,14 +34,14 @@ const ARoles = () => {
     //     setSelectedTransaction(transaction);
     // };
 
-    const handleDelete = (MaThamSo) => {
+    const handleDelete = (MaLoaiTietKiem) => {
         const conf = window.confirm("Do you want to delete?");
         if (conf) {
-            axios.post('/rule/delete', { MaThamSo })
+            axios.post('/saving-type/delete', { MaLoaiTietKiem })
                 .then(res => {
                     alert("Data Deleted Successfully!");
-                    navigate('/admin/rules');
-                    axios.get('/rule/get-all')
+                    navigate('/admin/saving-types');
+                    dispatch(getSavingType())
                         .then(res => {
                             setRecords(res.data.listRole)
                         });
@@ -52,7 +56,7 @@ const ARoles = () => {
                 <div className="sticky h-20 top-0 z-10">
                     <div className="w-full bg-blue-800 flex justify-center">
                         <div className="flex items-center mb-[22px]">
-                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">THAM SỐ</span>
+                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">LOẠI TIẾT KIỆM</span>
                         </div>
                     </div>
                 </div>
@@ -88,26 +92,28 @@ const ARoles = () => {
                     <table className="w-full text-left text-gray-500 table">
                         <thead className="text-[23px] text-gray-700 uppercase bg-gray-200 sticky top-[170px] z-10 ">
                             <tr>
-                                <th className="p-4">Mã tham số</th>
-                                <th>Tên tham số</th>
-                                <th>Giá trị</th>
+                                <th className="p-4">Mã loại tiết kiệm</th>
+                                <th>Kỳ hạn</th>
+                                <th>Lãi suất</th>
+                                <th>Ghi chú</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody className=" text-orange-600 text-[22px]">
                             {
-                                records.map((d, i) => (
+                                listSavingTypes && listSavingTypes.map((d, i) => (
                                     <tr key={i} className="hover:bg-gray-400 border-b">
-                                        <td className="p-3">{d.MaThamSo}</td>
-                                        <td>{d.Ten}</td>
-                                        <td>{d.GiaTri}</td>
+                                        <td className="p-3">{d.MaLoaiTietKiem}</td>
+                                        <td>{d.KyHan}</td>
+                                        <td>{roundInterest(d.LaiSuat * 100)}%</td>
+                                        <td>{d.GhiChu}</td>
                                         <td>
                                             <button
                                                 onClick={() => handleUpdateClick(d)}
                                                 className="bg-green-500 hover:bg-green-700 text-white py-1 px-3 rounded text-lg">
                                                 Xem
                                             </button>
-                                            <button onClick={() => handleDelete(d.MaThamSo)} className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-lg ml-2">
+                                            <button onClick={() => handleDelete(d.MaLoaiTietKiem)} className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-lg ml-2">
                                                 Xóa
                                             </button>
                                         </td>

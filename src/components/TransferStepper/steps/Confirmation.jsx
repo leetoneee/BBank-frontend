@@ -126,7 +126,7 @@ function Confirmation(props, ref) {
                             Số tiền phí
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
-                            {formatToVND(listFee[1]?.Phi)}
+                            {formatToVND(listFee[2]?.Phi)}
 
                         </span>
                     </div>

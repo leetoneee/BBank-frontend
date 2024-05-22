@@ -19,6 +19,12 @@ import EditUsers from '../pages/ATable/AUsers/Edit';
 import ARules from '../pages/ATable/ARules/ARules';
 import AddRules from '../pages/ATable/ARules/Add';
 import EditRules from '../pages/ATable/ARules/Edit';
+import ASaving from '../pages/ATable/ASaving/ASaving';
+import EditSaving from '../pages/ATable/ASaving/Edit';
+import ASavingTypes from '../pages/ATable/ASaving-Types/ASaving-Types';
+import AddSavingTypes from '../pages/ATable/ASaving-Types/Add';
+import EditSavingTypes from '../pages/ATable/ASaving-Types/Edit';
+
 function AdminRoutes() {
     return (
         <Routes>
@@ -35,6 +41,13 @@ function AdminRoutes() {
             <Route path='accounts' element={<AAccount />} />
             <Route exact path='accounts/create' element={<AddAcount />} />
             <Route exact path='accounts/update' element={<EditAccount />} />
+
+            <Route path='savings' element={<ASaving />} />
+            <Route exact path='savings/update' element={<EditSaving />} />
+
+            <Route path='saving-types' element={<ASavingTypes />} />
+            <Route exact path='saving-types/create' element={<AddSavingTypes />} />
+            <Route exact path='saving-types/update' element={<EditSavingTypes />} />
 
             <Route path='features' element={<AFeatures />} />
             <Route path='features/create' element={<AddFeatures />} />

@@ -4,9 +4,10 @@ import {
     HiOutlineDocumentText,
     HiOutlineQuestionMarkCircle,
 } from 'react-icons/hi'
-import { FaUserTie } from "react-icons/fa";
-import { MdAccountBalance } from "react-icons/md";
-import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { MdAccountBalance, MdOutlineFeaturedPlayList, MdOutlineSavings } from "react-icons/md";
+import { FaMoneyBillTransfer, FaUsers } from "react-icons/fa6";
+import { TiFlowParallel } from "react-icons/ti";
+import { VscSourceControl, VscGroupByRefType  } from "react-icons/vsc";
 
 export const DASHBOARD_SIDEBAR_LINKS = [
     {
@@ -17,15 +18,27 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     },
     {
         key: 'users',
-        label: 'Users',
+        label: 'Người dùng',
         path: 'users',
         icon: <HiOutlineUsers />
     },
     {
         key: 'accounts',
-        label: 'Accounts',
+        label: 'Tài khoản',
         path: 'accounts',
         icon: <MdAccountBalance />
+    },
+    {
+        key: 'savings',
+        label: 'Phiếu tiết kiệm',
+        path: 'savings',
+        icon: <MdOutlineSavings />
+    },
+    {
+        key: 'saving-types',
+        label: 'Loại tiết kiệm',
+        path: 'saving-types',
+        icon: <VscGroupByRefType />
     },
     {
         key: 'transactions',
@@ -35,27 +48,27 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     },
     {
         key: 'rules',
-        label: 'Rules',
+        label: 'Tham số',
         path: 'rules',
-        icon: <HiOutlineDocumentText />
+        icon: <TiFlowParallel />
     },
     {
         key: 'Chức năng',
         label: 'Chức năng',
         path: 'features',
-        icon: <HiOutlineDocumentText />
+        icon: <MdOutlineFeaturedPlayList />
     },
     {
         key: 'Phân quyền',
         label: 'Phân quyền',
         path: 'roles',
-        icon: <HiOutlineDocumentText />
+        icon: <VscSourceControl />
     },
     {
         key: 'Nhóm người dùng',
         label: 'Nhóm người dùng',
         path: 'group-user',
-        icon: <HiOutlineDocumentText />
+        icon: <FaUsers />
     },
 ]
 
