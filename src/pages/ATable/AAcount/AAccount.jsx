@@ -25,11 +25,6 @@ const AAccount = () => {
     //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
     // );
 
-    const [isShowPopup, setIsShowPopup] = useState(false);
-    const handleShowPopup = () => {
-        setIsShowPopup(true);
-    }
-
     // const handleUpdateClick = (transaction) => {
     //     setSelectedTransaction(transaction);
     // };
@@ -41,7 +36,7 @@ const AAccount = () => {
                 <div className="sticky h-20 top-0 z-10">
                     <div className="w-full bg-blue-800 flex justify-center">
                         <div className="flex items-center mb-[22px]">
-                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">Tài khoản</span>
+                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">TÀI KHOẢN</span>
                         </div>
                     </div>
                 </div>
@@ -102,9 +97,6 @@ const AAccount = () => {
                                                 className="bg-green-500 hover:bg-green-700 text-white py-1 px-3 rounded text-lg">
                                                 Xem
                                             </button>
-                                            <Link to="./delete" className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-lg ml-2">
-                                                Xóa
-                                            </Link>
                                         </td>
                                     </tr>
                                 ))
