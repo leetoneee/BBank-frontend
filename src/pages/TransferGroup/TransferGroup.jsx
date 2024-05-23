@@ -3,15 +3,17 @@ import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import ic_ChuyenTien from '../../assets/icons/fast_ChuyenTien.svg';
-import ic_ChuyenTienMat from '../../assets/icons/ChuyenTienMat.svg';
+// import ic_ChuyenTienMat from '../../assets/icons/ChuyenTienMat.svg';
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate } from 'react-router-dom';
+import ic_LichSuGDGreen from '../../assets/icons/ic_LichSuGDGreen.svg';
 
 function TransferGroup() {
     const navigate = useNavigate()
 
     const transferGroup = [
         { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBnak', href: 'transfer' },
+        { icon: ic_LichSuGDGreen, content: 'Xem lịch sử giaod dịch', href: 'transaction-history' },
     ]
 
     return (

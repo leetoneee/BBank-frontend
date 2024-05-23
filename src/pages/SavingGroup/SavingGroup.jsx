@@ -14,7 +14,7 @@ function SavingGroup() {
     const tietkiemGroup = [
         { icon: ic_MoTietKiem, content: 'Tiết kiệm thường', href: 'saving' },
         { icon: ic_TatToanTietKiem, content: 'Tất toán Tiết kiệm', href: 'withdraw' },
-        { icon: ic_HuyTietKiemTuDong, content: 'Huỷ Tiết kiệm tự động', href: 'cancel-auto-saving' },
+        // { icon: ic_HuyTietKiemTuDong, content: 'Huỷ Tiết kiệm tự động', href: 'cancel-auto-saving' },
     ]
 
     return (

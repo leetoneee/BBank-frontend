@@ -24,7 +24,7 @@ const ARoles = () => {
         searchTerm === ''
             ? records
             : records.filter((record) => {
-                return record?.MaNhom.toString().toLowerCase().includes(searchTerm.toLowerCase())
+                return record?.MaChucNang.toString().toLowerCase().includes(searchTerm.toLowerCase())
             })
 
     // const filteredData = data.filter(item =>
@@ -77,7 +77,7 @@ const ARoles = () => {
                                 type="text"
                                 id="table-search"
                                 className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-[400px] bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                                placeholder="Tìm kiếm theo Mã nhóm"
+                                placeholder="Tìm kiếm theo Mã chức năng"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />

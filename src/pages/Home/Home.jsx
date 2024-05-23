@@ -7,9 +7,11 @@ import fast_ChuyenTien from '../../assets/icons/fast_ChuyenTien.svg';
 import fast_TietKiem from '../../assets/icons/fast_TietKiem.svg';
 import luaChonChucNang from '../../assets/icons/luaChonChucNang.svg';
 import ic_ChuyenTien from '../../assets/icons/ic_ChuyenTien.svg';
-import ic_ChuyenTienMat from '../../assets/icons/ic_ChuyenTienMat.svg';
+import ic_LichSuGD from '../../assets/icons/ic_LichSuGD.svg';
+// import ic_ChuyenTienMat from '../../assets/icons/ic_ChuyenTienMat.svg';
 import ic_TietKiemThuong from '../../assets/icons/ic_TietKiemThuong.svg';
-import ic_TietKiemTuDong from '../../assets/icons/ic_TietKiemTuDong.svg';
+import ic_HuyTietKiem from '../../assets/icons/ic_HuyTietKiem.svg';
+// import ic_TietKiemTuDong from '../../assets/icons/ic_TietKiemTuDong.svg';
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate, Outlet } from "react-router-dom";
@@ -29,11 +31,12 @@ const Home = () => {
 
     const chuyenTienGroup = [
         { icon: ic_ChuyenTien, content: 'Chuyển tiền trong BBank', href: 'transfer-group/transfer' },
+        { icon: ic_LichSuGD, content: 'Xem lịch sử giao dịch', href: 'transfer-group/transaction-history' },
     ]
 
     const tietkiemGroup = [
-        { icon: ic_TietKiemThuong, content: 'Tiết kiệm thường', href:'saving-group/saving' },
-        { icon: ic_TietKiemTuDong, content: 'Cài đặt Tiết kiệm tự động' },
+        { icon: ic_TietKiemThuong, content: 'Tiết kiệm thường', href: 'saving-group/saving' },
+        { icon: ic_HuyTietKiem, content: 'Tất toán tiết kiệm', href: 'saving-group/withdraw' },
     ]
 
     return (

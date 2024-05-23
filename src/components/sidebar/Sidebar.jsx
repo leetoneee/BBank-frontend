@@ -6,7 +6,7 @@ import exitIcon from '../../assets/icons/exitIcon.svg';
 import { NavLink } from 'react-router-dom';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout as logoutAuth } from '../../redux/authentication/authSlice';
 import { logout } from '../../redux/authentication/logoutSlice';
 import PopupConfirm from '../Popup/PopupConfirm';
@@ -17,9 +17,9 @@ import { reset as resetTransfer } from '../../redux/customer/transfer/transferSl
 
 const navigation = [
     { name: 'Home', href: 'home', icon: homeIcon, tooltip: 'Trang chủ', current: true },
-    { name: 'Utilities', href: 'utilities', icon: tienichIcon, tooltip: 'Tiện ích', current: false },
+    // { name: 'Utilities', href: 'utilities', icon: tienichIcon, tooltip: 'Tiện ích', current: false },
     { name: 'Setting', href: 'setting', icon: settingIcon, tooltip: 'Cài đặt', current: false },
-    { name: 'Contact', href: 'contact', icon: contactIcon, tooltip: 'Liên hệ', current: false },
+    // { name: 'Contact', href: 'contact', icon: contactIcon, tooltip: 'Liên hệ', current: false },
     // { name: 'Exit', href: '/login', icon: exitIcon, tooltip: 'Thoát', current: false },
 ]
 
@@ -30,6 +30,8 @@ const Sidebar = () => {
     const normalLink = 'drop-shadow-lg transition-colors duration-200 rounded-[20px] w-16 h-16 p-4 hover:bg-[#83C46C] group relative flex justify-center';
 
     const [isShowPopup, setIsShowPopup] = useState(false);
+
+    const maNhom = useSelector((state) => state.user.maNhom);
 
     const handleLogout = () => {
         dispatch(resetUser());
@@ -46,8 +48,20 @@ const Sidebar = () => {
             <div className='sticky top-0 flex flex-row'>
                 <div className="flex flex-col items-center justify-between px-2 h-screen py-8 space-y-8 bg-gradient-to-b from-[#404040]/[50%] to-[#CDE1DF]">
                     <div className="flex flex-col items-center space-y-4">
-                        {
+                        {maNhom && maNhom === 3 &&
                             navigation.slice(0, 3).map((item, index) => {
+                                return (
+                                    <Tooltip key={index} position="top" content={item.tooltip}>
+                                        <NavLink to={item.href}
+                                            className={({ isActive }) => isActive ? activeLink : normalLink}>
+                                            <img src={item.icon} alt="" />
+                                        </NavLink>
+                                    </Tooltip>
+                                )
+                            })
+                        }
+                        {maNhom && maNhom === 2 &&
+                            navigation.slice(0, 1).map((item, index) => {
                                 return (
                                     <Tooltip key={index} position="top" content={item.tooltip}>
                                         <NavLink to={item.href}

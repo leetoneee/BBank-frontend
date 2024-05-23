@@ -24,12 +24,13 @@ import EditSaving from '../pages/ATable/ASaving/Edit';
 import ASavingTypes from '../pages/ATable/ASaving-Types/ASaving-Types';
 import AddSavingTypes from '../pages/ATable/ASaving-Types/Add';
 import EditSavingTypes from '../pages/ATable/ASaving-Types/Edit';
+import ADashboard from '../pages/ADashboard/ADashboard';
 
 function AdminRoutes() {
     return (
         <Routes>
-            <Route path='dashboard' element={<AAccount />} />
-            
+            <Route path='dashboard' element={<ADashboard />} />
+
             <Route path='users' element={<AUsers />} />
             <Route exact path='users/create' element={<AddUsers />} />
             <Route exact path='users/update' element={<EditUsers />} />
@@ -60,6 +61,8 @@ function AdminRoutes() {
             <Route path='group-user' element={<AGroupUser />} />
             <Route path='group-user/create' element={<AddGroupUser />} />
             <Route path='group-user/update' element={<EditGroupUser />} />
+
+
         </Routes>
     )
 }

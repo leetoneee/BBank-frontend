@@ -120,9 +120,9 @@ const ESavingDate = () => {
                                     <span className="text-[15px] self-center ml-[200px] select-none">www.buoibank.com</span>
                                     <span className="text-[15px] self-center ml-[200px] bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] text-transparent bg-clip-text font-medium">Hotline: 1900 00 00 00</span>
                                     <span className="font-bold text-[20px] self-center mt-4 mb-5">BÁO CÁO PHIẾU TIẾT KIỆM NGÀY {date}</span>
-                                    <div  className=" flex flex-col">
-                                        <table className="w-full text-left table bg-[#26383C]">
-                                            <thead className="text-[23px] text-gray-700 uppercase bg-gray-300 sticky top-[170px] z-10 ">
+                                    <div className=" flex flex-col">
+                                        <table className="w-full text-left table ">
+                                            <thead className="text-[23px]  uppercase sticky top-[170px] z-10 ">
                                                 <tr>
                                                     <th className="p-4">Mã loại tiết kiệm</th>
                                                     <th className="p-4">Tổng thu</th>
@@ -130,10 +130,10 @@ const ESavingDate = () => {
                                                     <th className="p-4">Chênh lệch</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="text-white text-[24px]">
+                                            <tbody className=" text-[24px]">
                                                 {
                                                     sortedRecords.map((d, i) => (
-                                                        <tr key={i} className="hover:bg-gray-400 border-b">
+                                                        <tr key={i} className=" border-b">
                                                             <td className="p-3 text-center">{d.MaLoaiTietKiem}</td>
                                                             <td className="p-4">{formatToVND(d.TongThu)}</td>
                                                             <td className="p-4">{formatToVND(d.TongChi)}</td>
@@ -141,12 +141,12 @@ const ESavingDate = () => {
                                                         </tr>
                                                     ))
                                                 }
-                                                    <tr className="hover:bg-gray-400 border-b font-bold">
-                                                        <td className="p-3 text-center ">Tổng</td>
-                                                        <td className="p-4 text-green-500">{formatToVND(totalTongThu)}</td>
-                                                        <td className="p-4 text-red-500">{formatToVND(totalTongChi)}</td>
-                                                        <td className="p-4 text-yellow-500">{formatToVND(totalChenhLech)}</td>
-                                                    </tr>
+                                                <tr className="hover:bg-gray-400 border-b font-bold">
+                                                    <td className="p-3 text-center ">Tổng</td>
+                                                    <td className="p-4 ">{formatToVND(totalTongThu)}</td>
+                                                    <td className="p-4 ">{formatToVND(totalTongChi)}</td>
+                                                    <td className="p-4 ">{formatToVND(totalChenhLech)}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -181,7 +181,7 @@ const ESavingDate = () => {
 
                             {/* table */}
                             {isTableVisible && (
-                                <div  className=" flex flex-col">
+                                <div className=" flex flex-col">
                                     <table className="w-full text-left table bg-[#26383C]">
                                         <thead className="text-[23px] text-gray-700 uppercase bg-gray-200 sticky top-[170px] z-10 ">
                                             <tr>
@@ -202,12 +202,12 @@ const ESavingDate = () => {
                                                     </tr>
                                                 ))
                                             }
-                                                <tr className="hover:bg-gray-400 border-b font-bold">
-                                                    <td className="p-3 text-center ">Tổng</td>
-                                                    <td className="p-4 text-green-500">{formatToVND(totalTongThu)}</td>
-                                                    <td className="p-4 text-red-500">{formatToVND(totalTongChi)}</td>
-                                                    <td className="p-4 text-yellow-500">{formatToVND(totalChenhLech)}</td>
-                                                </tr>
+                                            <tr className="hover:bg-gray-400 border-b font-bold">
+                                                <td className="p-3 text-center ">Tổng</td>
+                                                <td className="p-4 text-green-500">{formatToVND(totalTongThu)}</td>
+                                                <td className="p-4 text-red-500">{formatToVND(totalTongChi)}</td>
+                                                <td className="p-4 text-yellow-500">{formatToVND(totalChenhLech)}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
 

@@ -7,7 +7,7 @@ import {
 import { MdAccountBalance, MdOutlineFeaturedPlayList, MdOutlineSavings } from "react-icons/md";
 import { FaMoneyBillTransfer, FaUsers } from "react-icons/fa6";
 import { TiFlowParallel } from "react-icons/ti";
-import { VscSourceControl, VscGroupByRefType  } from "react-icons/vsc";
+import { VscSourceControl, VscGroupByRefType } from "react-icons/vsc";
 
 export const DASHBOARD_SIDEBAR_LINKS = [
     {
@@ -39,12 +39,6 @@ export const DASHBOARD_SIDEBAR_LINKS = [
         label: 'Loại tiết kiệm',
         path: 'saving-types',
         icon: <VscGroupByRefType />
-    },
-    {
-        key: 'transactions',
-        label: 'Transactions',
-        path: 'transactions',
-        icon: <FaMoneyBillTransfer />
     },
     {
         key: 'rules',

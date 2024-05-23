@@ -171,7 +171,7 @@ const PopupTransHis = ({ pos, showPopup, setShowPopup, content }) => {
                                             </span>
                                             <span className="col-start-2 col-span-2 text-white text-lg self-center text-right ">
                                                 {
-                                                    formatToMoney(content?.SoDuNguon)
+                                                    formatToMoney(content?.SoDuDich)
                                                 }
                                             </span>
                                         </div>
@@ -305,7 +305,7 @@ const PopupTransHis = ({ pos, showPopup, setShowPopup, content }) => {
 
                                     <FaCheckCircle color="#7AC014" className="w-[60px]  h-[60px] mx-auto" />
                                     <span className="text-white font-bold text-[20px] self-center ">MỞ PHIẾU TIẾT KIỆM THÀNH CÔNG</span>
-                                    <span className="text-[20px] text-[#7AC014] font-bold self-center">{formatToVND(content.SoTien)}</span>
+                                    <span className="text-[20px] text-[#7AC014] font-bold self-center">{formatToVND(content?.SoTien)}</span>
                                     <span className="text-white text-[20px] self-center   ">
                                         {formatDateResult(content.ThoiGian)}
                                     </span>
@@ -344,6 +344,17 @@ const PopupTransHis = ({ pos, showPopup, setShowPopup, content }) => {
                                             </span>
                                             <span className="col-start-2 col-span-2 text-white text-lg  self-center text-right ">
                                                 {content?.MaGiaoDich}
+                                            </span>
+                                        </div>
+
+                                        <div className="border-b-2 border-b-white h-[1px] w-full self-center"></div>
+
+                                        <div className="grid grid-cols-3 grid-rows-1 gap-4">
+                                            <span className="col-start-1 text-[#A5ACAE] text-lg  self-center ">
+                                                Mã phiếu tiết kiệm
+                                            </span>
+                                            <span className="col-start-2 col-span-2 text-white text-lg  self-center text-right ">
+                                                {content?.MaPhieu}
                                             </span>
                                         </div>
 

@@ -24,6 +24,7 @@ import getTransactionTypeReducer from "./system/getTransactionType/getTransactio
 import employeeWithdrawAccountReducer from "./employee/withdrawAccount/employeeWithdrawAccountSlice";
 import reLoginReducer from "./authentication/reLoginSlice";
 import logoutReducer from "./authentication/logoutSlice";
+import getSavingRevenueReducer from "./admin/savingRevenue/getSavingRevenueSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -50,7 +51,8 @@ const rootReducer = combineReducers({
     eDepositAccount: employeeDepositAccountReducer,
     getTransType: getTransactionTypeReducer,
     eWithdrawAccount: employeeWithdrawAccountReducer,
-    logout: logoutReducer
+    logout: logoutReducer,
+    savingRevenue: getSavingRevenueReducer,
 });
 
 export default rootReducer;

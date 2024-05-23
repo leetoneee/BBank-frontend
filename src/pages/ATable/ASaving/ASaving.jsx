@@ -36,7 +36,7 @@ const AFeatures = () => {
                 <div className="sticky h-20 top-0 z-10">
                     <div className="w-full bg-blue-800 flex justify-center">
                         <div className="flex items-center mb-[22px]">
-                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none">PHIẾU TIẾT KIỆM</span>
+                            <span className="bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] inline-block text-transparent bg-clip-text text-[50px] select-none font-bold">PHIẾU TIẾT KIỆM</span>
                         </div>
                     </div>
                 </div>
@@ -90,9 +90,9 @@ const AFeatures = () => {
                                         <td className="p-3 ">{formatToVND(d.SoTienGui)}</td>
                                         <td className="p-3 ">{roundInterest(d.LaiSuat * 100)}%</td>
                                         <td className="p-3 "> {d.NgayRut ? formatDateResult(d.NgayRut) : ''}</td>
-                                        <td className="p-3 ">{d.SoTienRut ? formatToVND(d.SoTienRut): ''}</td>
+                                        <td className="p-3 ">{d.SoTienRut ? formatToVND(d.SoTienRut) : ''}</td>
                                         <td className="p-3 ">{d.PhuongThuc}</td>
-                                        <td className="p-3 ">{d.TrangThai === false ? 'Đã rút':''}</td>
+                                        <td className="p-3 ">{d.TrangThai === false ? 'Đã rút' : ''}</td>
                                         <td className="p-3 ">{d.MaLoaiTietKiem}</td>
                                         <td className="p-3 ">{d.MaKhachHang}</td>
                                         <td className="p-3 ">{d.SoTK}</td>

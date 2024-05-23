@@ -3,19 +3,18 @@ import { Menu, Popover, Transition } from '@headlessui/react'
 import { HiOutlineBell, HiOutlineSearch, HiOutlineChatAlt } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
 import { classNames } from '../classNames/classNames'
+import { useSelector } from 'react-redux'
 
 export default function AHeader() {
     const navigate = useNavigate()
 
+    const user = useSelector((state) => state.auth.user)
+
     return (
         <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200 justify-between z-20">
             <div className="relative">
-                <HiOutlineSearch fontSize={20} className="text-gray-400 absolute top-1/2 left-3 -translate-y-1/2" />
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    className="text-sm focus:outline-none active:outline-none border border-gray-300 w-[24rem] h-10 pl-11 pr-4 rounded-sm"
-                />
+                <span className='font-bold '>Xin chào, {(user.HoTen).toUpperCase()}!</span>
+                <span className='font-bold '>  Chúc bạn một ngày mới tốt lành...</span>
             </div>
             <div className="flex items-center gap-2 mr-2">
                 <Popover className="relative">
