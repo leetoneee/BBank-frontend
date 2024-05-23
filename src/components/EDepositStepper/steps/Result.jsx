@@ -27,6 +27,7 @@ function Result(props) {
     const TamTinh = useSelector((state) => state.eDepositSaving.TamTinh);
     const ten = useSelector((state) => state.user.ten);
     const userId = useSelector((state) => state.user.userId);
+    const isAuto = useSelector((state) => state.eDepositSaving.isAuto);
 
     const handleNavigateHome = () => {
         dispatch(resetCccd());
@@ -69,6 +70,7 @@ function Result(props) {
               { column1: 'Mã phiếu tiết kiệm', column2: PhieuTietKiem.MaPhieu },
               { column1: 'Tài khoản nguồn', column2:  PhieuTietKiem.SoTK},
               { column1: 'Phương thức trả lãi', column2: PhieuTietKiem.PhuongThuc },
+              { column1: 'Tiết kiệm tự động', column2: isAuto === '1' ? "Có" : "Không" },
               { column1: 'Kỳ hạn gửi', column2: KyHan.GhiChu },
               { column1: 'Lãi suất', column2: Math.round(PhieuTietKiem.LaiSuat * 1000) / 1000 },
               { column1: 'Ngày mở phiếu tiết kiệm', column2:  formatDateSaving(PhieuTietKiem.NgayMo)},
@@ -237,6 +239,18 @@ function Result(props) {
                             {PhieuTietKiem.PhuongThuc}
                         </span>
                     </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Tiết kiệm tự động
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {isAuto === '1' ? "Có" : "Không"}
+                        </span>
+                    </div>
+
                     <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
                     <div className="grid grid-cols-3 grid-rows-1 gap-8">
                         <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">

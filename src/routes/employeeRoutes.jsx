@@ -13,6 +13,7 @@ import EWithdrawSaving from '../pages/EWithdrawSaving/EWithdrawSaving'
 import ESavingDate from '../pages/ESavingDate/ESavingDate'
 import EStatisticGroup from '../pages/EStatisticGroup/EStatisticGroup'
 import CalcInterest from '../pages/CalcInterest/CalcInterest'
+import EStatement from '../pages/EStatement/EStatement'
 
 function EmployeeRoutes() {
     return (
@@ -27,9 +28,12 @@ function EmployeeRoutes() {
             <Route path='home/service-group/deposit-saving' element={<EDepositSaving />} />
             <Route path='home/service-group/deposit-saving-traditional' element={<EDepositSavingT />} />
             <Route path='home/service-group/withdraw-saving' element={<EWithdrawSaving />} />
+
+            <Route path='home/statistic-group' element={<EStatisticGroup />} />
             <Route path='home/statistic-group/saving-date' element={<ESavingDate />} />
             <Route path='home/statistic-group' element={<EStatisticGroup />} />
             <Route path='home/calc-interest' element={<CalcInterest />} />
+            <Route path='home/statistic-group/statement' element={<EStatement />} />
         </Routes>
     )
 }
