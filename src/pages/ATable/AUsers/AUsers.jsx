@@ -20,6 +20,12 @@ const AFeatures = () => {
         navigate('./update', { state: { transaction } });
     };
 
+    const filteredData =
+        searchTerm === ''
+            ? records
+            : records.filter((record) => {
+                return record?.CCCD.toLowerCase().includes(searchTerm.toLowerCase())
+            })
 
     // const filteredData = data.filter(item =>
     //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -70,7 +76,7 @@ const AFeatures = () => {
                                 type="text"
                                 id="table-search"
                                 className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                                placeholder="Search for items"
+                                placeholder="Tìm kiếm theo CCCD"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -103,7 +109,7 @@ const AFeatures = () => {
                         </thead>
                         <tbody className=" text-orange-600 text-[22px] text-center">
                             {
-                                records.map((d, i) => (
+                                filteredData.map((d, i) => (
                                     <tr key={i} className="hover:bg-gray-400 border-b">
                                         <td className="p-3 ">{d.MaNguoiDung}</td>
                                         <td className="p-3 ">{formatDateSaving(d.NgayDK)}</td>

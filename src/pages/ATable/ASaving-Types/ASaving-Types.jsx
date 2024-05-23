@@ -24,6 +24,12 @@ const ARoles = () => {
         navigate('./update', { state: { transaction } });
     };
 
+    const filteredData =
+        searchTerm === ''
+            ? listSavingTypes
+            : listSavingTypes.filter((listSavingType) => {
+                return String(listSavingType?.KyHan).toLowerCase().includes(searchTerm.toLowerCase())
+            })
 
     // const filteredData = data.filter(item =>
     //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -75,7 +81,7 @@ const ARoles = () => {
                                 type="text"
                                 id="table-search"
                                 className=" focus:outline-none block p-2 pl-14 text-[25px] text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                                placeholder="Search for items"
+                                placeholder="Tìm kiếm theo Kỳ hạn"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -101,7 +107,7 @@ const ARoles = () => {
                         </thead>
                         <tbody className=" text-orange-600 text-[22px]">
                             {
-                                listSavingTypes && listSavingTypes.map((d, i) => (
+                                filteredData && filteredData.map((d, i) => (
                                     <tr key={i} className="hover:bg-gray-400 border-b">
                                         <td className="p-3">{d.MaLoaiTietKiem}</td>
                                         <td>{d.KyHan}</td>

@@ -121,7 +121,7 @@ function Initialization(props, ref) {
                     <div className="col-start-3  self-center">
                         <input className="h-4 w-4 accent-[#73C001] " type="radio" name="gioi_tinh" value={'0'} checked={isAuto === '0'} onChange={handleRadioChange} />
                         <label className="pl-2 text-white text-[18px]" htmlFor="html">Không</label>
-                        <span className=" text-red-500 text-3xl absolute translate-x-[158px] text-center">*</span>
+                        <span className=" text-red-500 text-3xl absolute translate-x-[135px] text-center">*</span>
                     </div>
                 </div>
             </div>
