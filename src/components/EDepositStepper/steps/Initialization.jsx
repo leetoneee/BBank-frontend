@@ -6,13 +6,14 @@ import formatToVND from "../../../utils/formatToVND";
 import { useEffect, useState } from "react";
 import { getSavingType } from "../../../redux/getSavingType/savingTypeSlice";
 import { forwardRef, useImperativeHandle } from "react";
-import { setSoTienGui as setSoTien, setTaiKhoanNguon } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
+import { setSoTienGui as setSoTien, setTaiKhoanNguon, setisAuto } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
 import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
 
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();
 
+    const isAuto = useSelector((state) => state.eDepositSaving.isAuto);
     const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
     const TaiKhoanNguon = useSelector((state) => state.eDepositSaving.TaiKhoanNguon);
     const SoTien = useSelector((state) => state.eDepositSaving.SoTienGui);
@@ -24,6 +25,7 @@ function Initialization(props, ref) {
     const [isShowEmptyKyHan, setIsShowEmptyKyHan] = useState(false);
     const [isShowEmptySoTienGui, setIsShowEmptySoTienGui] = useState(false);
     const [isShowEmptyPhuongThuc, setIsShowEmptyPhuongThuc] = useState(false);
+
 
     useEffect(() => {
         dispatch(getSavingType());
@@ -71,6 +73,10 @@ function Initialization(props, ref) {
             name: account.SoTaiKhoan
         }));
     }
+
+    const handleRadioChange = (event) => {
+        dispatch(setisAuto(event.target.value));
+    };
 
     return (
         <div className="flex flex-col gap-7">
@@ -125,6 +131,19 @@ function Initialization(props, ref) {
                         {isShowEmptyPhuongThuc && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng chọn phương thức trả lãi</span>}
                         <HinhThucSavingDropdown />
                     </div>
+
+                    {/* Tiết kiệm tự động */}
+                    <span className="col-start-1  text-[#A5ACAE] text-xl  self-center ">Tiết kiệm tự động ?</span>
+                    <div className="col-start-2  self-center">
+                        <input className="h-4 w-4 accent-[#73C001]" type="radio" name="gioi_tinh" value={'1'} checked={isAuto === '1'} onChange={handleRadioChange} />
+                        <label className="pl-2 text-white text-[18px]" htmlFor="html">Có</label>
+                    </div>
+                    <div className="col-start-3  self-center">
+                        <input className="h-4 w-4 accent-[#73C001] " type="radio" name="gioi_tinh" value={'0'} checked={isAuto === '0'} onChange={handleRadioChange} />
+                        <label className="pl-2 text-white text-[18px]" htmlFor="html">Không</label>
+                        <span className=" text-red-500 text-3xl absolute translate-x-[158px] text-center">*</span>
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -34,9 +34,9 @@ function Reject(props) {
 
                 <FaCircleExclamation color="red" className="w-[90px] h-[90px] mx-auto" />
                 <span className="text-white font-bold text-[25px] self-center ">TRUY CẬP LỊCH SỬ THẤT BẠI</span>
-                {!message && <span className="text-white text-xl text-center self-center whitespace-normal w-96    ">
+                <span className="text-white text-xl text-center self-center whitespace-normal w-96    ">
                     Xin lỗi quý khách, kết nối tới hệ thống tạm thời gian đoạn. Vui lòng thử lại sau.
-                </span>}
+                </span>
             </div>
 
             {/* <div className="w-full flex flex-col bg-[#26383C] rounded-[10px] py-10 px-10 gap-4 shadow-rose-400 shadow-sm">

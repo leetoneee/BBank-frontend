@@ -24,6 +24,7 @@ function Confirmation(props, ref) {
     const SoTien = useSelector((state) => state.eDepositSaving.SoTienGui);
     const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
     const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
+    const isAuto = useSelector((state) => state.eDepositSaving.isAuto);
     //*
 
 
@@ -178,6 +179,17 @@ function Confirmation(props, ref) {
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
                             {PhuongThuc.name}
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Tiết kiệm tự động
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {isAuto === '1' ? "Có" : "Không"}
                         </span>
                     </div>
                 </div>
