@@ -10,6 +10,7 @@ const initialState = {
     NgayMo: '',
     PhieuTietKiem: '',
     isTransactionSuccess: '',
+    isAuto: 1,
     isLoading: false,
     isError: false
 }
@@ -31,6 +32,9 @@ export const customerDepositSavingSlice = createSlice({
         },
         setLoaiTietKiem: (state, action) => {
             state.LoaiTietKiem = action.payload;
+        },
+        setisAuto: (state, action) => {
+            state.isAuto = action.payload;
         },
         setSoTienGui: (state, action) => {
             state.SoTienGui = action.payload;
@@ -68,6 +72,6 @@ export const customerDepositSavingSlice = createSlice({
     }
 })
 
-export const { setSoTK, setLoaiTietKiem, setSoTienGui, setPhuongThuc, setMaKhachHang, setNgayMo, reset } = customerDepositSavingSlice.actions
+export const { setSoTK, setLoaiTietKiem, setSoTienGui, setPhuongThuc, setisAuto, setMaKhachHang, setNgayMo, reset } = customerDepositSavingSlice.actions
 
 export default customerDepositSavingSlice.reducer

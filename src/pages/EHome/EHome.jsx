@@ -47,6 +47,7 @@ const EHome = () => {
 
     const thongKeGroup = [
         { icon: ic_ThongKe, content: 'Báo cáo thống kê gửi tiết kiệm', href: 'statistic-group/saving-date' },
+        { icon: ic_SaoKe, content: 'Sao kê tài khoản', href: 'statistic-group/statement' },
     ]
 
     return (

@@ -171,13 +171,13 @@ function Result(props) {
                 <div className=" container mt-6  flex justify-around " >
                     {/* back control */}
                     <button onClick={() => handleNavigateHome()}
-                        className={classNames(" text-2xl bg-[#475255]/[90%] text-white py-2 w-52   rounded-[10px] font-bold cursor-pointer hover:bg-[#475255]/[60%] transition duration-200 ease-in-out ")}>
+                        className={classNames(" text-2xl bg-[#475255]/[90%] text-white py-2 w-48   rounded-[10px] font-bold cursor-pointer hover:bg-[#475255]/[60%] transition duration-200 ease-in-out ")}>
                         Quay về
                     </button>
 
                     {/* new transaction */}
                     <button onClick={() => handleInitNewTransaction()}
-                        className="text-2xl self-center  bg-gradient-to-r from-[#57B122] to-[#09812E] hover:from-[#09812E] hover:to-[#57B122] text-white py-2 w-96   rounded-[15px] font-bold cursor-pointer hover:bg-[#475255]/[60%] transition duration-200 ease-in-out">
+                        className="text-2xl self-center  bg-gradient-to-r from-[#57B122] to-[#09812E] hover:from-[#09812E] hover:to-[#57B122] text-white py-2 w-48   rounded-[15px] font-bold cursor-pointer hover:bg-[#475255]/[60%] transition duration-200 ease-in-out">
                         Chọn mốc mới
                     </button>
                 </div>

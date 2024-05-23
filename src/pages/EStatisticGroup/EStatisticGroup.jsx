@@ -13,6 +13,7 @@ function EStatisticGroup() {
 
     const thongKeGroup = [
         { icon: ic_ThongKe, content: 'Báo cáo thống kê gửi tiết kiệm', href: 'saving-date' },
+        { icon: ic_SaoKe, content: 'Sao kê tài khoản', href: 'statement' },
     ]
 
 

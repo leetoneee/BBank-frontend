@@ -20,6 +20,7 @@ function Result(props) {
     const KyHan = useSelector((state) => state.cDepositSaving.LoaiTietKiem);
     const ten = useSelector((state) => state.user.ten);
     const user = useSelector((state) => state.auth.user);
+    const isAuto = useSelector((state) => state.cDepositSaving.isAuto);
 
     const handleNavigateHome = () => {
         dispatch(resetDepositSaving());
@@ -61,6 +62,7 @@ function Result(props) {
          { column1: 'Mã phiếu tiết kiệm', column2: PhieuTietKiem.MaPhieu },
          { column1: 'Kỳ hạn gửi', column2: KyHan.GhiChu },
          { column1: 'Lãi suất', column2: Math.round(KyHan.LaiSuat * 1000) / 1000 },
+         { column1: 'Tiết kiệm tự động', column2: isAuto === '1' ? "Có" : "Không" },
          { column1: 'Tài khoản nguồn', column2: TaiKhoanNguon.SoTaiKhoan },
          { column1: 'Tên người mở tài khoản', column2: ten.toUpperCase() },
          { column1: 'Địa chỉ người mở', column2: user.DiaChi },
@@ -182,6 +184,17 @@ function Result(props) {
                         </span>
                         <span className="col-start-2 col-span-2 text-white text-xl self-center text-right ">
                             {KyHan.GhiChu} – {roundInterest(KyHan.LaiSuat * 100)}%/năm
+                        </span>
+                    </div>
+
+                    <div className="border-b-2 border-b-white h-[2px] w-full self-center"></div>
+
+                    <div className="grid grid-cols-2 grid-rows-1 gap-8">
+                        <span className="col-start-1 text-[#A5ACAE] text-xl  self-center ">
+                            Tiết kiệm tự động
+                        </span>
+                        <span className="col-start-2 col-span-2 text-white text-xl  self-center text-right ">
+                            {isAuto === '1' ? "Có" : "Không"}
                         </span>
                     </div>
 

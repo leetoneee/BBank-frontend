@@ -171,7 +171,7 @@ const PopupTransHis = ({ pos, showPopup, setShowPopup, content }) => {
                                             </span>
                                             <span className="col-start-2 col-span-2 text-white text-lg self-center text-right ">
                                                 {
-                                                    formatToMoney(content?.SoDuNguon)
+                                                    formatToMoney(content?.SoDuDich)
                                                 }
                                             </span>
                                         </div>
