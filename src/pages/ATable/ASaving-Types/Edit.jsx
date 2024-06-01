@@ -3,7 +3,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from '../../../services/axios';
 
 function Edit() {
-  const [inputData, setInputData] = useState({ MaLoaiTietKiem: '', KyHan:'', LaiSuat: '', GhiChu: ''});
+  const [inputData, setInputData] = useState({ MaLoaiTietKiem: '', KyHan: '', LaiSuat: '', GhiChu: '' });
   const navigat = useNavigate();
   const { MaPhieu } = useParams();
   const location = useLocation();
@@ -54,18 +54,18 @@ function Edit() {
             <div>
               <label>Lãi suất:</label>
               <input
-                value={inputData.LaiSuat}
+                value={Math.round(inputData.LaiSuat * 1000) / 1000}
                 className="border border-gray-300 mt-1 block w-full rounded outline-none py-2 pl-3 bg-white"
                 onChange={e => setInputData({ ...inputData, LaiSuat: e.target.value })}
               />
             </div>
             <div>
               <label>Ghi chú:</label>
-                <input
-                  value={inputData.GhiChu}
-                  className="border border-gray-300 mt-1 block w-full rounded outline-none py-2 pl-3 bg-white"
-                  onChange={e => setInputData({ ...inputData, GhiChu: e.target.value })}
-                />
+              <input
+                value={inputData.GhiChu}
+                className="border border-gray-300 mt-1 block w-full rounded outline-none py-2 pl-3 bg-white"
+                onChange={e => setInputData({ ...inputData, GhiChu: e.target.value })}
+              />
             </div>
             <br />
             <div className="flex justify-around ">

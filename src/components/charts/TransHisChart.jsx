@@ -40,10 +40,11 @@ const CustomTooltip = ({ active, payload, label }) => {
         const transactionAmount = payload[0].payload.transactionAmount;
         const time = payload[0].payload.time;
         const bienDong = payload[0].payload.bienDong;
+        const date = payload[0].payload.ThoiGian;
 
         return (
             <div className='p-4 bg-white flex flex-col gap-4 rounded-md'>
-                <p className='text-medium text-xl'>{formatDateSaving(label)}</p>
+                <p className='text-medium text-xl'>{formatDateSaving(date)}</p>
                 <p className='text-base text-blue-500 '>
                     Lúc: {time}
                 </p>

@@ -16,7 +16,7 @@ export default function StatisticChart() {
     const [option, setOption] = useState('');
     const [formattedData, setFormattedData] = useState('');
 
-    const start = 2017;
+    const start = 2020;
 
     const options = Array.from({ length: new Date().getFullYear() - start + 1 }, (_, i) => {
         return { name: new Date().getFullYear() - i }
