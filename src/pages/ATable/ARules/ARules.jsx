@@ -37,21 +37,6 @@ const ARoles = () => {
     //     setSelectedTransaction(transaction);
     // };
 
-    const handleDelete = (MaThamSo) => {
-        const conf = window.confirm("Do you want to delete?");
-        if (conf) {
-            axios.post('/rule/delete', { MaThamSo })
-                .then(res => {
-                    alert("Data Deleted Successfully!");
-                    navigate('/admin/rules');
-                    axios.get('/rule/get-all')
-                        .then(res => {
-                            setRecords(res.data.listRole)
-                        });
-                }).catch(err => console.log(err))
-        }
-    }
-
     return (
         <div>
             <div className="col-end-12 col-span-9 flex flex-col">
@@ -84,11 +69,6 @@ const ARoles = () => {
                             />
                         </div>
 
-                        <div className="text-end self-center">
-                            <Link to="./create" className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-4 px-4 rounded">
-                                Add +
-                            </Link>
-                        </div>
                     </div>
 
                     {/* table */}
@@ -113,9 +93,6 @@ const ARoles = () => {
                                                 onClick={() => handleUpdateClick(d)}
                                                 className="bg-green-500 hover:bg-green-700 text-white py-1 px-3 rounded text-lg">
                                                 Xem
-                                            </button>
-                                            <button onClick={() => handleDelete(d.MaThamSo)} className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-lg ml-2">
-                                                Xóa
                                             </button>
                                         </td>
                                     </tr>
