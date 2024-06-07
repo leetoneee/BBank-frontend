@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getSavingType } from "../../../redux/getSavingType/savingTypeSlice";
 import { forwardRef, useImperativeHandle } from "react";
 import { setSoTienGui as setSoTien, setisAuto } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
+import PopupNotice from "../../Popup/PopupNotice";
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();
@@ -16,11 +17,15 @@ function Initialization(props, ref) {
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
     const SoTien = useSelector((state) => state.cDepositSaving.SoTienGui);
     const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
+    const TienGuiTietKiemToiThieu = useSelector((state) => state.rules.TienGuiTietKiemToiThieu);
+    const SoTienDuyTriTaiKhoan = useSelector((state) => state.rules.SoTienDuyTriTaiKhoan);
 
     const [soTienGui, setSoTienGui] = useState(SoTien);
     const [isShowEmptyKyHan, setIsShowEmptyKyHan] = useState(false);
     const [isShowEmptySoTienGui, setIsShowEmptySoTienGui] = useState(false);
     const [isShowEmptyPhuongThuc, setIsShowEmptyPhuongThuc] = useState(false);
+    const [isShowPopupToiThieu, setIsShowPopupToiThieu] = useState(false);
+    const [isShowPopupSoDu, setIsShowPopupSoDu] = useState(false);
 
     useEffect(() => {
         dispatch(getSavingType());
@@ -33,6 +38,8 @@ function Initialization(props, ref) {
                 setIsShowEmptyKyHan(false);
                 setIsShowEmptySoTienGui(false);
                 setIsShowEmptyPhuongThuc(false);
+                setIsShowPopupToiThieu(false);
+                setIsShowPopupSoDu(false);
 
                 if (!KyHan) {
                     setIsShowEmptyKyHan(true);
@@ -46,14 +53,22 @@ function Initialization(props, ref) {
                     setIsShowEmptyPhuongThuc(true);
                 }
 
-                if (!soTienGui || !KyHan || !PhuongThuc)
+                if (soTienGui && soTienGui < TienGuiTietKiemToiThieu) {
+                    setIsShowPopupToiThieu(true);
+                }
+
+                if (soTienGui && soTienGui >= TienGuiTietKiemToiThieu && (TaiKhoanNguon.SoDu - soTienGui) < SoTienDuyTriTaiKhoan) {
+                    setIsShowPopupSoDu(true);
+                }
+
+                if (!soTienGui || !KyHan || !PhuongThuc || soTienGui < TienGuiTietKiemToiThieu || (TaiKhoanNguon.SoDu - soTienGui) < SoTienDuyTriTaiKhoan)
                     return true; // Có lỗi
 
                 dispatch(setSoTien(soTienGui));
                 return false; // Không lỗi
             }
         }
-    }, [soTienGui, KyHan, PhuongThuc])
+    }, [soTienGui, KyHan, PhuongThuc,TaiKhoanNguon])
 
     const handleRadioChange = (event) => {
         dispatch(setisAuto(event.target.value));
@@ -125,6 +140,10 @@ function Initialization(props, ref) {
                     </div>
                 </div>
             </div>
+            {isShowPopupToiThieu &&
+                <PopupNotice showPopup={isShowPopupToiThieu} setShowPopup={setIsShowPopupToiThieu} content={`Số tiền gửi tiết kiệm tối thiểu là ${formatToVND(TienGuiTietKiemToiThieu)}. Vui lòng nhập lại số tiền gửi tiết kiệm. `} />}
+            {isShowPopupSoDu &&
+                <PopupNotice showPopup={isShowPopupSoDu} setShowPopup={setIsShowPopupSoDu} content={`Số dư tối thiểu duy trì tài khoản là ${formatToVND(SoTienDuyTriTaiKhoan)}. Vui lòng nhập lại số tiền gửi tiết kiệm. `} />}
         </div>
     )
 }

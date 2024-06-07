@@ -18,8 +18,13 @@ import ic_RutTietKiem from '../../assets/icons/ic_RutTietKiem.svg'
 import ic_ThongKe from '../../assets/icons/ic_ThongKe.svg'
 import ic_SaoKe from '../../assets/icons/ic_SaoKe.svg'
 import ic_TraCuu from '../../assets/icons/ic_TraCuu.svg'
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getRules } from "../../redux/getRules/rulesSlice";
 
 const EHome = () => {
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
 
     const slides = [
@@ -49,6 +54,10 @@ const EHome = () => {
         { icon: ic_ThongKe, content: 'Báo cáo thống kê gửi tiết kiệm', href: 'statistic-group/saving-date' },
         { icon: ic_SaoKe, content: 'Sao kê tài khoản', href: 'statistic-group/statement' },
     ]
+
+    useEffect(() => {
+        dispatch(getRules());
+    }, []);
 
     return (
         <>

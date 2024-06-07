@@ -15,9 +15,13 @@ import ic_HuyTietKiem from '../../assets/icons/ic_HuyTietKiem.svg';
 import uitPattern from '../../assets/icons/uitPattern.svg'
 import { LongTooltip } from "../../components/Tooltip/LongTooltip";
 import { useNavigate, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getRules } from "../../redux/getRules/rulesSlice";
 
 const Home = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const slides = [
         slide1,
@@ -38,6 +42,10 @@ const Home = () => {
         { icon: ic_TietKiemThuong, content: 'Tiết kiệm thường', href: 'saving-group/saving' },
         { icon: ic_HuyTietKiem, content: 'Tất toán tiết kiệm', href: 'saving-group/withdraw' },
     ]
+
+    useEffect(() => {
+        dispatch(getRules());
+    }, []);
 
     return (
         <>

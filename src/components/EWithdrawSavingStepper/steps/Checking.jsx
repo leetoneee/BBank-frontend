@@ -30,6 +30,7 @@ function Checking(props, ref) {
     const isExist = useSelector((state) => state.elistSaving.isExist)
     const elistSavings = useSelector((state) => state.elistSaving.elistSavings)
     const PhieuTietKiem = useSelector((state) => state.elistSaving.PhieuTietKiem);
+    const ThoiGianGuiTietKiemToiThieu = useSelector((state) => state.rules.ThoiGianGuiTietKiemToiThieu);
 
     const [cccd, setCCCD] = useState('');
     const [selected, setSelected] = useState(PhieuTietKiem);
@@ -90,12 +91,12 @@ function Checking(props, ref) {
                     setIsShowEmptyPhieuTietKiem(true);
                 }
 
-                if (chenhLech < 15) {
+                if (chenhLech < ThoiGianGuiTietKiemToiThieu) {
                     setIsShowPopupNotice(true);
                 }
 
 
-                if (!cccd || !PhieuTietKiem || !isExist || chenhLech < 15)
+                if (!cccd || !PhieuTietKiem || !isExist || chenhLech < ThoiGianGuiTietKiemToiThieu)
                     return true; // Có lỗi
 
                 dispatch(setcccd(cccd));
@@ -170,8 +171,8 @@ function Checking(props, ref) {
 
             {isShowPopup &&
                 <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Thông tin khách hàng không tồn tại. Vui lòng kiểm tra lại.' />}
-            {isShowPopupNotice && PhieuTietKiem &&
-                <PopupNotice showPopup={isShowPopupNotice} setShowPopup={setIsShowPopupNotice} content='Phiếu tiết kiệm này chưa đủ 15 ngày kể từ ngày mở. Không thể thực hiện tất toán phiếu tiết kiệm.' />}
+            {isShowPopupNotice &&
+                <PopupNotice showPopup={isShowPopupNotice} setShowPopup={setIsShowPopupNotice} content= {`Phiếu tiết kiệm này chưa đủ ${ThoiGianGuiTietKiemToiThieu} ngày kể từ ngày mở. Không thể thực hiện tất toán phiếu tiết kiệm.`} />}
         </div>
     )
 }

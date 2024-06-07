@@ -8,6 +8,7 @@ import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
 function Initialization(props, ref) {
     const dispatch = useDispatch();
 
+    const DoTuoiToiThieu = useSelector((state) => state.rules.DoTuoiToiThieu);
     //!
     const HoTen = useSelector((state) => state.createProfile.HoTen)
     const Birthday = useSelector((state) => state.createProfile.Birthday)
@@ -17,6 +18,7 @@ function Initialization(props, ref) {
     const DiaChi = useSelector((state) => state.createProfile.DiaChi);
     const NgheNghiep = useSelector((state) => state.createProfile.NgheNghiep);
     const Email = useSelector((state) => state.createProfile.Email);
+    const [isShowPopupTuoi, setIsShowPopupTuoi] = useState(false);
 
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10)); // set default value to today's date
     const [hoTen, setHoTen] = useState(HoTen);
@@ -80,6 +82,7 @@ function Initialization(props, ref) {
                 setIsShowEmptyCCCD(false);
                 setIsShowEmptyDiaChi(false);
                 setIsShowEmptyNgheNghiep(false);
+                setIsShowPopupTuoi(false);
                 // setIsShowPopup(false);
 
                 if (!hoTen) {
@@ -106,7 +109,11 @@ function Initialization(props, ref) {
                     setIsShowEmptyNgheNghiep(true);
                 }
 
-                if (!hoTen || !birthday || !soDT || !diaChi || !cccd || !ngheNghiep)
+                if (birthday && age < DoTuoiToiThieu){
+                    setIsShowPopupTuoi(true);
+                }
+
+                if (!hoTen || !birthday || !soDT || !diaChi || !cccd || !ngheNghiep || age < DoTuoiToiThieu)
                     return true; // Có lỗi
 
                 dispatch(sethoten(hoTen));
@@ -128,6 +135,22 @@ function Initialization(props, ref) {
         { name: "Căn cước công dân" }
     ];
 
+    function calculateAge(birthDate) {
+        const today = new Date();
+        const birth = new Date(birthDate);
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDifference = today.getMonth() - birth.getMonth();
+        
+        // Nếu tháng hiện tại nhỏ hơn tháng sinh hoặc tháng hiện tại bằng tháng sinh nhưng ngày hiện tại nhỏ hơn ngày sinh
+        // thì tuổi giảm đi 1
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birth.getDate())) {
+            age--;
+        }
+        
+        return age;
+    }
+    const age = calculateAge(birthday);
+    console.log("🚀 ~ Initialization ~ age:", age)
 
     return (
         <div className="flex flex-col gap-7">
@@ -264,6 +287,8 @@ function Initialization(props, ref) {
 
             {/* {isShowPopup &&
                 <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Tài khoản đích không tồn tại. Quý khách  vui lòng kiểm tra lại.' />} */}
+            {isShowPopupTuoi &&
+                <PopupNotice showPopup={isShowPopupTuoi} setShowPopup={setIsShowPopupTuoi} content= {`Độ tuổi tối thiểu để mở tài khoản là ${DoTuoiToiThieu}. Hiện tại, quý khách vẫn chưa đủ tuổi để mở tài khoản ngân hàng. Xin cảm ơn. `} />}
         </div>
     )
 }

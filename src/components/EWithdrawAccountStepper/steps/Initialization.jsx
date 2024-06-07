@@ -13,13 +13,17 @@ function Initialization(props, ref) {
     const NoiDung = useSelector((state) => state.eWithdrawAccount.NoiDung);
     const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
     const HinhThuc = useSelector((state) => state.eWithdrawAccount.HinhThuc)
+    const SoTienRutToiThieu = useSelector((state) => state.rules.SoTienRutToiThieu);
+    const SoTienDuyTriTaiKhoan = useSelector((state) => state.rules.SoTienDuyTriTaiKhoan);
+    const listFee = useSelector((state) => state.getTransType.listFee)
 
     const [soTienRut, setSoTienRut] = useState(SoTienRut);
     const [noiDung, setNoiDung] = useState(NoiDung);
     const [isShowEmptySoTienRut, setIsShowEmptySoTienRut] = useState(false);
     const [isShowEmptyCheck1, setIsShowEmptyCheck1] = useState(false);
     const [isShowEmptyCheck2, setIsShowEmptyCheck2] = useState(false);
-    const [isShowPopup, setIsShowPopup] = useState(false);
+    const [isShowPopupRutTien, setIsShowPopupRutTien] = useState(false);
+    const [isShowPopupSoDu, setIsShowPopupSoDu] = useState(false);
 
     const [buttonStates, setButtonStates] = useState({
         button1: false,
@@ -55,14 +59,19 @@ function Initialization(props, ref) {
                 setIsShowEmptyCheck1(false);
                 setIsShowEmptyCheck2(false);
                 setIsShowEmptySoTienRut(false);
-                setIsShowPopup(false);
+                setIsShowPopupRutTien(false);
+                setIsShowPopupSoDu(false);
 
                 if (!soTienRut) {
                     setIsShowEmptySoTienRut(true);
                 }
 
-                if (Number(soTienRut) >= TaiKhoanNguon?.SoDu) {
-                    setIsShowPopup(true);
+                if (soTienRut && soTienRut < SoTienRutToiThieu) {
+                    setIsShowPopupRutTien(true);
+                }
+
+                if (soTienRut && soTienRut >= SoTienRutToiThieu && (TaiKhoanNguon.SoDu - soTienRut - listFee[0]?.Phi) < SoTienDuyTriTaiKhoan) {
+                    setIsShowPopupSoDu(true);
                 }
 
                 if (!buttonStates['button1']) {
@@ -73,7 +82,7 @@ function Initialization(props, ref) {
                     setIsShowEmptyCheck2(true);
                 }
 
-                if (!soTienRut || !buttonStates['button2'] || !buttonStates['button1'] || (Number(soTienRut) >= TaiKhoanNguon?.SoDu))
+                if (!soTienRut || !buttonStates['button2'] || !buttonStates['button1'] || soTienRut < SoTienRutToiThieu || (TaiKhoanNguon.SoDu - soTienRut - listFee[0]?.Phi) < SoTienDuyTriTaiKhoan)
                     return true; // Có lỗi
 
                 dispatch(setsotien(soTienRut));
@@ -224,8 +233,17 @@ function Initialization(props, ref) {
                 </div>
                 {isShowEmptyCheck2 && <span className="absolute translate-y-[30px] text-[15px] text-red-600"> Vui lòng kiểm tra thông tin giao dịch thật kỹ trước khi bấm nút này!</span>}
             </div>
-            {isShowPopup &&
-                <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Số tiền rút lớn hơn số dư trong tài khoản. Vui lòng kiểm tra lại' />}
+            {isShowPopupSoDu &&
+                <PopupNotice showPopup={isShowPopupSoDu} setShowPopup={setIsShowPopupSoDu} 
+                content={
+                    <>
+                        Số dư tối thiểu duy trì tài khoản là {formatToVND(SoTienDuyTriTaiKhoan)}. Vui lòng nhập lại số tiền rút.
+                        <br />
+                        Lưu ý: Phí rút tiền mặt là {formatToVND(listFee[0]?.Phi)}.
+                    </>
+                } />}
+            {isShowPopupRutTien &&
+                <PopupNotice showPopup={isShowPopupRutTien} setShowPopup={setIsShowPopupRutTien} content={`Số tiền rút tối thiểu là ${formatToVND(SoTienRutToiThieu)}. Vui lòng nhập lại số tiền rút.`} />}
         </div>
     )
 }

@@ -16,6 +16,8 @@ function Initialization(props, ref) {
     //*
     const listAccounts = useSelector((state) => state.checkCccd.listAccounts)
     const isExist = useSelector((state) => state.checkCccd.isExist)
+    const SoLuongTaiKhoan = useSelector((state) => state.rules.SoLuongTaiKhoan);
+    const [isShowPopupSLTK, setIsShowPopupSLTK] = useState(false);
 
     const [cccd, setCCCD] = useState('');
 
@@ -52,25 +54,29 @@ function Initialization(props, ref) {
                     setIsShowPopup(true);
                 }
 
-                if (!cccd || !isExist)
+                if (isExist && listAccounts.length > SoLuongTaiKhoan) {
+                    setIsShowPopupSLTK(true);
+                }
+
+                if (!cccd || !isExist || listAccounts.length > SoLuongTaiKhoan)
                     return true; // Có lỗi
 
                 dispatch(setcccd(cccd));
                 return false; // Không lỗi
             }
         }
-    }, [cccd, isExist])
+    }, [cccd, isExist, listAccounts])
 
     const options = [
         { name: "Căn cước công dân" }
     ];
 
     if (listAccounts) {
+        
         listAccountsObjects = listAccounts.map((account, index) => ({
             name: account.SoTaiKhoan
         }));
     }
-    console.log("🚀 ~ Initialization ~ options:", options)
 
     return (
         <div className="flex flex-col gap-7">
@@ -112,6 +118,8 @@ function Initialization(props, ref) {
                                 {listAccountsObjects.length > 0 && <ConfirmationDropdown people={listAccountsObjects} setSelectedValue={setAccount} />}                            </div>
                         </div>
                     </div>
+                    {isShowPopupSLTK &&
+                        <PopupNotice showPopup={isShowPopupSLTK} setShowPopup={setIsShowPopupSLTK} content={`Quý khách đã đạt số lượng tài khoản tối đa cho một khách hàng là ${SoLuongTaiKhoan}. Không thể tạo thêm tài khoản mới. Xin cảm ơn.`} />}
                 </div>
             }
 

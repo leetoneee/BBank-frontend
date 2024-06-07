@@ -9,7 +9,7 @@ import { forwardRef, useImperativeHandle } from "react";
 import { setSoTienGui as setSoTien, setTaiKhoanNguon, setisAuto } from "../../../redux/employee/depositSaving/employeeDepositSavingSlice";
 import ConfirmationDropdown from "../../Listbox/XacThucDropdown";
 import { formatDateSaving } from "../../../utils/formatDateAndTime";
-
+import PopupNotice from "../../Popup/PopupNotice";
 
 function Initialization(props, ref) {
     const dispatch = useDispatch();
@@ -21,12 +21,14 @@ function Initialization(props, ref) {
     const PhuongThuc = useSelector((state) => state.cDepositSaving.PhuongThuc);
     const listAccounts = useSelector((state) => state.checkCccd.listAccounts)
     const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
+    const TienGuiTietKiemToiThieu = useSelector((state) => state.rules.TienGuiTietKiemToiThieu);
 
     const [soTienGui, setSoTienGui] = useState(SoTien);
     const [account, setAccount] = useState();
     const [isShowEmptyKyHan, setIsShowEmptyKyHan] = useState(false);
     const [isShowEmptySoTienGui, setIsShowEmptySoTienGui] = useState(false);
     const [option, setOption] = useState('');
+    const [isShowPopupToiThieu, setIsShowPopupToiThieu] = useState(false);
 
     const date = new Date();
 
@@ -39,6 +41,7 @@ function Initialization(props, ref) {
             validateInputs() {
                 setIsShowEmptyKyHan(false);
                 setIsShowEmptySoTienGui(false);
+                setIsShowPopupToiThieu(false);
 
                 if (!KyHan) {
                     setIsShowEmptyKyHan(true);
@@ -48,7 +51,11 @@ function Initialization(props, ref) {
                     setIsShowEmptySoTienGui(true);
                 }
 
-                if (!soTienGui || !KyHan)
+                if (soTienGui && soTienGui < TienGuiTietKiemToiThieu) {
+                    setIsShowPopupToiThieu(true);
+                }
+
+                if (!soTienGui || !KyHan || soTienGui < TienGuiTietKiemToiThieu)
                     return true; // Có lỗi
 
                 dispatch(setSoTien(soTienGui));
@@ -187,6 +194,8 @@ function Initialization(props, ref) {
                     </div>
                 </div>
             </div>
+            {isShowPopupToiThieu &&
+                <PopupNotice showPopup={isShowPopupToiThieu} setShowPopup={setIsShowPopupToiThieu} content={`Số tiền gửi tiết kiệm tối thiểu là ${formatToVND(TienGuiTietKiemToiThieu)}. Vui lòng nhập lại số tiền gửi tiết kiệm. `} />}
         </div>
     )
 }

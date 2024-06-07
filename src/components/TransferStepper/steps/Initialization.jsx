@@ -19,6 +19,9 @@ function Initialization(props, ref) {
     const SoTien = useSelector((state) => state.transfer.SoTien);
     const NoiDung = useSelector((state) => state.transfer.NoiDung);
     const HinhThuc = useSelector((state) => state.transfer.HinhThuc);
+    const SoTienChuyenKhoanToiThieu = useSelector((state) => state.rules.SoTienChuyenKhoanToiThieu);
+    const SoTienChuyenKhoanToiDa = useSelector((state) => state.rules.SoTienChuyenKhoanToiDa);
+    const SoTienDuyTriTaiKhoan = useSelector((state) => state.rules.SoTienDuyTriTaiKhoan);
 
     const isExist = useSelector((state) => state.checkAccount.isExist);
 
@@ -34,6 +37,9 @@ function Initialization(props, ref) {
     const [isShowEmptyTKDich, setIsShowEmptyTKDich] = useState(false);
     const [isShowEmptySoTien, setIsShowEmptySoTien] = useState(false);
     const [isShowPopup, setIsShowPopup] = useState(false);
+    const [isShowPopupToiThieu, setIsShowPopupToiThieu] = useState(false);
+    const [isShowPopupToiDa, setIsShowPopupToiDa] = useState(false);
+    const [isShowPopupSoDu, setIsShowPopupSoDu] = useState(false);
 
     useEffect(() => {
         dispatch(fetchAllAccountById());
@@ -57,7 +63,10 @@ function Initialization(props, ref) {
                 setIsShowEmptyTKDich(false);
                 setIsShowEmptySoTien(false);
                 setIsShowPopup(false);
-
+                setIsShowPopupToiThieu(false);
+                setIsShowPopupToiDa(false);
+                setIsShowPopupSoDu(false);
+                
                 if (!soTKNhan) {
                     setIsShowEmptyTKDich(true);
                 }
@@ -70,7 +79,19 @@ function Initialization(props, ref) {
                     setIsShowPopup(true);
                 }
 
-                if (!soTKNhan || !soTien || !isExist)
+                if (soTien && soTien < SoTienChuyenKhoanToiThieu) {
+                    setIsShowPopupToiThieu(true);
+                }
+
+                if (soTien && soTien > SoTienChuyenKhoanToiDa) {
+                    setIsShowPopupToiDa(true);
+                }
+
+                if (soTien && SoTienChuyenKhoanToiThieu<= soTien && soTien <= SoTienChuyenKhoanToiDa && (TaiKhoanNguon.SoDu - soTien) < SoTienDuyTriTaiKhoan) {
+                    setIsShowPopupSoDu(true);
+                }
+
+                if (!soTKNhan || !soTien || !isExist || soTien < SoTienChuyenKhoanToiThieu || soTien > SoTienChuyenKhoanToiDa || (TaiKhoanNguon.SoDu - soTien) < SoTienDuyTriTaiKhoan)
                     return true; // Có lỗi
 
                 dispatch(setTaiKhoanDich(soTKNhan));
@@ -79,7 +100,7 @@ function Initialization(props, ref) {
                 return false; // Không lỗi
             }
         }
-    }, [soTKNhan, soTien, noiDung, isExist])
+    }, [soTKNhan, soTien, noiDung, isExist, TaiKhoanNguon, SoTienChuyenKhoanToiThieu, SoTienChuyenKhoanToiDa])
 
     const handleRadioChange = (event) => {
         dispatch(setHinhThuc(event.target.value));
@@ -139,7 +160,7 @@ function Initialization(props, ref) {
 
                     <div className="col-start-2 col-span-2">
                         {isShowEmptySoTien && <span className="absolute translate-y-[50px] text-[15px] text-red-600">Quý khách vui lòng nhập số tiền chuyển khoản</span>}
-                        <input type="number" min={2000}
+                        <input type="number"
                             className=" rounded-[5px] w-full text-xl py-2 pl-3 pr-10 text-[#7AC014] "
                             value={soTien}
                             onChange={(e) => setsoTien(e.target.value)}
@@ -171,6 +192,12 @@ function Initialization(props, ref) {
             </div>
             {isShowPopup &&
                 <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Tài khoản đích không tồn tại. Quý khách vui lòng kiểm tra lại.' />}
+            {isShowPopupToiThieu &&
+                <PopupNotice showPopup={isShowPopupToiThieu} setShowPopup={setIsShowPopupToiThieu} content={`Số tiền chuyển khoản tối thiểu là ${formatToVND(SoTienChuyenKhoanToiThieu)}. Vui lòng nhập lại số tiền chuyển khoản. `} />}
+            {isShowPopupToiDa &&
+                <PopupNotice showPopup={isShowPopupToiDa} setShowPopup={setIsShowPopupToiDa} content={`Số tiền chuyển khoản tối đa là ${formatToVND(SoTienChuyenKhoanToiDa)}. Vui lòng nhập lại số tiền chuyển khoản. `} />}
+            {isShowPopupSoDu &&
+                <PopupNotice showPopup={isShowPopupSoDu} setShowPopup={setIsShowPopupSoDu} content= {`Số dư tối thiểu duy trì tài khoản là ${formatToVND(SoTienDuyTriTaiKhoan)}. Vui lòng nhập lại số tiền chuyển khoản. `} />}
         </div>
     )
 }

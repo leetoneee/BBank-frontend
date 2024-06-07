@@ -25,6 +25,7 @@ import employeeWithdrawAccountReducer from "./employee/withdrawAccount/employeeW
 import reLoginReducer from "./authentication/reLoginSlice";
 import logoutReducer from "./authentication/logoutSlice";
 import getSavingRevenueReducer from "./admin/savingRevenue/getSavingRevenueSlice";
+import rulesReducer from "./getRules/rulesSlice"
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -53,6 +54,7 @@ const rootReducer = combineReducers({
     eWithdrawAccount: employeeWithdrawAccountReducer,
     logout: logoutReducer,
     savingRevenue: getSavingRevenueReducer,
+    rules: rulesReducer,
 });
 
 export default rootReducer;

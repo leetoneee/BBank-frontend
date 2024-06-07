@@ -19,6 +19,7 @@ function Initialization(props, ref) {
     const userId = useSelector((state) => state.user.userId);
     const TaiKhoanNguon = useSelector((state) => state.transfer.TaiKhoanNguon);
     const PhieuTietKiem = useSelector((state) => state.listSaving.PhieuTietKiem);
+    const ThoiGianGuiTietKiemToiThieu = useSelector((state) => state.rules.ThoiGianGuiTietKiemToiThieu);
 
     const [isShowEmptyPhieuTietKiem, setIsShowEmptyPhieuTietKiem] = useState(false);
     const [isShowPopupNotice, setIsShowPopupNotice] = useState(false);
@@ -40,11 +41,11 @@ function Initialization(props, ref) {
                     setIsShowEmptyPhieuTietKiem(true);
                 }
 
-                if (chenhLech < 15) {
+                if (chenhLech < ThoiGianGuiTietKiemToiThieu) {
                     setIsShowPopupNotice(true);
                 }
 
-                if (!PhieuTietKiem || chenhLech < 15) {
+                if (!PhieuTietKiem || chenhLech < ThoiGianGuiTietKiemToiThieu) {
                     return true; // Có lỗi
                 }
 
@@ -96,7 +97,7 @@ function Initialization(props, ref) {
                 </div>
             </div>
             {isShowPopupNotice &&
-                <PopupNotice showPopup={isShowPopupNotice} setShowPopup={setIsShowPopupNotice} content='Phiếu tiết kiệm này chưa đủ 15 ngày kể từ ngày mở. Không thể thực hiện tất toán phiếu tiết kiệm.' />}
+                <PopupNotice showPopup={isShowPopupNotice} setShowPopup={setIsShowPopupNotice} content= {`Phiếu tiết kiệm này chưa đủ ${ThoiGianGuiTietKiemToiThieu} ngày kể từ ngày mở. Không thể thực hiện tất toán phiếu tiết kiệm.`} />}
         </div>
     )
 }
