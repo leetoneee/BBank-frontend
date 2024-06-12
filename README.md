@@ -21,6 +21,7 @@ Có nhiều cách để clone project từ github về máy, dưới đây là m
 <ol>
   <li>
     <span style="display: block;"><b>Cài đặt Git:</b><br></span>
+    <div>Tải và cài đặt Git từ Git Downloads.</div>
   </li>
 
 
