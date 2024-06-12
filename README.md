@@ -21,7 +21,7 @@ Có nhiều cách để clone project từ github về máy, dưới đây là m
 <ol>
   <li>
     <span style="display: block;"><b>Cài đặt Git:</b><br></span>
-    <div>Tải và cài đặt Git từ <a href="https://git-scm.com/downloads">Git Downloads.</a>.</div>
+    <div>Tải và cài đặt Git từ <a href="https://git-scm.com/downloads">Git Downloads</a>.</div>
   </li>
   <li>
     <span style="display: block;"><b>Mở Terminal:</b><br></span>
@@ -52,7 +52,7 @@ Sau khi đã clone thành công project, bạn có thể mở thư mục <b>BBan
   </li>
 </ol>
 Sau khi chạy, bạn sẽ được màn hình terminal tương tự như hình:
-<div><img src="https://github.com/leetoneee/BBank-frontend/assets/127734828/05d87304-32f0-4bf5-92cd-66584863dea3" width="300" height="300" style="display: block;"/></div>
+<div><img src="https://github.com/leetoneee/BBank-frontend/assets/127734828/05d87304-32f0-4bf5-92cd-66584863dea3" width="600" height="300" style="display: block;"/></div>
 Nhấp vào đường dẫn Local để hiển thị front-end.
 
 ## Lưu ý:
