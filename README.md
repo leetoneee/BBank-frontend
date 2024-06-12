@@ -39,3 +39,24 @@ Có nhiều cách để clone project từ github về máy, dưới đây là m
   </li>
 </ol>
 
+### Bước 2: Chạy project
+Sau khi đã clone thành công project, bạn có thể mở thư mục <b>BBank-frontend</b> bằng Visual Studio Code. Mở terminal được dẫn đến thư mục vào thực hiện như sau:
+<ol>
+  <li>
+    <span style="display: block;"><b>Cài đặt các gói thư viện cần thiết:</b><br></span>
+    <div>Chạy lệnh: <b><em>npm i</em></b></div>
+  </li>
+  <li>
+    <span style="display: block;"><b>Chạy project front-end:</b><br></span>
+    <div>Chạy lệnh: <b><em>npm run dev</em></b></div>
+  </li>
+</ol>
+Sau khi chạy, bạn sẽ được màn hình terminal tương tự như hình:
+![image](https://github.com/leetoneee/BBank-frontend/assets/127734828/05d87304-32f0-4bf5-92cd-66584863dea3)
+Nhấp vào đường dẫn Local để hiển thị front-end.
+
+## Lưu ý:
+Project cần cả front-end, back-end và database để có thể sử dụng.
+Link back-end: https://github.com/lehuudoUIT/banking-management-be
+
+
