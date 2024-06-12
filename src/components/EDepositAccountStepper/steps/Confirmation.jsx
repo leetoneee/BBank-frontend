@@ -7,6 +7,7 @@ import { useState, forwardRef, useImperativeHandle } from "react";
 import { IoReload } from "react-icons/io5";
 import { classNames } from "../../classNames/classNames";
 import { employeeDepositAccount } from "../../../redux/employee/depositAccount/employeeDepositAccountSlice";
+import { LoadingFlex } from "../../Loading/Loading";
 
 const people = [
     { name: 'Xác thực qua Email' },
@@ -23,6 +24,7 @@ function Confirmation(props, ref) {
     const NguoiDung = useSelector((state) => state.checkCccd.NguoiDung)
     const userId = useSelector((state) => state.user.userId)
     const listFee = useSelector((state) => state.getTransType.listFee)
+    const isLoading = useSelector((state) => state.eDepositAccount.isLoading)
 
     const randomString = Math.random().toString(36).slice(8);
     const [capcha, setCapcha] = useState(randomString);
@@ -199,6 +201,9 @@ function Confirmation(props, ref) {
                         <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Mã kiểm tra không chính xác. Quý khách vui lòng kiểm tra lại.' />}
                 </div>
             </div>
+            {isLoading &&
+                <LoadingFlex />
+            }
         </div>
     )
 }
