@@ -52,11 +52,11 @@ Sau khi đã clone thành công project, bạn có thể mở thư mục <b>BBan
   </li>
 </ol>
 Sau khi chạy, bạn sẽ được màn hình terminal tương tự như hình:
-<div><img src="https://github.com/leetoneee/BBank-frontend/assets/127734828/05d87304-32f0-4bf5-92cd-66584863dea3" width="600" height="300" style="display: block;"/></div>
-Nhấp vào đường dẫn Local để hiển thị front-end.
+<div><img src="https://github.com/leetoneee/BBank-frontend/assets/127734828/05d87304-32f0-4bf5-92cd-66584863dea3" width="400" height="200" style="display: block;"/></div>
+Nhấp vào đường dẫn <b>Local</b> để hiển thị front-end.
 
 ## Lưu ý:
-Project cần cả front-end, back-end và database để có thể sử dụng.
-Link back-end: https://github.com/lehuudoUIT/banking-management-be
+* Project cần cả front-end, back-end và database để có thể sử dụng.
+* Link back-end: https://github.com/lehuudoUIT/banking-management-be
 
 
