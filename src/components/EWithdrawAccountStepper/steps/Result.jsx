@@ -43,34 +43,34 @@ function Result(props) {
         onAfterPrint: () => console.log("after printing..."),
         removeAfterPrint: true,
     });
-    
+
     const handleClick = () => {
-    const printerElement = document.getElementsByClassName("printer")[0];
-    if (printerElement) {
-        printerElement.style.display = "flex";
-    
-        return new Promise((resolve) => {
-        handlePrint(null, () => contentToPrint.current);
-        printerElement.style.display = "none";
-        resolve(); // Đánh dấu là đã hoàn thành
-        
-        });
-    }
+        const printerElement = document.getElementsByClassName("printer")[0];
+        if (printerElement) {
+            printerElement.style.display = "flex";
+
+            return new Promise((resolve) => {
+                handlePrint(null, () => contentToPrint.current);
+                printerElement.style.display = "none";
+                resolve(); // Đánh dấu là đã hoàn thành
+
+            });
+        }
     };
 
     const tableData = [
-         { column1: 'Ngày, giờ rút tiền', column2: formatDateResult(GiaoDich.ThoiGian)},
-         { column1: 'Mã phiếu tất toán', column2: GiaoDich.MaGiaoDich },
-         { column1: 'Họ tên khách hàng', column2: (NguoiDung.HoTen).toUpperCase()},
-         { column1: 'Giấy tờ tuỳ thân', column2: 'Căn cước công dân' },
-         { column1: 'Số giấy tờ tuỳ thân', column2: NguoiDung.CCCD },
-         { column1: 'Tài khoản rút', column2:  GiaoDich.SoTKRut},
+        { column1: 'Ngày, giờ rút tiền', column2: formatDateResult(GiaoDich.ThoiGian) },
+        { column1: 'Mã phiếu tất toán', column2: GiaoDich.MaGiaoDich },
+        { column1: 'Họ tên khách hàng', column2: (NguoiDung.HoTen).toUpperCase() },
+        { column1: 'Giấy tờ tuỳ thân', column2: 'Căn cước công dân' },
+        { column1: 'Số giấy tờ tuỳ thân', column2: NguoiDung.CCCD },
+        { column1: 'Tài khoản rút', column2: GiaoDich.SoTKRut },
         { column1: 'Số tiền rút', column2: formatToVND(GiaoDich.SoTien) },
         { column1: 'Phí rút tiền', column2: formatToVND(GiaoDich.LoaiGD.Phi) },
         { column1: 'Tổng tiền', column2: formatToVND(GiaoDich.TongTien) },
         { column1: 'Số dư còn lại', column2: formatToVND(GiaoDich.SoDuNguon) },
-        { column1: 'Nội dung', column2: GiaoDich.NoiDung},
-      ];
+        { column1: 'Nội dung', column2: GiaoDich.NoiDung },
+    ];
 
     return (
         <div className=" container flex flex-col gap-[50px] mt-4 mb-8 ">
@@ -86,23 +86,23 @@ function Result(props) {
                 </div>
                 <span className="text-[15px] self-center ml-[200px] select-none">www.buoibank.com</span>
                 <span className="text-[15px] self-center ml-[200px] bg-gradient-to-r from-[#9747FF] via-[#6493F0] to-[#31E1E1] text-transparent bg-clip-text font-medium">Hotline: 1900 00 00 00</span>
-                <span className="font-bold text-[20px] self-center mt-4 mb-5">BIÊN LAI TẤT TOÁN PHIẾU TIẾT KIỆM</span>
+                <span className="font-bold text-[20px] self-center mt-4 mb-5">BIÊN LAI RÚT TIỀN TÀI KHOẢN</span>
                 <div className="w-full overflow-x-auto ">
                     <table className="w-full border-collapse ">
                         <tbody>
                             {tableData.map((item, rowIndex) => (
-                            <tr key={rowIndex}>
-                            {/* Cột 1 */}
-                            <td className="font-bold border border-solid border-black p-2">{item.column1}</td>
-                            <td className="border border-solid border-black p-2" colSpan={3}>{item.column2}</td>
-                            </tr>
-                        ))}
+                                <tr key={rowIndex}>
+                                    {/* Cột 1 */}
+                                    <td className="font-bold border border-solid border-black p-2">{item.column1}</td>
+                                    <td className="border border-solid border-black p-2" colSpan={3}>{item.column2}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
                 <span className="font-bold text-center mt-3">Cảm ơn Quý khách đã sử dụng dịch vụ của BBank!</span>
             </div>
-            
+
             <div className="w-full flex flex-col bg-[#26383C] rounded-[10px] py-10 px-10 gap-4 shadow-green-400 shadow-sm">
                 <div className="flex justify-center items-center">
                     <div className="flex items-center">
