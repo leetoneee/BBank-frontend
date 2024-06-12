@@ -11,9 +11,9 @@
 * Vì vậy, từ những yêu cầu và khảo sát từ thực tế, nhóm chúng em đã quyết định xây dựng website <b>BBank</b> với giao diện gần gũi, tiện lợi, dễ sử dụng nhằm giúp người dùng có thêm lựa chọn cho bản thân.
 
 ## Công nghệ
-* Thiết kế giao diện: Figma
-* Ngôn ngữ lập trình: JavaScript
-* Framework: ReactJS, TailwindCSS
+* Thiết kế giao diện: Figma.
+* Ngôn ngữ lập trình: JavaScript.
+* Framework: ReactJS, TailwindCSS.
 
 ## Cài đặt
 ### Bước 1: Clone front-end của project
@@ -21,7 +21,7 @@ Có nhiều cách để clone project từ github về máy, dưới đây là m
 <ol>
   <li>
     <span style="display: block;"><b>Cài đặt Git:</b><br></span>
-    <div>Tải và cài đặt Git từ <a href="https://git-scm.com/downloads">Git Downloads</a>.</div>
+    <div>Tải và cài đặt Git từ <a href="https://git-scm.com/downloads">Git Downloads.</a>.</div>
   </li>
   <li>
     <span style="display: block;"><b>Mở Terminal:</b><br></span>
@@ -34,8 +34,8 @@ Có nhiều cách để clone project từ github về máy, dưới đây là m
   </li>
   <li>
     <span style="display: block;"><b>Chạy lệnh clone:</b><br></span>
-    <div>Mở terminal và điều hướng đến thư mục bạn muốn lưu repository</div>
-    <div>Chạy lệnh clone: <b><em>git clone https://github.com/leetoneee/BBank-frontend.git</em></b></div>
+    <div>- Mở terminal và điều hướng đến thư mục bạn muốn lưu repository.</div>
+    <div>- Chạy lệnh clone: <b><em>git clone https://github.com/leetoneee/BBank-frontend.git</em></b>.</div>
   </li>
 </ol>
 
@@ -52,7 +52,7 @@ Sau khi đã clone thành công project, bạn có thể mở thư mục <b>BBan
   </li>
 </ol>
 Sau khi chạy, bạn sẽ được màn hình terminal tương tự như hình:
-<img src="https://github.com/leetoneee/BBank-frontend/assets/127734828/05d87304-32f0-4bf5-92cd-66584863dea3" width="200" height="450" style="display: inline-block;"/>
+<div><img src="https://github.com/leetoneee/BBank-frontend/assets/127734828/05d87304-32f0-4bf5-92cd-66584863dea3" width="300" height="300" style="display: block;"/></div>
 Nhấp vào đường dẫn Local để hiển thị front-end.
 
 ## Lưu ý:
