@@ -35,7 +35,7 @@ Có nhiều cách để clone project từ github về máy, dưới đây là m
   <li>
     <span style="display: block;"><b>Chạy lệnh clone:</b><br></span>
     <div>Mở terminal và điều hướng đến thư mục bạn muốn lưu repository</div>
-    <div>Chạy lệnh clone: <em>git clone https://github.com/leetoneee/BBank-frontend.git</em></div>
+    <div>Chạy lệnh clone: <b><em>git clone https://github.com/leetoneee/BBank-frontend.git</em></b></div>
   </li>
 </ol>
 
