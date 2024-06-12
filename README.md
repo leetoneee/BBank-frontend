@@ -21,13 +21,21 @@ Có nhiều cách để clone project từ github về máy, dưới đây là m
 <ol>
   <li>
     <span style="display: block;"><b>Cài đặt Git:</b><br></span>
-    <div>- Tải và cài đặt Git từ [Git Downloads](https://git-scm.com/downloads).</div>
+    <div>Tải và cài đặt Git từ <a href="https://git-scm.com/downloads">Git Downloads</a>.</div>
   </li>
   <li>
-    <span style="display: block;"><b>Mở Terminal::</b><br></span>
-    <div>* Trên Windows, mở Git Bash hoặc Command Prompt.</div>
-    <div>* Trên macOS hoặc Linux, mở Terminal..</div>
+    <span style="display: block;"><b>Mở Terminal:</b><br></span>
+    <div>- Trên Windows, mở Git Bash hoặc Command Prompt.</div>
+    <div>- Trên macOS hoặc Linux, mở Terminal.</div>
   </li>
-
-
+  <li>
+    <span style="display: block;"><b>Clone repository:</b><br></span>
+    <div>Truy cập <a href="https://github.com/leetoneee/BBank-frontend">BBank-Frontend</a> và sao chép URL của repository.</div>
+  </li>
+  <li>
+    <span style="display: block;"><b>Chạy lệnh clone:</b><br></span>
+    <div>Mở terminal và điều hướng đến thư mục bạn muốn lưu repository</div>
+    <div>Chạy lệnh clone: *git clone https://github.com/leetoneee/BBank-frontend.git*</div>
+  </li>
 </ol>
+
