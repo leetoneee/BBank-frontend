@@ -7,6 +7,7 @@ import { useState, forwardRef, useImperativeHandle } from "react";
 import { IoReload } from "react-icons/io5";
 import { classNames } from "../../classNames/classNames";
 import { employeeWithdrawAccount } from "../../../redux/employee/withdrawAccount/employeeWithdrawAccountSlice";
+import { LoadingFlex as Loading } from "../../Loading/Loading";
 
 const people = [
     { name: 'Xác thực qua Email' },
@@ -22,6 +23,7 @@ function Confirmation(props, ref) {
     // const HinhThuc = useSelector((state) => state.eWithdrawAccount.HinhThuc)
     const NoiDung = useSelector((state) => state.eWithdrawAccount.NoiDung);
     const userId = useSelector((state) => state.user.userId);
+    const isLoading = useSelector((state) => state.eWithdrawAccount.isLoading);
 
     //*
 
@@ -215,6 +217,9 @@ function Confirmation(props, ref) {
                         <PopupNotice showPopup={isShowPopup} setShowPopup={setIsShowPopup} content='Mã kiểm tra không chính xác. Quý khách vui lòng kiểm tra lại.' />}
                 </div>
             </div>
+            {isLoading &&
+                <Loading />
+            }
         </div>
     )
 }

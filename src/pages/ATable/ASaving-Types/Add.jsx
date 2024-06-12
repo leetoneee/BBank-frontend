@@ -7,7 +7,7 @@ import { setLoaiTaiKhoan, createAccountCustomer } from "../../../redux/employee/
 
 function Add() {
 
-  const [inputData, setInputData] = useState({ KyHan:'', LaiSuat: '', GhiChu: '' })
+  const [inputData, setInputData] = useState({ KyHan: '', LaiSuat: '', GhiChu: '' })
   const [group, setGroup] = useState([]);
   const [selectedGroups, setSelectedGroups] = useState([]);
 
@@ -15,8 +15,8 @@ function Add() {
 
   function handleSubmit(event) {
     event.preventDefault();
-  
-    axios.post('/saving-type/create',inputData)
+
+    axios.post('/saving-type/create', inputData)
       .then(res => {
         alert("Data Added Successfully!");
         navigat(-1);

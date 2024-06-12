@@ -217,7 +217,7 @@ function Confirmation(props, ref) {
             <div className="w-full bg-[#26383C] rounded-[10px] py-10 px-10">
                 <div className="grid grid-cols-2 grid-rows-1 gap-8">
                     {/* Loai Tài khoản */}
-                    <span className="col-start-1  text-[#A5ACAE] text-xl  self-center ">Giấy tờ tuỳ thân</span>
+                    <span className="col-start-1  text-[#A5ACAE] text-xl  self-center ">Loại tài khoản</span>
 
                     <div className="col-start-2 col-span-2">
                         <div className="flex flex-row-reverse  ">

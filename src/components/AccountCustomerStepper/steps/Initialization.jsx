@@ -54,11 +54,11 @@ function Initialization(props, ref) {
                     setIsShowPopup(true);
                 }
 
-                if (isExist && listAccounts.length > SoLuongTaiKhoan) {
+                if (isExist && listAccounts?.length >= SoLuongTaiKhoan) {
                     setIsShowPopupSLTK(true);
                 }
 
-                if (!cccd || !isExist || listAccounts.length > SoLuongTaiKhoan)
+                if (!cccd || !isExist || listAccounts?.length >= SoLuongTaiKhoan)
                     return true; // Có lỗi
 
                 dispatch(setcccd(cccd));
@@ -72,7 +72,7 @@ function Initialization(props, ref) {
     ];
 
     if (listAccounts) {
-        
+
         listAccountsObjects = listAccounts.map((account, index) => ({
             name: account.SoTaiKhoan
         }));
