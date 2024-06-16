@@ -8,6 +8,7 @@ import roundInterest from "../../../utils/roundInterest";
 import { depositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
 import { setOtp, sendOtp } from "../../../redux/system/sendOtp/sendOtpSlice";
 import { LoadingFlex as Loading } from "../../Loading/Loading";
+import { socket } from "../../../services/socket";
 
 function Authenticity(props, ref) {
     const dispatch = useDispatch();
@@ -38,6 +39,8 @@ function Authenticity(props, ref) {
             "SoTaiKhoan": TaiKhoanNguon.SoTaiKhoan,
             "isAuto": Number(isAuto),
         };
+
+        socket.emit('create-saving', TaiKhoanNguon.SoTaiKhoan);
 
         return dispatch(depositSaving(raw));
     }

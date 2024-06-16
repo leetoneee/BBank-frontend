@@ -21,11 +21,13 @@ import ic_TraCuu from '../../assets/icons/ic_TraCuu.svg'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRules } from "../../redux/getRules/rulesSlice";
+import { socket } from "../../services/socket";
 
 const EHome = () => {
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
+
+    const maNhom = useSelector((state) => state.user.maNhom);
 
     const slides = [
         slide1,
@@ -58,6 +60,10 @@ const EHome = () => {
     useEffect(() => {
         dispatch(getRules());
     }, []);
+
+    useEffect(() => {
+        socket.emit('join-room', 2);
+    }, [socket])
 
     return (
         <>

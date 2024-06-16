@@ -9,7 +9,8 @@ import { reset as resetTransfer } from "../../../redux/customer/transfer/transfe
 import { reset as resetDepositSaving } from "../../../redux/customer/depositSaving/customerDepositSavingSlice";
 import roundInterest from "../../../utils/roundInterest";
 import { useReactToPrint } from 'react-to-print';
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { socket } from "../../../services/socket";
 
 function Result(props) {
     const navigate = useNavigate();
@@ -36,38 +37,39 @@ function Result(props) {
 
     const contentToPrint = useRef(null);
     const handlePrint = useReactToPrint({
-        documentTitle: "Biên lai mở phiếu tiết kiệm " + PhieuTietKiem.MaPhieu ,
+        documentTitle: "Biên lai mở phiếu tiết kiệm " + PhieuTietKiem.MaPhieu,
         onBeforePrint: () => console.log("before printing..."),
         onAfterPrint: () => console.log("after printing..."),
         removeAfterPrint: true,
     });
-    
-      const handleClick = () => {
+
+    const handleClick = () => {
         const printerElement = document.getElementsByClassName("printer")[0];
         if (printerElement) {
             printerElement.style.display = "flex";
-      
-          return new Promise((resolve) => {
-            handlePrint(null, () => contentToPrint.current);
-            printerElement.style.display = "none";
-            resolve(); // Đánh dấu là đã hoàn thành
-            
-          });
+
+            return new Promise((resolve) => {
+                handlePrint(null, () => contentToPrint.current);
+                printerElement.style.display = "none";
+                resolve(); // Đánh dấu là đã hoàn thành
+
+            });
         }
-      };
+    };
 
     const tableData = [
         { column1: 'Số tiền gửi gốc', column2: formatToVND(PhieuTietKiem.SoTienGui) },
-         { column1: 'Ngày, giờ mở phiếu', column2: formatDateResult(PhieuTietKiem.NgayMo)},
-         { column1: 'Mã phiếu tiết kiệm', column2: PhieuTietKiem.MaPhieu },
-         { column1: 'Kỳ hạn gửi', column2: KyHan.GhiChu },
-         { column1: 'Lãi suất', column2: Math.round(KyHan.LaiSuat * 1000) / 1000 },
-         { column1: 'Tiết kiệm tự động', column2: isAuto === '1' ? "Có" : "Không" },
-         { column1: 'Tài khoản nguồn', column2: TaiKhoanNguon.SoTaiKhoan },
-         { column1: 'Tên người mở tài khoản', column2: ten.toUpperCase() },
-         { column1: 'Địa chỉ người mở', column2: user.DiaChi },
-         { column1: 'Căn cước công dân', column2: user.CCCD },
-      ];
+        { column1: 'Ngày, giờ mở phiếu', column2: formatDateResult(PhieuTietKiem.NgayMo) },
+        { column1: 'Mã phiếu tiết kiệm', column2: PhieuTietKiem.MaPhieu },
+        { column1: 'Kỳ hạn gửi', column2: KyHan.GhiChu },
+        { column1: 'Lãi suất', column2: Math.round(KyHan.LaiSuat * 1000) / 1000 },
+        { column1: 'Tiết kiệm tự động', column2: isAuto === '1' ? "Có" : "Không" },
+        { column1: 'Tài khoản nguồn', column2: TaiKhoanNguon.SoTaiKhoan },
+        { column1: 'Tên người mở tài khoản', column2: ten.toUpperCase() },
+        { column1: 'Địa chỉ người mở', column2: user.DiaChi },
+        { column1: 'Căn cước công dân', column2: user.CCCD },
+    ];
+
 
     return (
         <div className=" container flex flex-col gap-[50px] mt-4 mb-8 ">
@@ -88,13 +90,13 @@ function Result(props) {
                     <table className="w-full border-collapse ">
                         <tbody>
                             {tableData.map((item, rowIndex) => (
-                            <tr key={rowIndex}>
-                            {/* Cột 1 */}
-                            <td className="font-bold border border-solid border-black p-2">{item.column1}</td>
-                            {/* Cột 2 (chỉ hiển thị 4 cột cho hàng thứ 8) */}
-                            <td className="border border-solid border-black p-2" colSpan={3}>{item.column2}</td>
-                            </tr>
-                        ))}
+                                <tr key={rowIndex}>
+                                    {/* Cột 1 */}
+                                    <td className="font-bold border border-solid border-black p-2">{item.column1}</td>
+                                    {/* Cột 2 (chỉ hiển thị 4 cột cho hàng thứ 8) */}
+                                    <td className="border border-solid border-black p-2" colSpan={3}>{item.column2}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

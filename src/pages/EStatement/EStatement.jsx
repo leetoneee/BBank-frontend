@@ -9,6 +9,8 @@ import formatToVND from "../../utils/formatToVND";
 import { useReactToPrint } from 'react-to-print';
 import logo from '../../assets/icons/logoBBank.png';
 import { formatDateResult, formatDateSaving } from "../../utils/formatDateAndTime";
+import { socket } from '../../services/socket';
+import { toast } from "react-toastify";
 
 const EStatement = () => {
     const navigate = useNavigate();
@@ -21,6 +23,7 @@ const EStatement = () => {
     const [dateEnd, setDateEnd] = useState("");
     const [isTableVisible, setIsTableVisible] = useState(false);
     const [records, setRecords] = useState([]);
+    const [sortedRecords, setSortedRecords] = useState([]);
 
     const handleDateBegin = (e) => {
         const day = new Date(e.target.value);
@@ -70,7 +73,12 @@ const EStatement = () => {
             });
     };
 
-    const sortedRecords = [...records].sort((a, b) => a.MaGiaoDich - b.MaGiaoDich);
+    useEffect(() => {
+        const sortedRecords = [...records].sort((a, b) => a.MaGiaoDich - b.MaGiaoDich);
+        setSortedRecords(sortedRecords);
+    }, [records])
+
+    // const sortedRecords = [...records].sort((a, b) => a.MaGiaoDich - b.MaGiaoDich);
     // const totalTongThu = sortedRecords.reduce((sum, record) => sum + record.TongThu, 0);
     // const totalTongChi = sortedRecords.reduce((sum, record) => sum + record.TongChi, 0);
     // const totalChenhLech = sortedRecords.reduce((sum, record) => sum + record.ChenhLech, 0);
@@ -96,6 +104,30 @@ const EStatement = () => {
             });
         }
     };
+
+    useEffect(() => {
+        socket.on('new-saving', (SoTK) => {
+            if (stk === SoTK) {
+                toast.info('Có một giao dịch mới vừa diễn ra. Vui lòng kiểm tra lại!');
+                axios.post('/accounts/statement', {
+                    "SoTaiKhoan": stk,
+                    "StartDate": dateBegin,
+                    "EndDate": dateEnd
+                })
+                    .then(res => {
+                        console.log("🚀 ~ socket.on ~ res.data.transactions:", res.data.transactions)
+                        setRecords(res.data.transactions);
+                        setIsTableVisible(true);
+                    })
+                    .catch(error => {
+                        console.error("There was an error fetching the report!", error);
+                    });
+            }
+        })
+        return () => {
+            socket.off('new-saving');
+        }
+    }, [socket, stk, dateBegin, dateEnd])
 
     return (
         <div className="grid grid-cols-11 grid-flow-col-dense ">

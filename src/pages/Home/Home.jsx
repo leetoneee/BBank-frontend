@@ -18,10 +18,13 @@ import { useNavigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRules } from "../../redux/getRules/rulesSlice";
+import { socket } from "../../services/socket";
 
 const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const maNhom = useSelector((state) => state.user.maNhom);
 
     const slides = [
         slide1,
@@ -46,6 +49,10 @@ const Home = () => {
     useEffect(() => {
         dispatch(getRules());
     }, []);
+
+    useEffect(() => {
+        socket.emit('join-room', 3);
+    }, [socket])
 
     return (
         <>
