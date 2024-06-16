@@ -11,6 +11,7 @@ import logo from '../../assets/icons/logoBBank.png';
 import { formatDateResult, formatDateSaving } from "../../utils/formatDateAndTime";
 import { socket } from '../../services/socket';
 import { toast } from "react-toastify";
+import { LoadingFlex } from '../../components/Loading/Loading';
 
 const EStatement = () => {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ const EStatement = () => {
     const [isTableVisible, setIsTableVisible] = useState(false);
     const [records, setRecords] = useState([]);
     const [sortedRecords, setSortedRecords] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleDateBegin = (e) => {
         const day = new Date(e.target.value);
@@ -108,20 +110,24 @@ const EStatement = () => {
     useEffect(() => {
         socket.on('new-saving', (SoTK) => {
             if (stk === SoTK) {
-                toast.info('Có một giao dịch mới vừa diễn ra. Vui lòng kiểm tra lại!');
-                axios.post('/accounts/statement', {
-                    "SoTaiKhoan": stk,
-                    "StartDate": dateBegin,
-                    "EndDate": dateEnd
-                })
-                    .then(res => {
-                        console.log("🚀 ~ socket.on ~ res.data.transactions:", res.data.transactions)
-                        setRecords(res.data.transactions);
-                        setIsTableVisible(true);
+                toast.info('Có một giao dịch vừa mới diễn ra. Vui lòng kiểm tra lại!');
+                setIsLoading(true);
+                setTimeout(() => {
+                    axios.post('/accounts/statement', {
+                        "SoTaiKhoan": stk,
+                        "StartDate": dateBegin,
+                        "EndDate": dateEnd
                     })
-                    .catch(error => {
-                        console.error("There was an error fetching the report!", error);
-                    });
+                        .then(res => {
+                            console.log("🚀 ~ socket.on ~ res.data.transactions:", res.data.transactions)
+                            setRecords(res.data.transactions);
+                            setIsLoading(false);
+                            setIsTableVisible(true);
+                        })
+                        .catch(error => {
+                            console.error("There was an error fetching the report!", error);
+                        });
+                }, 500)
             }
         })
         return () => {
@@ -320,6 +326,9 @@ const EStatement = () => {
                     </div>
                 </div>
             </div>
+            {isLoading &&
+                <LoadingFlex />
+            }
         </div>
     )
 }

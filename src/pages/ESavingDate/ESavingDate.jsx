@@ -1,13 +1,16 @@
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Header from "../../components/Header/Header";
 import uitPattern from '../../assets/icons/uitPattern.svg'
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from '../../services/axios';
 import formatToVND from "../../utils/formatToVND";
 import { useReactToPrint } from 'react-to-print';
 import logo from '../../assets/icons/logoBBank.png';
+import { socket } from "../../services/socket";
+import { toast } from "react-toastify";
+import { LoadingFlex } from '../../components/Loading/Loading';
 
 const ESavingDate = () => {
     const navigate = useNavigate();
@@ -16,6 +19,8 @@ const ESavingDate = () => {
     const [date, setDate] = useState("");
     const [isTableVisible, setIsTableVisible] = useState(false);
     const [records, setRecords] = useState([]);
+    const [sortedRecords, setSortedRecords] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleDateChange = (e) => {
         const day = new Date(e.target.value);
@@ -45,10 +50,10 @@ const ESavingDate = () => {
             });
     };
 
-    const sortedRecords = [...records].sort((a, b) => a.MaLoaiTietKiem - b.MaLoaiTietKiem);
-    const totalTongThu = sortedRecords.reduce((sum, record) => sum + record.TongThu, 0);
-    const totalTongChi = sortedRecords.reduce((sum, record) => sum + record.TongChi, 0);
-    const totalChenhLech = sortedRecords.reduce((sum, record) => sum + record.ChenhLech, 0);
+    // const sortedRecords = [...records].sort((a, b) => a.MaLoaiTietKiem - b.MaLoaiTietKiem);
+    // const totalTongThu = sortedRecords.reduce((sum, record) => sum + record.TongThu, 0);
+    // const totalTongChi = sortedRecords.reduce((sum, record) => sum + record.TongChi, 0);
+    // const totalChenhLech = sortedRecords.reduce((sum, record) => sum + record.ChenhLech, 0);
 
     const contentToPrint = useRef(null);
     const handlePrint = useReactToPrint({
@@ -71,6 +76,50 @@ const ESavingDate = () => {
             });
         }
     };
+
+
+    useEffect(() => {
+        const sortedRecords = [...records].sort((a, b) => a.MaLoaiTietKiem - b.MaLoaiTietKiem);
+        setSortedRecords(sortedRecords);
+    }, [records]);
+
+    const totalTongThu = useMemo(() => {
+        return sortedRecords.reduce((sum, record) => sum + record.TongThu, 0);
+    }, [sortedRecords]);
+
+    const totalTongChi = useMemo(() => {
+        return sortedRecords.reduce((sum, record) => sum + record.TongChi, 0);
+    }, [sortedRecords]);
+
+    const totalChenhLech = useMemo(() => {
+        return sortedRecords.reduce((sum, record) => sum + record.ChenhLech, 0);
+    }, [sortedRecords]);
+
+    useEffect(() => {
+        socket.on('new-saving', (SoTK) => {
+
+            toast.info('Có một giao dịch vừa mới diễn ra. Vui lòng kiểm tra lại!');
+            setIsLoading(true)
+            setTimeout(() => {
+                axios.post('/saving-accounts/report', {
+                    "Ngay": date,
+                    "isCreateReport": true
+                })
+                    .then(res => {
+                        console.log("🚀 ~ socket.on ~ res.data.ThongKe:", res.data.ThongKe)
+                        setRecords(res.data.ThongKe);
+                        setIsLoading(false);
+                        setIsTableVisible(true);
+                    })
+                    .catch(error => {
+                        console.error("There was an error fetching the report!", error);
+                    });
+            }, 500)
+        })
+        return () => {
+            socket.off('new-saving');
+        }
+    }, [socket, date])
 
     return (
         <div className="grid grid-cols-11 grid-flow-col-dense ">
@@ -223,6 +272,9 @@ const ESavingDate = () => {
                     </div>
                 </div>
             </div>
+            {isLoading &&
+                <LoadingFlex />
+            }
         </div>
     )
 }
